@@ -29,8 +29,8 @@ public class MainMenu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         _levelSelect = GameObject.Find("LevelSelect");        
-        _muteBtn = GameObject.Find("Mute").GetComponent<Image>();
-        _muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
+        //_muteBtn = GameObject.Find("Mute").GetComponent<Image>();
+        //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
         _bestTimeTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
         _bestTimeTxt.text = "Record: " + _playerManager._times[_playerManager._playerLevel].ToString("F2") + "s";
         _prevSectorBtn = GameObject.Find("PrevSectorBtn").GetComponent<Button>();
@@ -90,6 +90,6 @@ public class MainMenu : MonoBehaviour {
     public void Mute()
     {
         AudioListener.pause = !AudioListener.pause;
-        _muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
+        //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
     }
 }

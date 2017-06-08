@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour {
     public List<GameObject> _worlds = new List<GameObject>();
     public int _activeSector;
     public GameObject _intro;
+    public GameObject _introContainer;
     public GameObject _levelSelect;
     public GameObject _worldcontainer;
     public List<GameObject> _levelSelections = new List<GameObject>();
@@ -26,9 +27,13 @@ public class MainMenu : MonoBehaviour {
 
     public int _levelSelected;
 
+    public Sprite _regular;
+    public Sprite _selected;
+
 	// Use this for initialization
 	void Start () {
-        _levelSelect = GameObject.Find("LevelSelect");        
+        _levelSelect = GameObject.Find("LevelSelect");
+        _introContainer = GameObject.Find("IntroContainer");
         //_muteBtn = GameObject.Find("Mute").GetComponent<Image>();
         //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
         _bestTimeTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
@@ -38,6 +43,7 @@ public class MainMenu : MonoBehaviour {
         for (int i = 0; i < _buttons.Count; i++)
         {
             _buttons[i].interactable = (i <= _playerManager._playerLevel);
+            _buttons[i].GetComponentInChildren<Text>().enabled = (i <= _playerManager._playerLevel);
         }
         SelectLevel(0);
         for (int i = 0; i < _levelSelections.Count; i++)
@@ -53,8 +59,12 @@ public class MainMenu : MonoBehaviour {
         _levelSelected = i + (_activeSector * 9);
         for (int j = 0; j < _worlds.Count; j++) {
             _worlds[j].SetActive(_levelSelected == j);
+            _buttons[j].image.sprite = (_levelSelected == j) ? _selected : _regular;
+            _buttons[j].interactable = (j <= _playerManager._playerLevel);
+
         }
         _bestTimeTxt.text = "Record: " + _playerManager._times[_levelSelected].ToString("F2") + "s";
+        
     }
 
     public void ToggleSector(bool positive)
@@ -66,11 +76,13 @@ public class MainMenu : MonoBehaviour {
         {
             _levelSelections[i].SetActive(i == _activeSector);
         }
+        SelectLevel(0);
     }
 
     public void OpenLevelSelect()
     {
         _intro.SetActive(false);
+        _introContainer.SetActive(false);
         _levelSelect.SetActive(true);
         _levelSelections[0].SetActive(true);
         _worldcontainer.SetActive(true);

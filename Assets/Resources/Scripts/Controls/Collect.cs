@@ -13,7 +13,7 @@ public class Collect : MonoBehaviour {
     private void Start()
     {
         manager = GameObject.Find("UI").GetComponent<_manager>();
-        _explosion = transform.parent.FindChild("Explosion").GetComponent<ParticleSystem>();
+        _explosion = transform.parent.Find("Explosion").GetComponent<ParticleSystem>();
     }
 
     private void OnTriggerEnter(Collider other)

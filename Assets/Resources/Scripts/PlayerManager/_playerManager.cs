@@ -8,7 +8,7 @@ public class _playerManager : MonoBehaviour {
     public static int _playerLevel;
 
     public bool _newGame;
-    public static int _totalLevels;
+    public static int _totalLevels = 13;
 
     public static List<float> _times = new List<float>();
 
@@ -31,10 +31,6 @@ public class _playerManager : MonoBehaviour {
                 _times.Add(0.0f);
             }
             LoadTimes();
-        }
-        for (int i = 0; i < (_times.Count); i++)
-        {
-            print("Level " + i + ": " + _times[i]);
         }
     }
 

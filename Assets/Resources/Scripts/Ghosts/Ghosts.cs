@@ -31,7 +31,7 @@ public class Ghosts : MonoBehaviour {
     {
         _sphere = GameObject.Find("World001Container").GetComponent<Transform>();
         _ghostGO = GameObject.Find("Ghost").GetComponent<Transform>();
-        _ghostShip = _ghostGO.FindChild("GhostGO").GetComponentInChildren<Transform>();
+        _ghostShip = _ghostGO.Find("GhostGO").GetComponentInChildren<Transform>();
         _ghostGO.gameObject.SetActive(false);
         _Pmanager = gameObject.GetComponent<_manager>();
         LoadGhosts();

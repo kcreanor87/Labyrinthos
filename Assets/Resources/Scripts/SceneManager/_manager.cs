@@ -60,7 +60,7 @@ public class _manager : MonoBehaviour {
         _cratesRemainingTxt = GameObject.Find("CratesRemainingTxt").GetComponent<Text>();
         _cratesRemaining = GameObject.FindGameObjectsWithTag("Crate").Length;
         _cratesRemainingTxt.text = _cratesRemaining.ToString();
-        _timerTxt.text = _timer.ToString();
+        _timerTxt.text = _timer.ToString("F2");
         _gameOver = false;
         _ghosts = gameObject.GetComponent<Ghosts>();
 }
@@ -80,8 +80,7 @@ public class _manager : MonoBehaviour {
     void UpdateTimer()
     {
         _timer -= Time.deltaTime;
-        var time = Mathf.CeilToInt(_timer);
-        _timerTxt.text = time.ToString();
+        _timerTxt.text = _timer.ToString("F2");
         if (_timer <= 0.0f)
         {
             EndLevel(false);

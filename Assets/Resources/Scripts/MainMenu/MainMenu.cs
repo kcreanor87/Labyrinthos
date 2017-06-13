@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour {
 
     public List<Button> _buttons = new List<Button>();
     public List<GameObject> _worlds = new List<GameObject>();
+    public LevelTimeContainer _timeContainer;
     public int _activeSector;
     public GameObject _intro;
     public GameObject _introContainer;
@@ -28,10 +29,17 @@ public class MainMenu : MonoBehaviour {
     public int _levelSelected;
 
     public Sprite _regular;
+    public Sprite _rankCsprite;
+    public Sprite _rankBsprite;
+    public Sprite _rankAsprite;
+    public Sprite _rankSsprite;
     public Sprite _selected;
+
+    public Color _highlightColor;
 
 	// Use this for initialization
 	void Start () {
+        _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
         _levelSelect = GameObject.Find("LevelSelect");
         _introContainer = GameObject.Find("IntroContainer");
         //_muteBtn = GameObject.Find("Mute").GetComponent<Image>();
@@ -59,12 +67,36 @@ public class MainMenu : MonoBehaviour {
         _levelSelected = i + (_activeSector * 9);
         for (int j = 0; j < _worlds.Count; j++) {
             _worlds[j].SetActive(_levelSelected == j);
-            _buttons[j].image.sprite = (_levelSelected == j) ? _selected : _regular;
+            SpriteSelector(j); 
+            _buttons[j].image.color = (_levelSelected == j) ? Color.white : _highlightColor;
             _buttons[j].interactable = (j <= _playerManager._playerLevel);
 
         }
         _bestTimeTxt.text = "Record: " + _playerManager._times[_levelSelected].ToString("F2") + "s";
         
+    }
+
+    void SpriteSelector(int index)
+    {
+        switch (_timeContainer._levelTimes[index]._rank)
+        {
+            case "-":
+                _buttons[index].image.sprite = _regular;
+                break;
+            case "S":
+                _buttons[index].image.sprite = _rankSsprite;
+                break;
+            case "A":
+                _buttons[index].image.sprite = _rankAsprite;
+                break;
+            case "B":
+                _buttons[index].image.sprite = _rankBsprite;
+                break;
+            case "C":
+                _buttons[index].image.sprite = _rankCsprite;
+                break;
+
+        }
     }
 
     public void ToggleSector(bool positive)

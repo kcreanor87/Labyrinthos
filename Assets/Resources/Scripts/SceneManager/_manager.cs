@@ -26,11 +26,18 @@ public class _manager : MonoBehaviour {
     public Sprite _unmute;
     public Image _muteBtn;
     public Ghosts _ghosts;
+    public Text _rankText;
+    public Image _rankImage;
+    public Sprite _rankSsprite, _rankAsprite, _rankBsprite, _rankCsprite;
+    public LevelTimeContainer _timeContainer;
 
     public AudioSource _music;
 
 	// Use this for initialization
 	void Start () {
+        _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
+        _rankImage = GameObject.Find("Rank").GetComponent<Image>();
+        _rankText = GameObject.Find("RankText").GetComponent<Text>();
         _countdown = 1.5f;
         Time.timeScale = 1.0f;
         _timer = _maxTime;
@@ -129,12 +136,14 @@ public class _manager : MonoBehaviour {
         _levelTxt.enabled = true;
         _inMenu = true;
         _gameOver = true;
+        int index = SceneManager.GetActiveScene().buildIndex - 2;
         if (victory)
         {
             var time = (_maxTime - _timer);
-            if (time < _playerManager._times[SceneManager.GetActiveScene().buildIndex - 2])
+            RankSwitcher(index, time);
+            if (time < _playerManager._times[index])
             {
-                _playerManager._times[SceneManager.GetActiveScene().buildIndex - 2] = time;
+                _playerManager._times[index] = time;
                 _bestTxt.text = "New Record: " + time.ToString("F2") + "s";
                 _bestTxt.color = Color.green;
                 _playerManager.SaveTimes();
@@ -148,11 +157,37 @@ public class _manager : MonoBehaviour {
             var timeString = time.ToString("F2");
             _timeTakenText.text = "Completed in: " + timeString + "s";
             _timeTakenText.enabled = true;
+            _timeContainer.CheckTimes();
         }
         else
         {
             _loseScreen.SetActive(true);
         }
+    }
+
+    void RankSwitcher(int index, float time)
+    {
+        if (time <= _timeContainer._levelTimes[index]._S_time)
+        {
+            _rankImage.sprite = _rankSsprite;
+            _rankText.text = "S";
+        }
+        else if (time <= _timeContainer._levelTimes[index]._A_time)
+        {
+            _rankImage.sprite = _rankAsprite;
+            _rankText.text = "A";
+        }
+        else if (time <= _timeContainer._levelTimes[index]._B_time)
+        {
+            _rankImage.sprite = _rankBsprite;
+            _rankText.text = "B";
+        }
+        else
+        {
+            _rankImage.sprite = _rankCsprite;
+            _rankText.text = "C";
+        }
+        
     }
 
     public void ChangeScene(int i)

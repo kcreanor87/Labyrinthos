@@ -7,20 +7,19 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour {
 
     public List<Button> _buttons = new List<Button>();
+    public List<Button> _sectorButtons = new List<Button>();
     public List<GameObject> _worlds = new List<GameObject>();
     public LevelTimeContainer _timeContainer;
     public int _activeSector;
     public GameObject _intro;
     public GameObject _introContainer;
     public GameObject _levelSelect;
+    public GameObject _sectorSelect;
     public GameObject _worldcontainer;
     public List<GameObject> _levelSelections = new List<GameObject>();
     public Sprite _mute;
     public Sprite _unmute;
     public Image _muteBtn;
-
-    public Button _prevSectorBtn;
-    public Button _nextSectorBtn;
 
     public Text _bestTimeTxt;
     //Increase this as sectors are added
@@ -37,21 +36,28 @@ public class MainMenu : MonoBehaviour {
 
     public Color _highlightColor;
 
+    public Animator _faderAnim;
+
 	// Use this for initialization
 	void Start () {
+        _faderAnim = transform.FindChild("Fader").GetComponent<Animator>();
+        _intro = transform.FindChild("Intro").gameObject;
+        _sectorSelect = transform.FindChild("SectorSelect").gameObject;
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
-        _levelSelect = GameObject.Find("LevelSelect");
+        _levelSelect = transform.FindChild("LevelSelect").gameObject;
         _introContainer = GameObject.Find("IntroContainer");
         //_muteBtn = GameObject.Find("Mute").GetComponent<Image>();
         //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
         _bestTimeTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
         _bestTimeTxt.text = "Record: " + _playerManager._times[_playerManager._playerLevel].ToString("F2") + "s";
-        _prevSectorBtn = GameObject.Find("PrevSectorBtn").GetComponent<Button>();
-        _nextSectorBtn = GameObject.Find("NextSectorBtn").GetComponent<Button>();
         for (int i = 0; i < _buttons.Count; i++)
         {
             _buttons[i].interactable = (i <= _playerManager._playerLevel);
             _buttons[i].GetComponentInChildren<Text>().enabled = (i <= _playerManager._playerLevel);
+        }
+        for (int i = 0; i < _sectorButtons.Count; i++)
+        {
+            _sectorButtons[i].interactable = (i <= (_playerManager._playerLevel / 9));
         }
         SelectLevel(0);
         for (int i = 0; i < _levelSelections.Count; i++)
@@ -60,6 +66,7 @@ public class MainMenu : MonoBehaviour {
         }
         _levelSelect.SetActive(false);
         _worldcontainer.SetActive(false);
+        _sectorSelect.SetActive(false);
     }
 
     public void SelectLevel(int i)
@@ -95,30 +102,39 @@ public class MainMenu : MonoBehaviour {
             case "C":
                 _buttons[index].image.sprite = _rankCsprite;
                 break;
-
         }
     }
 
-    public void ToggleSector(bool positive)
+    public void ToggleSector(int sector)
     {
-        _activeSector = (positive) ? (_activeSector + 1) : (_activeSector - 1);
-        _prevSectorBtn.enabled = (_activeSector > 0);
-        _nextSectorBtn.enabled = (_activeSector < _maxSector - 1);
+        _activeSector = sector;
+        _levelSelect.SetActive(true);
         for (int i = 0; i < _levelSelections.Count; i++)
         {
             _levelSelections[i].SetActive(i == _activeSector);
         }
+        _worldcontainer.SetActive(true);
         SelectLevel(0);
+        _sectorSelect.SetActive(false);        
+        
     }
 
-    public void OpenLevelSelect()
+    public void OpenSectorSelect()
     {
         _intro.SetActive(false);
         _introContainer.SetActive(false);
-        _levelSelect.SetActive(true);
-        _levelSelections[0].SetActive(true);
-        _worldcontainer.SetActive(true);
-        SelectLevel(0);
+        _worldcontainer.SetActive(false);
+        _levelSelect.SetActive(false);
+        _sectorSelect.SetActive(true);
+        
+    }
+
+    public void ToggleIntro()
+    {
+        _intro.SetActive(true);
+        _introContainer.SetActive(true);
+        _sectorSelect.SetActive(false);
+        
     }
 
     public void Play()
@@ -135,5 +151,30 @@ public class MainMenu : MonoBehaviour {
     {
         AudioListener.pause = !AudioListener.pause;
         //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
+    }
+
+    public void Back(int index)
+    {
+        if (index == 0)
+        {
+            ToggleIntro();
+        }
+        else
+        {
+            OpenSectorSelect();
+        }
+    }
+
+    public IEnumerator RunAnim()
+    {
+        _faderAnim.SetBool("Fading", true);
+        yield return new WaitForSeconds(1.0f);
+        _faderAnim.SetBool("Fading", false);
+    }
+
+    public void WipeData()
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(0);
     }
 }

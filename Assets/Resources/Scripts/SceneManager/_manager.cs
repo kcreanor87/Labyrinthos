@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class _manager : MonoBehaviour {
 
-    public float _timer = 30.0f;
+    public float _timer;
     public float _maxTime = 30.0f;
     public int _cratesRemaining;
     public Text _timerTxt;
@@ -17,45 +17,41 @@ public class _manager : MonoBehaviour {
     public bool _gameOver;
     public float _countdown = 1.5f;
     public Text _timeTakenText;
-    public bool _paused;
-    public GameObject _pauseMenu;
+    public Text _recordTxt;
     public Text _levelTxt;
     public Text _bestTxt;
     public float _best;
-    public Sprite _mute;
-    public Sprite _unmute;
-    public Image _muteBtn;
     public Ghosts _ghosts;
     public Text _rankText;
     public Image _rankImage;
     public Sprite _rankSsprite, _rankAsprite, _rankBsprite, _rankCsprite;
     public LevelTimeContainer _timeContainer;
-
-    public AudioSource _music;
-
-	// Use this for initialization
+    public Animator _UIanim;
+    public Animator _joystickAnim;
+    public Transform _joystick;
+    
+    // Use this for initialization
 	void Start () {
+        _UIanim = gameObject.GetComponent<Animator>();
+        _joystickAnim = GameObject.Find("VirtualJoystick").GetComponent<Animator>();
+        _joystick = _joystickAnim.transform.FindChild("MobileJoystick");
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
         _rankImage = GameObject.Find("Rank").GetComponent<Image>();
         _rankText = GameObject.Find("RankText").GetComponent<Text>();
         _countdown = 1.5f;
         Time.timeScale = 1.0f;
-        _timer = _maxTime;
+        _timer = 0.0f;
         _inMenu = true;
-        _music = GameObject.Find("Main Camera").GetComponent<AudioSource>();
-        _music.volume = 0;
-        _muteBtn = GameObject.Find("Mute").GetComponent<Image>();
-        _muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
         _bestTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
+        _recordTxt = GameObject.Find("RecordTxt").GetComponent<Text>();
         var buildIndex = (SceneManager.GetActiveScene().buildIndex - 2);
         var build = (_playerManager._times[buildIndex] == 0.0f) ? _maxTime.ToString("F2") : _playerManager._times[buildIndex].ToString("F2");
         if (_playerManager._times[buildIndex] == 0.0f) _playerManager._times[buildIndex] = _maxTime;
         _bestTxt.text = "Record: " + build + "s";
+        _recordTxt.text = build + "s";
         _levelTxt = GameObject.Find("LevelTxt").GetComponent<Text>();
-        _levelTxt.text = "Level " + (SceneManager.GetActiveScene().buildIndex - 2);
+        _levelTxt.text = "Level " + (SceneManager.GetActiveScene().buildIndex - 1);
         _levelTxt.enabled = false;
-        _pauseMenu = GameObject.Find("PauseMenu");
-        _pauseMenu.SetActive(false);
         _winScreen = GameObject.Find("GameOver_win");
         _winScreen.SetActive(false);
         _loseScreen = GameObject.Find("GameOver_lose");
@@ -74,34 +70,23 @@ public class _manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (Input.GetKeyDown(KeyCode.Escape) && !_gameOver) Pause(!_paused);
-        if (_inMenu && !_gameOver && !_paused)
+        if (_inMenu && !_gameOver)
         {
             Countdown();
             return;
         }
-        if (!_gameOver) UpdateTimer(); 
-        if (_gameOver && _music.volume > 0.0f) _music.volume -= 0.0005f;
+        if (!_gameOver) UpdateTimer();
     }
 
     void UpdateTimer()
     {
-        _timer -= Time.deltaTime;
+        _timer += Time.deltaTime;
         _timerTxt.text = _timer.ToString("F2");
-        if (_timer <= 0.0f)
-        {
-            EndLevel(false);
-        }
-        else if (_timer <= 5.0f)
-        {
-            _timerTxt.color = Color.red;
-        }
     }
 
     void Countdown()
     {
         _countdown -= Time.deltaTime;
-        _music.volume += 0.0005f;
         if (_countdown <= 0.01f)
         {
             _ghosts.StartGhost();
@@ -133,18 +118,20 @@ public class _manager : MonoBehaviour {
 
     public void EndLevel(bool victory)
     {
+        _joystick.GetComponent<Image>().enabled = false;
+        _UIanim.SetBool("Complete", true);
+        _joystickAnim.SetBool("Complete", true);        
         _levelTxt.enabled = true;
         _inMenu = true;
         _gameOver = true;
         int index = SceneManager.GetActiveScene().buildIndex - 2;
         if (victory)
         {
-            var time = (_maxTime - _timer);
-            RankSwitcher(index, time);
-            if (time < _playerManager._times[index])
+            RankSwitcher(index, _timer);
+            if (_timer < _playerManager._times[index])
             {
-                _playerManager._times[index] = time;
-                _bestTxt.text = "New Record: " + time.ToString("F2") + "s";
+                _playerManager._times[index] = _timer;
+                _bestTxt.text = "New Record: " + _timer.ToString("F2") + "s";
                 _bestTxt.color = Color.green;
                 _playerManager.SaveTimes();
                 _ghosts.SaveGhost(SceneManager.GetActiveScene().buildIndex - 2);
@@ -154,7 +141,7 @@ public class _manager : MonoBehaviour {
             if (_playerManager._playerLevel < SceneManager.GetActiveScene().buildIndex - 1) _playerManager._playerLevel = (SceneManager.GetActiveScene().buildIndex - 1);
             if (_playerManager._playerLevel == 12) _playerManager._playerLevel = 11;
             PlayerPrefs.SetInt("PlayerLevel", _playerManager._playerLevel);
-            var timeString = time.ToString("F2");
+            var timeString = _timer.ToString("F2");
             _timeTakenText.text = "Completed in: " + timeString + "s";
             _timeTakenText.enabled = true;
             _timeContainer.CheckTimes();
@@ -202,15 +189,6 @@ public class _manager : MonoBehaviour {
         Time.timeScale = 1.0f;
     }
 
-    public void Pause(bool paused)
-    {
-        Time.timeScale = (!paused) ? 1.0f : 0.0f;
-        _inMenu = paused;
-        _pauseMenu.SetActive(paused);
-        _paused = paused;
-        _levelTxt.enabled = paused;
-    }
-
     public void NextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -219,9 +197,5 @@ public class _manager : MonoBehaviour {
     public void Quit()
     {
         Application.Quit();
-    }
-    public void Mute() {
-        AudioListener.pause = !AudioListener.pause;
-        _muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
     }
 }

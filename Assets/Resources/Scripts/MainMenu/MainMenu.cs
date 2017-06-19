@@ -175,6 +175,27 @@ public class MainMenu : MonoBehaviour {
     public void WipeData()
     {
         PlayerPrefs.DeleteAll();
+        Destroy(GameObject.Find("_playerManager"));
         SceneManager.LoadScene(0);
+    }
+
+    public void UnlockAll()
+    {
+        _playerManager._playerLevel = _playerManager._totalLevels - 1;
+        for (int i = 0; i < _buttons.Count; i++)
+        {
+            _buttons[i].interactable = (i <= _playerManager._playerLevel);
+            _buttons[i].GetComponentInChildren<Text>().enabled = (i <= _playerManager._playerLevel);
+        }
+        for (int i = 0; i < _sectorButtons.Count; i++)
+        {
+            _sectorButtons[i].interactable = (i <= (_playerManager._playerLevel / 9));
+        }
+        SelectLevel(0);
+        for (int i = 0; i < _levelSelections.Count; i++)
+        {
+            _levelSelections[i].SetActive(false);
+        }
+        OpenSectorSelect();
     }
 }

@@ -14,8 +14,8 @@ public class PlayerControls : MonoBehaviour {
     public RectTransform _joystickTransform;
     public bool _brake;
     public bool _boost;
-    public float _boostAmount = 1.8f;
-    public float _brakeAmount = 0.3f;
+    public float _boostAmount = 1.4f;
+    public float _brakeAmount = 0.15f;
 
     // Use this for initialization
     void Start () {
@@ -40,7 +40,7 @@ public class PlayerControls : MonoBehaviour {
         }
         else
         {
-            _speed = Mathf.MoveTowards(_baseSpeed, _speed, 2 * Time.deltaTime);
+            _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
         }
         var lookVec = new Vector3(y, x, 4096);
         x *= _speed;

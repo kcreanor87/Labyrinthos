@@ -118,6 +118,7 @@ public class _manager : MonoBehaviour {
     {
         _joystick.GetComponent<Image>().enabled = false;
         _UIanim.SetBool("Complete", true);
+        _UIanim.SetBool("Victory", victory);
         _joystickAnim.SetBool("Complete", true);        
         _levelTxt.enabled = true;
         _inMenu = true;
@@ -135,7 +136,7 @@ public class _manager : MonoBehaviour {
                 _ghosts.SaveGhost(SceneManager.GetActiveScene().buildIndex - 2);
             }
             _bestTxt.enabled = true;
-            _winScreen.SetActive(true);
+            //_winScreen.SetActive(true);
             if (_playerManager._playerLevel < SceneManager.GetActiveScene().buildIndex - 1) _playerManager._playerLevel = (SceneManager.GetActiveScene().buildIndex - 1);
             if (_playerManager._playerLevel == 12) _playerManager._playerLevel = 11;
             PlayerPrefs.SetInt("PlayerLevel", _playerManager._playerLevel);
@@ -143,10 +144,6 @@ public class _manager : MonoBehaviour {
             _timeTakenText.text = "Completed in: " + timeString + "s";
             _timeTakenText.enabled = true;
             _timeContainer.CheckTimes();
-        }
-        else
-        {
-            _loseScreen.SetActive(true);
         }
     }
 
@@ -156,21 +153,25 @@ public class _manager : MonoBehaviour {
         {
             _rankImage.sprite = _rankSsprite;
             _rankText.text = "S";
+            _UIanim.SetInteger("Class", 3);
         }
         else if (time <= _timeContainer._levelTimes[index]._A_time)
         {
             _rankImage.sprite = _rankAsprite;
             _rankText.text = "A";
+            _UIanim.SetInteger("Class", 2);
         }
         else if (time <= _timeContainer._levelTimes[index]._B_time)
         {
             _rankImage.sprite = _rankBsprite;
             _rankText.text = "B";
+            _UIanim.SetInteger("Class", 1);
         }
         else
         {
             _rankImage.sprite = _rankCsprite;
             _rankText.text = "C";
+            _UIanim.SetInteger("Class", 0);
         }
         
     }

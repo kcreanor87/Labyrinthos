@@ -92,7 +92,7 @@ public class Ghosts : MonoBehaviour {
             _ghostGO.Rotate(_ghostTimeY[_ghostIndex], _ghostTimeX[_ghostIndex], 0, Space.Self);
             _ghostShip.localRotation = Quaternion.Euler(0, 0, _ghostRot[_ghostIndex]);
             _ghostIndex++;
-            _activeGhost = (_Pmanager._timer >= _playerManager._times[_level]);
+            _activeGhost = (_Pmanager._timer <= _playerManager._times[_level]);
         }
         else
         {

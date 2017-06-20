@@ -36,11 +36,8 @@ public class MainMenu : MonoBehaviour {
 
     public Color _highlightColor;
 
-    public Animator _faderAnim;
-
 	// Use this for initialization
 	void Start () {
-        _faderAnim = transform.FindChild("Fader").GetComponent<Animator>();
         _intro = transform.FindChild("Intro").gameObject;
         _sectorSelect = transform.FindChild("SectorSelect").gameObject;
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
@@ -162,13 +159,6 @@ public class MainMenu : MonoBehaviour {
         {
             OpenSectorSelect();
         }
-    }
-
-    public IEnumerator RunAnim()
-    {
-        _faderAnim.SetBool("Fading", true);
-        yield return new WaitForSeconds(1.0f);
-        _faderAnim.SetBool("Fading", false);
     }
 
     public void WipeData()

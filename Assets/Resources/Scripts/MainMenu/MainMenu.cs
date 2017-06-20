@@ -49,7 +49,6 @@ public class MainMenu : MonoBehaviour {
         //_muteBtn = GameObject.Find("Mute").GetComponent<Image>();
         //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
         _bestTimeTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
-        _bestTimeTxt.text = "Record: " + _playerManager._times[_playerManager._playerLevel].ToString("F2") + "s";
         for (int i = 0; i < _buttons.Count; i++)
         {
             _buttons[i].interactable = (i <= _playerManager._playerLevel);
@@ -79,7 +78,7 @@ public class MainMenu : MonoBehaviour {
             _buttons[j].interactable = (j <= _playerManager._playerLevel);
 
         }
-        _bestTimeTxt.text = "Record: " + _playerManager._times[_levelSelected].ToString("F2") + "s";
+        _bestTimeTxt.text = (_playerManager._times[_levelSelected] > 0.0f) ? "Record: " + _playerManager._times[_levelSelected].ToString("F2") + "s" : "Record: - - : - -";
         
     }
 

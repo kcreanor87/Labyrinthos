@@ -38,17 +38,16 @@ public class _manager : MonoBehaviour {
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
         _rankImage = GameObject.Find("Rank").GetComponent<Image>();
         _rankText = GameObject.Find("RankText").GetComponent<Text>();
-        _countdown = 1.5f;
+        _countdown = 2.0f;
         Time.timeScale = 1.0f;
         _timer = 0.0f;
         _inMenu = true;
         _bestTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
         _recordTxt = GameObject.Find("RecordTxt").GetComponent<Text>();
         var buildIndex = (SceneManager.GetActiveScene().buildIndex - 2);
-        var build = (_playerManager._times[buildIndex] == 0.0f) ? _maxTime.ToString("F2") : _playerManager._times[buildIndex].ToString("F2");
-        if (_playerManager._times[buildIndex] == 0.0f) _playerManager._times[buildIndex] = _maxTime;
-        _bestTxt.text = "Record: " + build + "s";
-        _recordTxt.text = build + "s";
+        var build = (_playerManager._times[buildIndex] == 0.0f) ? "--:--" : _playerManager._times[buildIndex].ToString("F2");
+        _bestTxt.text = "Record: " + build + " s";
+        _recordTxt.text = build + " s";
         _levelTxt = GameObject.Find("LevelTxt").GetComponent<Text>();
         _levelTxt.text = "Level " + (SceneManager.GetActiveScene().buildIndex - 1);
         _levelTxt.enabled = false;
@@ -92,7 +91,6 @@ public class _manager : MonoBehaviour {
             _ghosts.StartGhost();
             _countdownTxt.text = "GO!";
             _countdownTxt.fontSize = 150;
-            _countdownTxt.color = Color.green;
             _bestTxt.enabled = false;
             _inMenu = false;
             StartCoroutine(CloseCountdown());
@@ -128,7 +126,7 @@ public class _manager : MonoBehaviour {
         if (victory)
         {
             RankSwitcher(index, _timer);
-            if (_timer < _playerManager._times[index])
+            if (_timer < _playerManager._times[index] || (_playerManager._times[SceneManager.GetActiveScene().buildIndex - 2] == 0.0f))
             {
                 _playerManager._times[index] = _timer;
                 _bestTxt.text = "New Record: " + _timer.ToString("F2") + "s";

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Ghosts : MonoBehaviour {
 
+    public int _level;
+
     public Transform _sphere;
     public bool _activeGhost;
     public int _totalFrames;
@@ -29,6 +31,7 @@ public class Ghosts : MonoBehaviour {
 
     private void Awake()
     {
+        _level = SceneManager.GetActiveScene().buildIndex - 2;
         _sphere = GameObject.Find("World001Container").GetComponent<Transform>();
         _ghostGO = GameObject.Find("Ghost").GetComponent<Transform>();
         _ghostShip = _ghostGO.Find("GhostGO").GetComponentInChildren<Transform>();
@@ -44,15 +47,14 @@ public class Ghosts : MonoBehaviour {
 
     public void LoadGhosts()
     {
-        int i = SceneManager.GetActiveScene().buildIndex - 2;
-        if (PlayerPrefs.HasKey("GhostLevelx" + i + "0"))
+       if (PlayerPrefs.HasKey("GhostLevelx" + _level + "0"))
         {
             _activeGhost = true;
-            for (int j = 0; j < Mathf.CeilToInt(_playerManager._times[i] * 60.0f); j++)
+            for (int j = 0; j < Mathf.CeilToInt(_playerManager._times[_level] * 60.0f); j++)
             {
-                _ghostTimeX.Add(PlayerPrefs.GetFloat("GhostLevelx" + i + j));
-                _ghostTimeY.Add(PlayerPrefs.GetFloat("GhostLevely" + i + j));
-                _ghostRot.Add(PlayerPrefs.GetFloat("GhostLevelRot" + i + j));
+                _ghostTimeX.Add(PlayerPrefs.GetFloat("GhostLevelx" + _level + j));
+                _ghostTimeY.Add(PlayerPrefs.GetFloat("GhostLevely" + _level + j));
+                _ghostRot.Add(PlayerPrefs.GetFloat("GhostLevelRot" + _level + j));
             }
             _totalFrames = _ghostTimeX.Count;
         }
@@ -81,18 +83,18 @@ public class Ghosts : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if (_Pmanager._inMenu) return;
+        if (_Pmanager._inMenu) return; 
         _playerTimeX.Add(-_xRot);
         _playerTimeY.Add(-_yRot);
         _playerRot.Add(_shipRot);
-        if (_activeGhost && _totalFrames > 6)
+        if (_activeGhost)
         {            
             _ghostGO.Rotate(_ghostTimeY[_ghostIndex], _ghostTimeX[_ghostIndex], 0, Space.Self);
             _ghostShip.localRotation = Quaternion.Euler(0, 0, _ghostRot[_ghostIndex]);
             _ghostIndex++;
-            _totalFrames--;
+            _activeGhost = (_Pmanager._timer >= _playerManager._times[_level]);
         }
-        else if (_totalFrames <= 6)
+        else
         {
             _ghostGO.gameObject.SetActive(false);
         }

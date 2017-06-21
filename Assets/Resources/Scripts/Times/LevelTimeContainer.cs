@@ -11,11 +11,10 @@ public class LevelTimeContainer : MonoBehaviour {
         CheckTimes();
     }
 
-    void CheckTimes()
+    public void CheckTimes()
     {
         for (int i = 0; i < _playerManager._totalLevels; i++)
         {
-            print("Checking Level " + (i + 1));
             if (_playerManager._times[i] <= _levelTimes[i]._S_time)
             {
                 _levelTimes[i]._rank = "S";
@@ -36,6 +35,10 @@ public class LevelTimeContainer : MonoBehaviour {
             {
                 _levelTimes[i]._rank = "-";
             }
-        }
+            if (_playerManager._times[i] == 0f)
+            {
+                _levelTimes[i]._rank = "-";
+            }
+        }        
     }
 }

@@ -34,7 +34,7 @@ public class _manager : MonoBehaviour {
 	void Start () {
         _UIanim = gameObject.GetComponent<Animator>();
         _joystickAnim = GameObject.Find("VirtualJoystick").GetComponent<Animator>();
-        _joystick = _joystickAnim.transform.FindChild("MobileJoystick");
+        _joystick = _joystickAnim.transform.Find("MobileJoystick");
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
         _rankImage = GameObject.Find("Rank").GetComponent<Image>();
         _rankText = GameObject.Find("RankText").GetComponent<Text>();

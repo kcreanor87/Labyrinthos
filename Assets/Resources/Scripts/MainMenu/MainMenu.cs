@@ -39,10 +39,10 @@ public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        _intro = transform.FindChild("Intro").gameObject;
-        _sectorSelect = transform.FindChild("SectorSelect").gameObject;
+        _intro = transform.Find("Intro").gameObject;
+        _sectorSelect = transform.Find("SectorSelect").gameObject;
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
-        _levelSelect = transform.FindChild("LevelSelect").gameObject;
+        _levelSelect = transform.Find("LevelSelect").gameObject;
         _introContainer = GameObject.Find("IntroContainer");
         //_muteBtn = GameObject.Find("Mute").GetComponent<Image>();
         //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;

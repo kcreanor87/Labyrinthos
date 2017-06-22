@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour {
     public List<Button> _buttons = new List<Button>();
     public List<Button> _sectorButtons = new List<Button>();
     public List<GameObject> _worlds = new List<GameObject>();
+    public List<Image> _lines = new List<Image>();
     public LevelTimeContainer _timeContainer;
     public int _activeSector;
     public GameObject _intro;
@@ -59,6 +60,10 @@ public class MainMenu : MonoBehaviour {
         for (int i = 0; i < _levelSelections.Count; i++)
         {
             _levelSelections[i].SetActive(false);
+        }
+        for (int i = 0; i < _lines.Count; i++)
+        {
+            if (i < Mathf.FloorToInt(_playerManager._playerLevel / 9)) _lines[i].color = Color.white; 
         }
         _levelSelect.SetActive(false);
         _worldcontainer.SetActive(false);
@@ -115,6 +120,32 @@ public class MainMenu : MonoBehaviour {
         
     }
 
+    public void SectorSwitcher(bool increase)
+    {
+        if (increase)
+        {
+            if ((_activeSector + 1) <= (_playerManager._playerLevel/9))
+            {
+                ToggleSector(_activeSector + 1);
+            }
+            else
+            {
+                ToggleSector(0);
+            }
+        }
+        else
+        {
+            if (_activeSector > 0)
+            {
+                ToggleSector(_activeSector - 1);
+            }
+            else
+            {
+                ToggleSector(Mathf.FloorToInt(_playerManager._playerLevel / 9));
+            }
+        }
+    }
+
     public void OpenSectorSelect()
     {
         _intro.SetActive(false);
@@ -165,7 +196,7 @@ public class MainMenu : MonoBehaviour {
     {
         PlayerPrefs.DeleteAll();
         Destroy(GameObject.Find("_playerManager"));
-        SceneManager.LoadScene(0);
+        Application.Quit();
     }
 
     public void UnlockAll()

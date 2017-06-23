@@ -8,7 +8,7 @@ public class _playerManager : MonoBehaviour {
     public static int _playerLevel;
 
     public bool _newGame;
-    public static int _totalLevels = 13;
+    public static int _totalLevels = 18;
 
     public static List<float> _times = new List<float>();
 

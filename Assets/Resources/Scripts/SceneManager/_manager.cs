@@ -29,9 +29,14 @@ public class _manager : MonoBehaviour {
     public Animator _UIanim;
     public Animator _joystickAnim;
     public Transform _joystick;
-    
+
+    private void Awake()
+    {
+        if (GameObject.Find("_playerManager") == null) SceneManager.LoadScene(0);
+    }
+
     // Use this for initialization
-	void Start () {
+    void Start () {
         _UIanim = gameObject.GetComponent<Animator>();
         _joystickAnim = GameObject.Find("VirtualJoystick").GetComponent<Animator>();
         _joystick = _joystickAnim.transform.Find("MobileJoystick");
@@ -75,6 +80,7 @@ public class _manager : MonoBehaviour {
             return;
         }
         if (!_gameOver) UpdateTimer();
+        if (Input.GetKeyDown(KeyCode.W)){ EndLevel(true);}
     }
 
     void UpdateTimer()
@@ -138,7 +144,7 @@ public class _manager : MonoBehaviour {
             _bestTxt.enabled = true;
             //_winScreen.SetActive(true);
             if (_playerManager._playerLevel < SceneManager.GetActiveScene().buildIndex - 1) _playerManager._playerLevel = (SceneManager.GetActiveScene().buildIndex - 1);
-            if (_playerManager._playerLevel == 12) _playerManager._playerLevel = 11;
+            if (_playerManager._playerLevel >= _playerManager._totalLevels) _playerManager._playerLevel = _playerManager._totalLevels;
             PlayerPrefs.SetInt("PlayerLevel", _playerManager._playerLevel);
             var timeString = _timer.ToString("F2");
             _timeTakenText.text = "Completed in: " + timeString + "s";
@@ -179,18 +185,22 @@ public class _manager : MonoBehaviour {
     public void ChangeScene(int i)
     {
         SceneManager.LoadScene(i + 1);
-        Time.timeScale = 1.0f;
     }
 
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1.0f;
     }
 
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if ((SceneManager.GetActiveScene().buildIndex - 2) < _playerManager._totalLevels)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else {
+            ChangeScene(0);
+        }        
     }
 
     public void Quit()

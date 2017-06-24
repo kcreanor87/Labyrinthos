@@ -27,13 +27,9 @@ public class LevelTimeContainer : MonoBehaviour {
             {
                 _levelTimes[i]._rank = "B";
             }
-            else if (_playerManager._times[i] <= _levelTimes[i]._C_time)
-            {
-                _levelTimes[i]._rank = "C";
-            }
             else
             {
-                _levelTimes[i]._rank = "-";
+                _levelTimes[i]._rank = "C";
             }
             if (_playerManager._times[i] == 0f)
             {

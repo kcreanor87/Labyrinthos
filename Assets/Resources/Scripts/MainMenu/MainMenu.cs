@@ -47,6 +47,7 @@ public class MainMenu : MonoBehaviour {
     {
         if (GameObject.Find("_playerManager") == null) SceneManager.LoadScene(0);
     }
+
     void Start()
     {
         _intro = transform.Find("Intro").gameObject;

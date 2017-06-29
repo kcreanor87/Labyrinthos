@@ -14,6 +14,9 @@ public class PlayerControls : MonoBehaviour {
     public RectTransform _joystickTransform;
     public bool _brake;
     public bool _boost;
+    public float _cameraBase = 56.0f;
+    public float _cameraZoomIn = 50.0f;
+    public float _cameraZoomOut = 62.0f;
     public float _boostAmount = 1.4f;
     public float _brakeAmount = 0.15f;
 
@@ -22,6 +25,7 @@ public class PlayerControls : MonoBehaviour {
         manager = GameObject.Find("UI").GetComponent<_manager>();
         _ghost = GameObject.Find("UI").GetComponent<Ghosts>();
         _sphere = GameObject.Find("World001Container").GetComponentInChildren<Transform>();
+        CameraCheck();
 	}
 
     public void FixedUpdate()
@@ -33,14 +37,17 @@ public class PlayerControls : MonoBehaviour {
         if (_brake && _speed > _brakeAmount)
         {
             _speed -= Time.deltaTime * 2;
+            
         }
         else if (_boost && _speed < _boostAmount)
         {
             _speed += Time.deltaTime * 2;
+            
         }
         else
         {
             _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
+            
         }
         var lookVec = new Vector3(y, x, 4096);
         x *= _speed;
@@ -50,5 +57,22 @@ public class PlayerControls : MonoBehaviour {
         _sphere.Rotate(y, x, 0, Space.World);
         transform.rotation = Quaternion.LookRotation(lookVec, Vector3.forward);
         _ghost._shipRot = transform.localRotation.eulerAngles.z;
+    }
+
+    public void CameraCheck() {
+        StartCoroutine(CameraZoom());
+    }
+
+    public IEnumerator CameraZoom()
+    {
+        if (_boost && Camera.main.fieldOfView < _cameraZoomOut) Camera.main.fieldOfView++;
+        else if (_brake && Camera.main.fieldOfView > _cameraZoomIn) Camera.main.fieldOfView--;
+        else if (Camera.main.fieldOfView != _cameraBase && !_boost && !_brake)
+        {
+            if (Camera.main.fieldOfView > _cameraBase) Camera.main.fieldOfView--;
+            else Camera.main.fieldOfView++;
+        }
+        yield return new WaitForSeconds(0.03f);
+        CameraCheck();
     }
 }

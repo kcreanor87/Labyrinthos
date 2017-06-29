@@ -93,7 +93,9 @@ public class MainMenu : MonoBehaviour {
 
     void SpriteSelector(int index)
     {
-        switch (_timeContainer._levelTimes[index + (_activeSector * 9)]._rank)
+        var level = index + (_activeSector * 9);
+        if (level >= _playerManager._totalLevels) return;
+        switch (_timeContainer._levelTimes[level]._rank)
         {
             case "-":
                 _buttons[index].image.sprite = _regular;

@@ -142,9 +142,8 @@ public class _manager : MonoBehaviour {
                 _ghosts.SaveGhost(SceneManager.GetActiveScene().buildIndex - 2);
             }
             _bestTxt.enabled = true;
-            //_winScreen.SetActive(true);
             if (_playerManager._playerLevel < SceneManager.GetActiveScene().buildIndex - 1) _playerManager._playerLevel = (SceneManager.GetActiveScene().buildIndex - 1);
-            if (_playerManager._playerLevel >= _playerManager._totalLevels) _playerManager._playerLevel = _playerManager._totalLevels;
+            if (_playerManager._playerLevel >= _playerManager._totalLevels) _playerManager._playerLevel = _playerManager._totalLevels - 1;
             PlayerPrefs.SetInt("PlayerLevel", _playerManager._playerLevel);
             var timeString = _timer.ToString("F2");
             _timeTakenText.text = "Completed in: " + timeString + "s";

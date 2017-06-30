@@ -6,6 +6,7 @@ public class ChangeSpeed : MonoBehaviour {
 
     public PlayerControls _playerControls;
     public ParticleSystem _boostParticle;
+    public ParticleSystem _regParticles;
 
     private void Start()
     {

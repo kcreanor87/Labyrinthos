@@ -8,14 +8,9 @@ public class Collect : MonoBehaviour {
     public AudioSource _explode;
     public AudioSource _lock;
     public AudioSource _click;
-    public GameObject _playerMesh;
-    public GameObject _brokenMesh;
 
     private void Start()
     {
-        _playerMesh = GameObject.Find("Ship001");
-        _brokenMesh = GameObject.Find("Ship001_broken");
-        _brokenMesh.SetActive(false);
         manager = GameObject.Find("UI").GetComponent<_manager>();
     }
 
@@ -29,8 +24,6 @@ public class Collect : MonoBehaviour {
         }
         else if (other.tag == "Wall")
         {
-            _playerMesh.SetActive(false);
-            _brokenMesh.SetActive(true);
             manager.EndLevel(false);
         }
         else if (other.tag == "Lock")

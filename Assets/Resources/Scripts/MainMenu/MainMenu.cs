@@ -73,7 +73,6 @@ public class MainMenu : MonoBehaviour {
     {
         _levelSelected = i + (_activeSector * 9);
         var path = "Prefabs/Worlds/Sc0" + (_activeSector + 1) + "/pfbWorldSc0" + (_activeSector + 1)+ "_0" + (i + 1);
-        print(path);
         foreach (Transform child in _worldcontainer.transform)
         {
             GameObject.Destroy(child.gameObject);

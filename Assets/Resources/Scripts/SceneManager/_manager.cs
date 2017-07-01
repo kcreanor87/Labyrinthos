@@ -7,28 +7,37 @@ public class _manager : MonoBehaviour {
 
     public float _timer;
     public float _maxTime = 30.0f;
+    public float _best;
+    public float _countdown = 1.5f;
+
     public int _cratesRemaining;
-    public Text _timerTxt;
-    public Text _cratesRemainingTxt;
-    public bool _inMenu;
+    
+    public bool _inMenu;   
+    public bool _gameOver;
+
     public GameObject _winScreen;
     public GameObject _loseScreen;
-    public Text _countdownTxt;
-    public bool _gameOver;
-    public float _countdown = 1.5f;
+
+    public Transform _joystick;
+
     public Text _timeTakenText;
     public Text _recordTxt;
     public Text _levelTxt;
     public Text _bestTxt;
-    public float _best;
-    public Ghosts _ghosts;
+    public Text _timerTxt;
+    public Text _cratesRemainingTxt;
+    public Text _countdownTxt;
     public Text _rankText;
+
+    public Ghosts _ghosts;    
     public Image _rankImage;
     public Sprite _rankSsprite, _rankAsprite, _rankBsprite, _rankCsprite;
     public LevelTimeContainer _timeContainer;
+
     public Animator _UIanim;
     public Animator _joystickAnim;
-    public Transform _joystick;
+    public Animator _playerAnim;
+    
 
     private void Awake()
     {
@@ -37,6 +46,7 @@ public class _manager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        _playerAnim = GameObject.Find("Player").GetComponent<Animator>();
         _UIanim = gameObject.GetComponent<Animator>();
         _joystickAnim = GameObject.Find("VirtualJoystick").GetComponent<Animator>();
         _joystick = _joystickAnim.transform.Find("MobileJoystick");
@@ -122,6 +132,7 @@ public class _manager : MonoBehaviour {
 
     public void EndLevel(bool victory)
     {
+        _playerAnim.SetBool("Outro", !victory);
         _joystick.GetComponent<Image>().enabled = false;
         _UIanim.SetBool("Complete", true);
         _UIanim.SetBool("Victory", victory);
@@ -150,6 +161,16 @@ public class _manager : MonoBehaviour {
             _timeTakenText.enabled = true;
             _timeContainer.CheckTimes();
         }
+        else
+        {
+            StartCoroutine(LevelReset());
+        }
+    }
+
+    public IEnumerator LevelReset()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Restart();
     }
 
     void RankSwitcher(int index, float time)

@@ -65,8 +65,8 @@ public class PlayerControls : MonoBehaviour {
 
     public IEnumerator CameraZoom()
     {
-        if (_boost && Camera.main.fieldOfView < _cameraZoomOut) Camera.main.fieldOfView++;
-        else if (_brake && Camera.main.fieldOfView > _cameraZoomIn) Camera.main.fieldOfView--;
+        if (_boost && Camera.main.fieldOfView < _cameraZoomOut && !manager._inMenu) Camera.main.fieldOfView++;
+        else if (_brake && Camera.main.fieldOfView > _cameraZoomIn && !manager._inMenu) Camera.main.fieldOfView--;
         else if (Camera.main.fieldOfView != _cameraBase && !_boost && !_brake)
         {
             if (Camera.main.fieldOfView > _cameraBase) Camera.main.fieldOfView--;

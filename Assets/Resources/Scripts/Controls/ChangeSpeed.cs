@@ -19,14 +19,12 @@ public class ChangeSpeed : MonoBehaviour {
 
     public void SpeedUp()
     {
-        if (_sceneManager._inMenu) return;
         _playerControls._boost = true;
         _boostParticle.Play();
     }
 
     public void SlowDown()
     {
-        if (_sceneManager._inMenu) return;
         _playerControls._brake = true;
         _boostParticle.Stop();
     }

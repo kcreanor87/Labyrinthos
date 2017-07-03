@@ -169,7 +169,7 @@ public class _manager : MonoBehaviour {
 
     public IEnumerator LevelReset()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         Restart();
     }
 

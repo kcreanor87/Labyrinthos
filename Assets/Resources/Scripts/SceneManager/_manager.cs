@@ -46,6 +46,7 @@ public class _manager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        SpawnCrates();
         _playerAnim = GameObject.Find("Player").GetComponent<Animator>();
         _UIanim = gameObject.GetComponent<Animator>();
         _joystickAnim = GameObject.Find("VirtualJoystick").GetComponent<Animator>();
@@ -115,6 +116,15 @@ public class _manager : MonoBehaviour {
         {
             _countdownTxt.text = "Ready?";
         }
+    }
+
+    public void SpawnCrates()
+    {
+        var collectables = GameObject.FindGameObjectsWithTag("Collectable");
+        foreach (GameObject collectable in collectables)
+        {
+            Instantiate(Resources.Load("Prefabs/Collectables/Collectable_base01") as GameObject, collectable.transform);
+        }        
     }
 
     public void UpdateCrates()

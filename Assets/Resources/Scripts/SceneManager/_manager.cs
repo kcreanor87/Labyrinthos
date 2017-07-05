@@ -8,7 +8,7 @@ public class _manager : MonoBehaviour {
     public float _timer;
     public float _maxTime = 30.0f;
     public float _best;
-    public float _countdown = 1.5f;
+    public float _countdown = 1.2f;
 
     public int _cratesRemaining;
     
@@ -26,7 +26,7 @@ public class _manager : MonoBehaviour {
     public Text _bestTxt;
     public Text _timerTxt;
     public Text _cratesRemainingTxt;
-    public Text _countdownTxt;
+    //public Text _countdownTxt;
     public Text _rankText;
 
     public Ghosts _ghosts;    
@@ -73,14 +73,14 @@ public class _manager : MonoBehaviour {
         _loseScreen.SetActive(false);
         _timeTakenText = GameObject.Find("TimeTakenTxt").GetComponent<Text>();
         _timeTakenText.enabled = false;
-        _countdownTxt = GameObject.Find("CountdownTxt").GetComponent<Text>();
+        //_countdownTxt = GameObject.Find("CountdownTxt").GetComponent<Text>();
         _timerTxt = GameObject.Find("TimerTxt").GetComponent<Text>();
         _cratesRemainingTxt = GameObject.Find("CratesRemainingTxt").GetComponent<Text>();
         _cratesRemaining = GameObject.FindGameObjectsWithTag("Crate").Length;
         _cratesRemainingTxt.text = _cratesRemaining.ToString();
         _timerTxt.text = _timer.ToString("F2");
         _gameOver = false;
-        _ghosts = gameObject.GetComponent<Ghosts>();
+        _ghosts = gameObject.GetComponent<Ghosts>();  
 }
 	
 	// Update is called once per frame
@@ -106,15 +106,15 @@ public class _manager : MonoBehaviour {
         if (_countdown <= 0.01f)
         {
             _ghosts.StartGhost();
-            _countdownTxt.text = "GO!";
-            _countdownTxt.fontSize = 150;
+            //_countdownTxt.text = "GO!";
+            //_countdownTxt.fontSize = 150;
             _bestTxt.enabled = false;
             _inMenu = false;
-            StartCoroutine(CloseCountdown());
+            //StartCoroutine(CloseCountdown());
         }
         else 
         {
-            _countdownTxt.text = "Ready?";
+            //_countdownTxt.text = "Ready?";
         }
     }
 
@@ -137,12 +137,12 @@ public class _manager : MonoBehaviour {
     public IEnumerator CloseCountdown()
     {
         yield return new WaitForSeconds(1.2f);
-        _countdownTxt.enabled = false;
+        //_countdownTxt.enabled = false;
     }
 
     public void EndLevel(bool victory)
     {
-        _playerAnim.SetBool("Outro", !victory);
+        _playerAnim.SetBool("Outro", true);
         _joystick.GetComponent<Image>().enabled = false;
         _UIanim.SetBool("Complete", true);
         _UIanim.SetBool("Victory", victory);
@@ -214,6 +214,7 @@ public class _manager : MonoBehaviour {
 
     public void ChangeScene(int i)
     {
+        _playerManager._skipscreen = true;
         SceneManager.LoadScene(i + 1);
     }
 

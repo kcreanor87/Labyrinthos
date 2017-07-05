@@ -8,6 +8,7 @@ public class _playerManager : MonoBehaviour {
     public static int _playerLevel;
 
     public bool _newGame;
+    public static bool _skipscreen;
     public static int _totalLevels = 19;
 
     public static List<float> _times = new List<float>();
@@ -32,6 +33,7 @@ public class _playerManager : MonoBehaviour {
             }
             LoadTimes();
         }
+        _skipscreen = false;
     }
 
     public static void SaveTimes()

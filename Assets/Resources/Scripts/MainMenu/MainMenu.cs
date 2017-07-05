@@ -67,6 +67,12 @@ public class MainMenu : MonoBehaviour {
         _levelSelect.SetActive(false);
         _worldcontainer.SetActive(false);
         _sectorSelect.SetActive(false);
+        if (_playerManager._skipscreen)
+        {
+            OpenSectorSelect();
+            ToggleSector(Mathf.FloorToInt((float)_playerManager._playerLevel / 9));
+        }
+        
     }
 
     public void SelectLevel(int i)
@@ -120,7 +126,8 @@ public class MainMenu : MonoBehaviour {
         _levelSelect.SetActive(true);
         _sectorNameTxt.text = _sectorNames[sector];
         _worldcontainer.SetActive(true);
-        SelectLevel(0);
+        var maxLevel = (_playerManager._playerLevel >= (_activeSector + 1) * 9) ? 8 : (_playerManager._playerLevel - (_activeSector) * 9);
+        SelectLevel(maxLevel);
         _sectorSelect.SetActive(false);        
         
     }

@@ -7,7 +7,6 @@ public class ChangeSpeed : MonoBehaviour {
     public PlayerControls _playerControls;
     public _manager _sceneManager;
     public ParticleSystem _boostParticle;
-    public ParticleSystem _regParticles;
 
     private void Awake()
     {
@@ -15,6 +14,13 @@ public class ChangeSpeed : MonoBehaviour {
         _boostParticle = GameObject.Find("BoostParticles").GetComponent<ParticleSystem>();
         _boostParticle.Stop();
         _playerControls = GameObject.Find("Player").GetComponent<PlayerControls>();
+    }
+
+    public void FixedUpdate()
+    {
+        if (!_sceneManager._inMenu) return;
+        if (_playerControls._boost && !_boostParticle.IsAlive()) _boostParticle.Play();
+        else if (!_playerControls._boost) _boostParticle.Stop();
     }
 
     public void SpeedUp()

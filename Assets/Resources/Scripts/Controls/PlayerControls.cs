@@ -21,7 +21,7 @@ public class PlayerControls : MonoBehaviour {
     public float _brakeAmount = 0.15f;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         manager = GameObject.Find("UI").GetComponent<_manager>();
         _ghost = GameObject.Find("UI").GetComponent<Ghosts>();
         _sphere = GameObject.Find("World001Container").GetComponentInChildren<Transform>();

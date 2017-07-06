@@ -50,7 +50,7 @@ public class Ghosts : MonoBehaviour {
        if (PlayerPrefs.HasKey("GhostLevelx" + _level + "0"))
         {
             _activeGhost = true;
-            for (int j = 0; j < Mathf.CeilToInt(_playerManager._times[_level] * 60.0f); j++)
+            for (int j = 0; j < Mathf.FloorToInt(_playerManager._times[_level] * 60.0f); j++)
             {
                 _ghostTimeX.Add(PlayerPrefs.GetFloat("GhostLevelx" + _level + j));
                 _ghostTimeY.Add(PlayerPrefs.GetFloat("GhostLevely" + _level + j));

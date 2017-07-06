@@ -47,14 +47,14 @@ public class Ghosts : MonoBehaviour {
 
     public void LoadGhosts()
     {
-       if (PlayerPrefs.HasKey("GhostLevelx" + _level + "0"))
+       if (PlayerPrefs.HasKey("GhostLevelx" + _level + "_0"))
         {
             _activeGhost = true;
             for (int j = 0; j < Mathf.FloorToInt(_playerManager._times[_level] * 60.0f); j++)
             {
-                _ghostTimeX.Add(PlayerPrefs.GetFloat("GhostLevelx" + _level + j));
-                _ghostTimeY.Add(PlayerPrefs.GetFloat("GhostLevely" + _level + j));
-                _ghostRot.Add(PlayerPrefs.GetFloat("GhostLevelRot" + _level + j));
+                _ghostTimeX.Add(PlayerPrefs.GetFloat("GhostLevelx" + _level + "_" + j));
+                _ghostTimeY.Add(PlayerPrefs.GetFloat("GhostLevely" + _level + "_" + j));
+                _ghostRot.Add(PlayerPrefs.GetFloat("GhostLevelRot" + _level + "_" + j));
             }
             _totalFrames = _ghostTimeX.Count;
         }
@@ -64,20 +64,20 @@ public class Ghosts : MonoBehaviour {
         }
     }
 
-    public void SaveGhost(int i)
+    public void SaveGhost()
     {
-        print("level " + i + " Ghost saved");
-        for (int j = 0; j < _ghostIndex + 6; j++)
+        print("level " + _level + " Ghost saved");
+        for (int j = 0; j < _ghostIndex; j++)
         {
-            PlayerPrefs.DeleteKey(("GhostLevelx" + i + j));
-            PlayerPrefs.DeleteKey(("GhostLevely" + i + j));
-            PlayerPrefs.DeleteKey(("GhostLevelRot" + i + j));
+            PlayerPrefs.DeleteKey(("GhostLevelx" + _level + "_" + j));
+            PlayerPrefs.DeleteKey(("GhostLevely" + _level + "_" + j));
+            PlayerPrefs.DeleteKey(("GhostLevelRot" + _level + "_" + j));
         }
         for (int j = 0; j < _playerTimeX.Count; j++)
         {
-            PlayerPrefs.SetFloat(("GhostLevelx" + i + j), _playerTimeX[j]);
-            PlayerPrefs.SetFloat(("GhostLevely" + i + j), _playerTimeY[j]);
-            PlayerPrefs.SetFloat(("GhostLevelRot" + i + j), _playerRot[j]);
+            PlayerPrefs.SetFloat(("GhostLevelx" + _level + "_" + j), _playerTimeX[j]);
+            PlayerPrefs.SetFloat(("GhostLevely" + _level + "_" + j), _playerTimeY[j]);
+            PlayerPrefs.SetFloat(("GhostLevelRot" + _level + "_" + j), _playerRot[j]);
         }
     }
 

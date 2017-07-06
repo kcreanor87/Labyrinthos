@@ -160,7 +160,7 @@ public class _manager : MonoBehaviour {
                 _bestTxt.text = "New Record: " + _timer.ToString("F2") + "s";
                 _bestTxt.color = Color.green;
                 _playerManager.SaveTimes();
-                _ghosts.SaveGhost(SceneManager.GetActiveScene().buildIndex - 2);
+                _ghosts.SaveGhost();
             }
             _bestTxt.enabled = true;
             if (_playerManager._playerLevel < SceneManager.GetActiveScene().buildIndex - 1) _playerManager._playerLevel = (SceneManager.GetActiveScene().buildIndex - 1);

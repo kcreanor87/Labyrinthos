@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour {
     public GameObject _introContainer;
     public GameObject _levelSelect;
     public GameObject _sectorSelect;
-    public GameObject _worldcontainer;    
+    public GameObject _worldcontainer;   
 
     public Text _bestTimeTxt;
     public Text _sectorNameTxt;
@@ -40,6 +40,7 @@ public class MainMenu : MonoBehaviour {
     public Image _muteBtn;
 
     public Color _highlightColor;
+    public Animator _uiAnims;
 
     // Use this for initialization
 

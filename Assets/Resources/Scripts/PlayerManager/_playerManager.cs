@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class _playerManager : MonoBehaviour {
 
     public static int _playerLevel;
+    public static float _version = 0.1f;
 
     public bool _newGame;
     public static bool _skipscreen;

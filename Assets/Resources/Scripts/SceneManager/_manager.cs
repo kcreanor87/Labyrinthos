@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class _manager : MonoBehaviour {
 
@@ -11,6 +13,9 @@ public class _manager : MonoBehaviour {
     public float _countdown = 1.2f;
 
     public int _cratesRemaining;
+    public int buildIndex;
+
+    public string build;
     
     public bool _inMenu;   
     public bool _gameOver;
@@ -26,7 +31,6 @@ public class _manager : MonoBehaviour {
     public Text _bestTxt;
     public Text _timerTxt;
     public Text _cratesRemainingTxt;
-    //public Text _countdownTxt;
     public Text _rankText;
 
     public Ghosts _ghosts;    
@@ -60,8 +64,8 @@ public class _manager : MonoBehaviour {
         _inMenu = true;
         _bestTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
         _recordTxt = GameObject.Find("RecordTxt").GetComponent<Text>();
-        var buildIndex = (SceneManager.GetActiveScene().buildIndex - 2);
-        var build = (_playerManager._times[buildIndex] == 0.0f) ? "--:--" : _playerManager._times[buildIndex].ToString("F2");
+        buildIndex = (SceneManager.GetActiveScene().buildIndex - 2);
+        build = (_playerManager._times[buildIndex] == 0.0f) ? "--:--" : _playerManager._times[buildIndex].ToString("F2");
         _bestTxt.text = "Record: " + build + " s";
         _recordTxt.text = build + " s";
         _levelTxt = GameObject.Find("LevelTxt").GetComponent<Text>();
@@ -73,7 +77,6 @@ public class _manager : MonoBehaviour {
         _loseScreen.SetActive(false);
         _timeTakenText = GameObject.Find("TimeTakenTxt").GetComponent<Text>();
         _timeTakenText.enabled = false;
-        //_countdownTxt = GameObject.Find("CountdownTxt").GetComponent<Text>();
         _timerTxt = GameObject.Find("TimerTxt").GetComponent<Text>();
         _cratesRemainingTxt = GameObject.Find("CratesRemainingTxt").GetComponent<Text>();
         _cratesRemaining = GameObject.FindGameObjectsWithTag("Crate").Length;
@@ -106,15 +109,8 @@ public class _manager : MonoBehaviour {
         if (_countdown <= 0.01f)
         {
             _ghosts.StartGhost();
-            //_countdownTxt.text = "GO!";
-            //_countdownTxt.fontSize = 150;
             _bestTxt.enabled = false;
             _inMenu = false;
-            //StartCoroutine(CloseCountdown());
-        }
-        else 
-        {
-            //_countdownTxt.text = "Ready?";
         }
     }
 
@@ -142,6 +138,7 @@ public class _manager : MonoBehaviour {
 
     public void EndLevel(bool victory)
     {
+        AnalyticsData(victory);
         _playerAnim.SetBool("Outro", true);
         _joystick.GetComponent<Image>().enabled = false;
         _UIanim.SetBool("Complete", true);
@@ -220,6 +217,7 @@ public class _manager : MonoBehaviour {
 
     public void Restart()
     {
+        if (!_inMenu) AnalyticsData(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -237,5 +235,29 @@ public class _manager : MonoBehaviour {
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void AnalyticsData(bool win)
+    {
+        if (win)
+        {
+            Analytics.CustomEvent("levelComplete", new Dictionary<string, object>
+            {
+                {"version", _playerManager._version},
+                {"level", buildIndex},
+                {"time", _timer}
+            });
+        }
+        else
+        {
+            Analytics.CustomEvent("levelFailed", new Dictionary<string, object>
+            {
+                {"version", _playerManager._version},
+                {"level", buildIndex},
+                {"position", _ghosts._sphere.rotation},
+                {"time", _timer}
+            });
+        }
+        
     }
 }

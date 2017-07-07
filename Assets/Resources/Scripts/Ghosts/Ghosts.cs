@@ -32,7 +32,7 @@ public class Ghosts : MonoBehaviour {
     private void Awake()
     {
         _level = SceneManager.GetActiveScene().buildIndex - 2;
-        _sphere = GameObject.Find("World001Container").GetComponent<Transform>();
+        _sphere = GameObject.Find("World001Container").GetComponentInChildren<Transform>();
         _ghostGO = GameObject.Find("Ghost").GetComponent<Transform>();
         _ghostShip = _ghostGO.Find("GhostGO").GetComponentInChildren<Transform>();
         _ghostGO.gameObject.SetActive(false);

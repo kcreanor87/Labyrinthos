@@ -254,7 +254,7 @@ public class _manager : MonoBehaviour {
             {
                 {"version", _playerManager._version},
                 {"level", buildIndex},
-                {"position", _ghosts._sphere.rotation},
+                {"position", _ghosts._sphere.eulerAngles},
                 {"time", _timer}
             });
         }

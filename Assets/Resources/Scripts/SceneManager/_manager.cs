@@ -138,7 +138,6 @@ public class _manager : MonoBehaviour {
 
     public void EndLevel(bool victory)
     {
-        AnalyticsData(victory);
         _playerAnim.SetBool("Outro", true);
         _joystick.GetComponent<Image>().enabled = false;
         _UIanim.SetBool("Complete", true);
@@ -147,13 +146,13 @@ public class _manager : MonoBehaviour {
         _levelTxt.enabled = true;
         _inMenu = true;
         _gameOver = true;
-        int index = SceneManager.GetActiveScene().buildIndex - 2;
+        AnalyticsData(victory);
         if (victory)
         {
-            RankSwitcher(index, _timer);
-            if (_timer < _playerManager._times[index] || (_playerManager._times[SceneManager.GetActiveScene().buildIndex - 2] == 0.0f))
+            RankSwitcher(buildIndex, _timer);
+            if (_timer < _playerManager._times[buildIndex] || (_playerManager._times[buildIndex] == 0.0f))
             {
-                _playerManager._times[index] = _timer;
+                _playerManager._times[buildIndex] = _timer;
                 _bestTxt.text = "New Record: " + _timer.ToString("F2") + "s";
                 _bestTxt.color = Color.green;
                 _playerManager.SaveTimes();
@@ -172,6 +171,7 @@ public class _manager : MonoBehaviour {
         {
             StartCoroutine(LevelReset());
         }
+
     }
 
     public IEnumerator LevelReset()
@@ -241,11 +241,13 @@ public class _manager : MonoBehaviour {
     {
         if (win)
         {
+            var best = Mathf.Min(_timer, _playerManager._times[buildIndex]);
             Analytics.CustomEvent("levelComplete", new Dictionary<string, object>
             {
                 {"version", _playerManager._version},
                 {"level", buildIndex},
-                {"time", _timer}
+                {"time", _timer},
+                {"record", best}
             });
         }
         else

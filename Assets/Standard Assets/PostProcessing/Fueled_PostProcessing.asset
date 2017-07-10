@@ -27,9 +27,9 @@ MonoBehaviour:
   fog:
     m_Enabled: 1
     m_Settings:
-      excludeSkybox: 1
+      excludeSkybox: 0
   antialiasing:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       method: 0
       fxaaSettings:
@@ -40,7 +40,7 @@ MonoBehaviour:
         stationaryBlending: 0.95
         motionBlending: 0.85
   ambientOcclusion:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       intensity: 0.75
       radius: 1.64
@@ -77,10 +77,10 @@ MonoBehaviour:
       useCameraFov: 0
       kernelSize: 1
   motionBlur:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       shutterAngle: 270
-      sampleCount: 10
+      sampleCount: 15
       frameBlending: 0
   eyeAdaptation:
     m_Enabled: 0
@@ -101,9 +101,9 @@ MonoBehaviour:
     m_Settings:
       bloom:
         intensity: 1.86
-        threshold: 0.77
-        softKnee: 0.89
-        radius: 3.48
+        threshold: 0.71
+        softKnee: 0.7
+        radius: 3.08
         antiFlicker: 1
       lensDirt:
         texture: {fileID: 0}

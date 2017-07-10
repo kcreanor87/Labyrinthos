@@ -36,6 +36,7 @@ public class MainMenu : MonoBehaviour {
     public Sprite _selected;
     public Sprite _mute;
     public Sprite _unmute;
+    public Sprite _lockedSprite;
 
     public Image _muteBtn;
 
@@ -88,9 +89,11 @@ public class MainMenu : MonoBehaviour {
         
         for (int j = 0; j < _buttons.Count; j++) {
             SpriteSelector(j);
-            _buttons[j].image.color = (i == j) ? Color.white : _highlightColor;
+            _buttons[j].GetComponentInChildren<Image>().color = (i == j) ? Color.white : _highlightColor;
             _buttons[j].interactable = (_playerManager._playerLevel >= (j + (_activeSector * 9)));
+            if (!_buttons[j].interactable) _buttons[j].GetComponentInChildren<Image>().sprite = _lockedSprite;
             _buttons[j].GetComponentInChildren<Text>().enabled = (_playerManager._playerLevel >= (j + (_activeSector * 9)));
+            _buttons[j].GetComponentInChildren<Animator>().enabled = (i == j);
 
         }
         _bestTimeTxt.text = (_playerManager._times[_levelSelected] > 0.0f) ? "Record: " + _playerManager._times[_levelSelected].ToString("F2") + "s" : "Record: - - : - -";
@@ -101,22 +104,25 @@ public class MainMenu : MonoBehaviour {
     {
         var level = index + (_activeSector * 9);
         if (level >= _playerManager._totalLevels) return;
-        switch (_timeContainer._levelTimes[level]._rank)
+        {
+            _buttons[index].GetComponentInChildren<Image>().sprite = _lockedSprite;
+        }
+            switch (_timeContainer._levelTimes[level]._rank)
         {
             case "-":
-                _buttons[index].image.sprite = _regular;
+                _buttons[index].GetComponentInChildren<Image>().sprite = _regular;
                 break;
             case "S":
-                _buttons[index].image.sprite = _rankSsprite;
+                _buttons[index].GetComponentInChildren<Image>().sprite = _rankSsprite;
                 break;
             case "A":
-                _buttons[index].image.sprite = _rankAsprite;
+                _buttons[index].GetComponentInChildren<Image>().sprite = _rankAsprite;
                 break;
             case "B":
-                _buttons[index].image.sprite = _rankBsprite;
+                _buttons[index].GetComponentInChildren<Image>().sprite = _rankBsprite;
                 break;
             case "C":
-                _buttons[index].image.sprite = _rankCsprite;
+                _buttons[index].GetComponentInChildren<Image>().sprite = _rankCsprite;
                 break;
         }
     }

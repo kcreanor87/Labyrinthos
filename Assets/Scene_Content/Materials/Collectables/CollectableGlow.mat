@@ -7,10 +7,11 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: CollectableGlow
-  m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
-  m_LightmapFlags: 1
+  m_Shader: {fileID: 202, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -72,6 +73,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.34117648, g: 0.7411765, b: 0.83921576, a: 0.472}
+    - _Color: {r: 0.34117648, g: 0.7411765, b: 0.83921576, a: 1}
+    - _EmisColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.3372549, g: 0.7372549, b: 0.8352942, a: 1}
-    - _TintColor: {r: 0.34558824, g: 0.45527384, b: 0.5, a: 0.5}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}

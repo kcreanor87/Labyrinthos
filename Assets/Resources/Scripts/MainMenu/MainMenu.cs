@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour {
 
     public List<Button> _buttons = new List<Button>();
+    public List<Image> _buttonImages = new List<Image>();
     public List<Button> _sectorButtons = new List<Button>();
     public List<Image> _lines = new List<Image>();
     //public List<GameObject> _levelSelections = new List<GameObject>();
@@ -42,6 +43,12 @@ public class MainMenu : MonoBehaviour {
 
     public Color _highlightColor;
     public Animator _uiAnims;
+    public GameObject _unlockAllPrompt;
+    public GameObject _settingsMenu;
+    public GameObject _wipePrompt;
+    public GameObject _wipeScreen;
+
+    public List<GameObject> _planets = new List<GameObject>();
 
     // Use this for initialization
 
@@ -52,6 +59,14 @@ public class MainMenu : MonoBehaviour {
 
     void Start()
     {
+        _unlockAllPrompt = GameObject.Find("UnlockAllPrompt");
+        _unlockAllPrompt.SetActive(false);
+        _settingsMenu = GameObject.Find("SettingsMenu");
+        _settingsMenu.SetActive(false);
+        _wipePrompt = GameObject.Find("WipePrompt");
+        _wipePrompt.SetActive(false);
+        _wipeScreen = GameObject.Find("WipeScreen");
+        _wipeScreen.SetActive(false);
         _intro = transform.Find("Intro").gameObject;
         _sectorSelect = transform.Find("SectorSelect").gameObject;
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
@@ -59,8 +74,12 @@ public class MainMenu : MonoBehaviour {
         _introContainer = GameObject.Find("IntroContainer");
         //_muteBtn = GameObject.Find("Mute").GetComponent<Image>();
         //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
-        _bestTimeTxt = _levelSelect.transform.FindChild("BestTimeTxt").GetComponent<Text>();
-        _sectorNameTxt = _levelSelect.transform.FindChild("SectorName").GetComponent<Text>();
+        _bestTimeTxt = _levelSelect.transform.Find("BestTimeTxt").GetComponent<Text>();
+        _sectorNameTxt = _levelSelect.transform.Find("SectorName").GetComponent<Text>();
+        for (int i = 0; i < _buttons.Count; i++)
+        {
+            _buttonImages.Add(_buttons[i].GetComponentInChildren<Image>());
+        }
         for (int i = 0; i < _sectorButtons.Count; i++)
         {
             _sectorButtons[i].interactable = (i <= (_playerManager._playerLevel / 9));
@@ -73,62 +92,67 @@ public class MainMenu : MonoBehaviour {
         {
             OpenSectorSelect();
             ToggleSector(Mathf.FloorToInt((float)_playerManager._playerLevel / 9));
-        }
-        
+        }        
     }
 
     public void SelectLevel(int i)
     {
         _levelSelected = i + (_activeSector * 9);
-        var path = "Prefabs/Worlds/Sc0" + (_activeSector + 1) + "/pfbWorldSc0" + (_activeSector + 1)+ "_0" + (i + 1);
+        //var path = "Prefabs/Worlds/Sc0" + (_activeSector + 1) + "/pfbWorldSc0" + (_activeSector + 1)+ "_0" + (i + 1);
         foreach (Transform child in _worldcontainer.transform)
         {
             GameObject.Destroy(child.gameObject);
         }
-        Instantiate (Resources.Load(path) as GameObject, _worldcontainer.transform);
-        
+        Instantiate (_planets[_levelSelected] as GameObject, _worldcontainer.transform);        
         for (int j = 0; j < _buttons.Count; j++) {
             SpriteSelector(j);
-            _buttons[j].GetComponentInChildren<Image>().color = (i == j) ? Color.white : _highlightColor;
+            _buttonImages[j].color = (i == j) ? Color.white : _highlightColor;
             _buttons[j].interactable = (_playerManager._playerLevel >= (j + (_activeSector * 9)));
-            if (!_buttons[j].interactable) _buttons[j].GetComponentInChildren<Image>().sprite = _lockedSprite;
+            if (!_buttons[j].interactable)
+            {
+                _buttonImages[j].sprite = _lockedSprite;
+                _buttonImages[j].color = Color.white;
+            }            
             _buttons[j].GetComponentInChildren<Text>().enabled = (_playerManager._playerLevel >= (j + (_activeSector * 9)));
             _buttons[j].GetComponentInChildren<Animator>().enabled = (i == j);
-
         }
         _bestTimeTxt.text = (_playerManager._times[_levelSelected] > 0.0f) ? "Record: " + _playerManager._times[_levelSelected].ToString("F2") + "s" : "Record: - - : - -";
-        
     }
 
     void SpriteSelector(int index)
     {
         var level = index + (_activeSector * 9);
-        if (level >= _playerManager._totalLevels) return;
+        if (level >= _playerManager._totalLevels)
         {
-            _buttons[index].GetComponentInChildren<Image>().sprite = _lockedSprite;
+            _buttonImages[index].sprite = _lockedSprite;
+            return;
         }
-            switch (_timeContainer._levelTimes[level]._rank)
+        switch (_timeContainer._levelTimes[level]._rank)
         {
             case "-":
-                _buttons[index].GetComponentInChildren<Image>().sprite = _regular;
+                _buttonImages[index].sprite = _regular;
                 break;
             case "S":
-                _buttons[index].GetComponentInChildren<Image>().sprite = _rankSsprite;
+                _buttonImages[index].sprite = _rankSsprite;
                 break;
             case "A":
-                _buttons[index].GetComponentInChildren<Image>().sprite = _rankAsprite;
+                _buttonImages[index].sprite = _rankAsprite;
                 break;
             case "B":
-                _buttons[index].GetComponentInChildren<Image>().sprite = _rankBsprite;
+                _buttonImages[index].sprite = _rankBsprite;
                 break;
             case "C":
-                _buttons[index].GetComponentInChildren<Image>().sprite = _rankCsprite;
+                _buttonImages[index].sprite = _rankCsprite;
                 break;
         }
     }
 
     public void ToggleSector(int sector)
     {
+        for (int i = 0; i < _buttons.Count; i++)
+        {
+            _buttons[i].transform.Find("ButtonImg").rotation = Quaternion.identity;
+        }
         _activeSector = sector;
         _levelSelect.SetActive(true);
         _sectorNameTxt.text = _sectorNames[sector];
@@ -136,7 +160,6 @@ public class MainMenu : MonoBehaviour {
         var maxLevel = (_playerManager._playerLevel >= (_activeSector + 1) * 9) ? 8 : (_playerManager._playerLevel - (_activeSector) * 9);
         SelectLevel(maxLevel);
         _sectorSelect.SetActive(false);        
-        
     }
 
     public void SectorSwitcher(bool increase)
@@ -175,16 +198,67 @@ public class MainMenu : MonoBehaviour {
         _introContainer.SetActive(false);
         _worldcontainer.SetActive(false);
         _levelSelect.SetActive(false);
-        _sectorSelect.SetActive(true);
-        
+        _sectorSelect.SetActive(true);        
     }
 
     public void ToggleIntro()
     {
         _intro.SetActive(true);
         _introContainer.SetActive(true);
-        _sectorSelect.SetActive(false);
-        
+        _sectorSelect.SetActive(false);        
+    }
+
+    public void UnlockAllPrompt(bool active)
+    {
+        _unlockAllPrompt.SetActive(active);
+    }
+
+    public void Back(int index)
+    {
+        if (index == 0)
+        {
+            ToggleIntro();
+        }
+        else
+        {
+            OpenSectorSelect();
+        }
+    }
+
+    public void ToggleSettings(bool active)
+    {
+        _settingsMenu.SetActive(active);
+    }
+
+    public void WipePrompt(bool active)
+    {
+        _wipePrompt.SetActive(active);
+    }
+
+    public void WipeData()
+    {
+        _wipeScreen.SetActive(true);
+        PlayerPrefs.DeleteAll();
+        Destroy(GameObject.Find("_playerManager"));
+        Application.Quit();
+    }
+
+    public void UnlockAll()
+    {
+        _playerManager._playerLevel = _playerManager._totalLevels - 1;
+        PlayerPrefs.SetInt("PlayerLevel", _playerManager._playerLevel);
+        for (int i = 0; i < _buttons.Count; i++)
+        {
+            _buttons[i].interactable = (i <= _playerManager._playerLevel);
+            _buttons[i].GetComponentInChildren<Text>().enabled = (i <= _playerManager._playerLevel);
+        }
+        for (int i = 0; i < _sectorButtons.Count; i++)
+        {
+            _sectorButtons[i].interactable = (i <= (_playerManager._playerLevel / 9));
+        }
+        SelectLevel(0);
+        OpenSectorSelect();
+        _unlockAllPrompt.SetActive(false);
     }
 
     public void Play()
@@ -201,40 +275,5 @@ public class MainMenu : MonoBehaviour {
     {
         AudioListener.pause = !AudioListener.pause;
         //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
-    }
-
-    public void Back(int index)
-    {
-        if (index == 0)
-        {
-            ToggleIntro();
-        }
-        else
-        {
-            OpenSectorSelect();
-        }
-    }
-
-    public void WipeData()
-    {
-        PlayerPrefs.DeleteAll();
-        Destroy(GameObject.Find("_playerManager"));
-        Application.Quit();
-    }
-
-    public void UnlockAll()
-    {
-        _playerManager._playerLevel = _playerManager._totalLevels - 1;
-        for (int i = 0; i < _buttons.Count; i++)
-        {
-            _buttons[i].interactable = (i <= _playerManager._playerLevel);
-            _buttons[i].GetComponentInChildren<Text>().enabled = (i <= _playerManager._playerLevel);
-        }
-        for (int i = 0; i < _sectorButtons.Count; i++)
-        {
-            _sectorButtons[i].interactable = (i <= (_playerManager._playerLevel / 9));
-        }
-        SelectLevel(0);
-        OpenSectorSelect();
     }
 }

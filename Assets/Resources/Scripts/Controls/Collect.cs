@@ -19,7 +19,7 @@ public class Collect : MonoBehaviour {
         if (other.tag == "Crate")
         {           
             Destroy(other.transform.parent.gameObject);
-            other.transform.parent.parent.FindChild("Collected").GetComponent<ParticleSystem>().Play();
+            other.transform.parent.parent.Find("Collected").GetComponent<ParticleSystem>().Play();
             manager.UpdateCrates();
             _click.Play();
         }

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c73fee60dc469f24b951d6c0a329ffe7
-timeCreated: 1497998993
+timeCreated: 1500224704
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -13,6 +13,8 @@ TextureImporter:
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -28,10 +30,13 @@ TextureImporter:
   textureFormat: 1
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: -1
-    aniso: 16
+    aniso: 1
     mipBias: -1
-    wrapMode: -1
+    wrapU: 1
+    wrapV: -1
+    wrapW: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -83,6 +88,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -90,16 +103,18 @@ TextureImporter:
       name: Box_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 11
-        width: 1016
-        height: 1105
+        x: 0
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 125, y: 111, z: 126, w: 214}
+      border: {x: 113, y: 111, z: 113, w: 106}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
     outline: []
+    physicsShape: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

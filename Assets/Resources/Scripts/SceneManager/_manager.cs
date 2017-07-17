@@ -22,6 +22,7 @@ public class _manager : MonoBehaviour {
 
     public GameObject _winScreen;
     public GameObject _loseScreen;
+    
 
     public Transform _joystick;
 
@@ -32,6 +33,7 @@ public class _manager : MonoBehaviour {
     public Text _timerTxt;
     public Text _cratesRemainingTxt;
     public Text _rankText;
+    
 
     public Ghosts _ghosts;    
     public Image _rankImage;
@@ -41,7 +43,15 @@ public class _manager : MonoBehaviour {
     public Animator _UIanim;
     public Animator _joystickAnim;
     public Animator _playerAnim;
-    
+
+
+
+    //Skip function variables
+    public GameObject _skipScreen;
+    public GameObject _shopScreen;
+    public Button _skipButton;
+    public Text _skipText;
+    public bool _paused;
 
     private void Awake()
     {
@@ -50,6 +60,12 @@ public class _manager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        _skipScreen = GameObject.Find("SkipScreen");
+        _shopScreen = GameObject.Find("ShopScreen");
+        _skipButton = GameObject.Find("SkipBtn").GetComponent<Button>();
+        _skipText = GameObject.Find("SkipsRemaining").GetComponent<Text>();
+        _skipScreen.SetActive(false);
+        _shopScreen.SetActive(false);
         SpawnCrates();
         _playerAnim = GameObject.Find("Player").GetComponent<Animator>();
         _UIanim = gameObject.GetComponent<Animator>();
@@ -82,7 +98,6 @@ public class _manager : MonoBehaviour {
         _cratesRemaining = GameObject.FindGameObjectsWithTag("Crate").Length;
         _cratesRemainingTxt.text = _cratesRemaining.ToString();
         _timerTxt.text = _timer.ToString("F2");
-        _gameOver = false;
         _ghosts = gameObject.GetComponent<Ghosts>();  
 }
 	
@@ -93,7 +108,7 @@ public class _manager : MonoBehaviour {
             Countdown();
             return;
         }
-        if (!_gameOver) UpdateTimer();
+        if (!_gameOver && !_paused) UpdateTimer();
         if (Input.GetKeyDown(KeyCode.W)){ EndLevel(true);}
     }
 
@@ -174,6 +189,68 @@ public class _manager : MonoBehaviour {
 
     }
 
+    public void SkipLevel()
+    {
+        if (_playerManager._playerLevel >= SceneManager.GetActiveScene().buildIndex - 1)
+        {
+            NextLevel();
+        }
+        else
+        {
+            _joystickAnim.SetBool("Complete", true);
+            _UIanim.SetBool("Complete", true);
+            _skipScreen.SetActive(true);
+            _skipButton.interactable = _playerManager._skips > 0;
+            _skipText.text = _playerManager._skips.ToString();
+            _paused = true;
+        }
+        //if (_playerManager._playerLevel < SceneManager.GetActiveScene().buildIndex - 1) _playerManager._playerLevel = (SceneManager.GetActiveScene().buildIndex - 1);
+    }
+    public void Back(bool shop)
+    {
+        if (shop)
+        {
+            _shopScreen.SetActive(false);
+            _skipScreen.SetActive(true);   
+            _skipText.text = _playerManager._skips.ToString();
+            _skipButton.interactable = _playerManager._skips > 0;
+        }
+        else
+        {
+            _joystickAnim.SetBool("Complete", false);
+            _UIanim.SetBool("Complete", false);
+            _skipScreen.SetActive(false);
+            _paused = false;
+        }        
+    }
+
+    public void AddSkips(int i)
+    {
+        _playerManager._skips += i;
+        Back(true);
+    }
+
+    public void Skip()
+    {
+        //IAP MANAGER
+        _playerManager._playerLevel = (SceneManager.GetActiveScene().buildIndex - 1);
+        _playerManager._skips--;
+        _playerManager.SaveTimes();
+        PlayerPrefs.SetInt("PlayerLevel", _playerManager._playerLevel);
+        Analytics.CustomEvent("levelSkipped", new Dictionary<string, object>
+            {
+                {"version", _playerManager._version},
+                {"level", buildIndex}
+            });
+        NextLevel();
+    }
+
+    public void OpenShop()
+    {
+        _skipScreen.SetActive(false);
+        _shopScreen.SetActive(true);
+    }
+
     public IEnumerator LevelReset()
     {
         yield return new WaitForSeconds(2.0f);
@@ -223,7 +300,7 @@ public class _manager : MonoBehaviour {
 
     public void NextLevel()
     {
-        if ((SceneManager.GetActiveScene().buildIndex - 2) < _playerManager._totalLevels)
+        if ((SceneManager.GetActiveScene().buildIndex - 2) <= _playerManager._totalLevels)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
@@ -259,7 +336,6 @@ public class _manager : MonoBehaviour {
                 {"position", _ghosts._sphere.eulerAngles},
                 {"time", _timer}
             });
-        }
-        
+        }        
     }
 }

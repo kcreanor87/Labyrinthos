@@ -6,8 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 public class PlayerControls : MonoBehaviour {
 
     public Transform _sphere;
-    public GameObject _particleReference;
-    public GameObject _ghostParticleReference;
+    public GameObject _particleReference;   
     public float _baseSpeed = 1f;
     public float _speed = 1f;
     private int inputX;
@@ -27,10 +26,8 @@ public class PlayerControls : MonoBehaviour {
         manager = GameObject.Find("UI").GetComponent<_manager>();
         _ghost = GameObject.Find("UI").GetComponent<Ghosts>();
         _sphere = GameObject.Find("World001Container").GetComponentInChildren<Transform>();
-        _particleReference = GameObject.Find("ParticleReference");
-        _ghostParticleReference = GameObject.Find("GhostParticleReference");
-        _particleReference.transform.SetParent(_sphere);
-        if (_ghost._activeGhost) _ghostParticleReference.transform.SetParent(_sphere);
+        _particleReference = GameObject.Find("ParticleReference");        
+        _particleReference.transform.SetParent(_sphere);        
         CameraCheck();
 	}
 

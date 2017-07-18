@@ -16,7 +16,6 @@ public class MainMenu : MonoBehaviour {
     public LevelTimeContainer _timeContainer;  
     
     public GameObject _intro;
-    public GameObject _introContainer;
     public GameObject _levelSelect;
     public GameObject _sectorSelect;
     public GameObject _worldcontainer;   
@@ -50,6 +49,8 @@ public class MainMenu : MonoBehaviour {
 
     public List<GameObject> _planets = new List<GameObject>();
 
+    public Animator _worldContainerAnim;
+
     // Use this for initialization
 
     private void Awake()
@@ -68,10 +69,10 @@ public class MainMenu : MonoBehaviour {
         _wipeScreen = GameObject.Find("WipeScreen");
         _wipeScreen.SetActive(false);
         _intro = transform.Find("Intro").gameObject;
+        _worldContainerAnim = _worldcontainer.GetComponent<Animator>();
         _sectorSelect = transform.Find("SectorSelect").gameObject;
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
         _levelSelect = transform.Find("LevelSelect").gameObject;
-        _introContainer = GameObject.Find("IntroContainer");
         //_muteBtn = GameObject.Find("Mute").GetComponent<Image>();
         //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
         _bestTimeTxt = _levelSelect.transform.Find("BestTimeTxt").GetComponent<Text>();
@@ -103,7 +104,8 @@ public class MainMenu : MonoBehaviour {
         {
             GameObject.Destroy(child.gameObject);
         }
-        Instantiate (_planets[_levelSelected] as GameObject, _worldcontainer.transform);        
+        Instantiate (_planets[_levelSelected] as GameObject, _worldcontainer.transform);
+        _worldContainerAnim.SetBool("Reset", !_worldContainerAnim.GetBool("Reset"));
         for (int j = 0; j < _buttons.Count; j++) {
             SpriteSelector(j);
             _buttonImages[j].color = (i == j) ? Color.white : _highlightColor;
@@ -195,7 +197,6 @@ public class MainMenu : MonoBehaviour {
             if (i < Mathf.FloorToInt(_playerManager._playerLevel / 9)) _lines[i].color = Color.white;
         }
         _intro.SetActive(false);
-        _introContainer.SetActive(false);
         _worldcontainer.SetActive(false);
         _levelSelect.SetActive(false);
         _sectorSelect.SetActive(true);        
@@ -204,7 +205,6 @@ public class MainMenu : MonoBehaviour {
     public void ToggleIntro()
     {
         _intro.SetActive(true);
-        _introContainer.SetActive(true);
         _sectorSelect.SetActive(false);        
     }
 

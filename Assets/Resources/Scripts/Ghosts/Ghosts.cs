@@ -29,12 +29,16 @@ public class Ghosts : MonoBehaviour {
 
     public float _shipRot;
 
+    public GameObject _ghostParticleReference;
+
     private void Awake()
     {
         _level = SceneManager.GetActiveScene().buildIndex - 2;
         _sphere = GameObject.Find("World001Container").GetComponentInChildren<Transform>();
         _ghostGO = GameObject.Find("Ghost").GetComponent<Transform>();
         _ghostShip = _ghostGO.Find("GhostGO").GetComponentInChildren<Transform>();
+        _ghostParticleReference = GameObject.Find("GhostParticleReference");
+        _ghostParticleReference.transform.SetParent(_sphere);
         _ghostGO.gameObject.SetActive(false);
         _Pmanager = gameObject.GetComponent<_manager>();
         LoadGhosts();

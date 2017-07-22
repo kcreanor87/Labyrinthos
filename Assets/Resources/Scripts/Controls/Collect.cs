@@ -23,7 +23,7 @@ public class Collect : MonoBehaviour {
             manager.UpdateCrates();
             _click.Play();
         }
-        else if (other.tag == "Wall")
+        else if (other.tag == "Wall" || other.tag == "Hazard")
         {
             manager.EndLevel(false);
         }

@@ -7,6 +7,9 @@ using UnityEngine.Analytics;
 
 public class _manager : MonoBehaviour {
 
+    public bool _developmentMode;
+    public GameObject _playerManagerPrefab;
+
     public float _timer;
     public float _maxTime = 30.0f;
     public float _best;
@@ -14,7 +17,6 @@ public class _manager : MonoBehaviour {
 
     public int _cratesRemaining;
     public int buildIndex;
-
     public string build;
     
     public bool _inMenu;   
@@ -44,8 +46,6 @@ public class _manager : MonoBehaviour {
     public Animator _joystickAnim;
     public Animator _playerAnim;
 
-
-
     //Skip function variables
     public GameObject _skipScreen;
     public GameObject _shopScreen;
@@ -55,7 +55,13 @@ public class _manager : MonoBehaviour {
 
     private void Awake()
     {
-        if (GameObject.Find("_playerManager") == null) SceneManager.LoadScene(0);
+        if (GameObject.Find("_playerManager") == null && !_developmentMode) SceneManager.LoadScene(0);
+        if (_developmentMode)
+        {
+            GameObject _pmPrefab = Instantiate(_playerManagerPrefab) as GameObject;
+            _pmPrefab.name = "_playerManager";
+        }
+        
     }
 
     // Use this for initialization
@@ -123,7 +129,7 @@ public class _manager : MonoBehaviour {
         _countdown -= Time.deltaTime;
         if (_countdown <= 0.01f)
         {
-            _ghosts.StartGhost();
+            if (!_developmentMode) _ghosts.StartGhost();
             _bestTxt.enabled = false;
             _inMenu = false;
         }

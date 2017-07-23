@@ -9,9 +9,14 @@ public class Collect : MonoBehaviour {
     public AudioSource _lock;
     public AudioSource _click;
 
+    public CameraShake _camShake;
+
+    public bool _gameOver;
+
     private void Start()
     {
         manager = GameObject.Find("UI").GetComponent<_manager>();
+        _camShake = Camera.main.GetComponent<CameraShake>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,7 +30,12 @@ public class Collect : MonoBehaviour {
         }
         else if (other.tag == "Wall" || other.tag == "Hazard")
         {
-            manager.EndLevel(false);
+            if (!_gameOver)
+            {
+                _camShake.Shake();
+                manager.EndLevel(false);
+                _gameOver = true;
+            }            
         }
         else if (other.tag == "Lock")
         {

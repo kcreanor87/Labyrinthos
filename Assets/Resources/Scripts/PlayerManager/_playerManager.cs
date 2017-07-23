@@ -18,6 +18,7 @@ public class _playerManager : MonoBehaviour {
 
     void Awake()
     {
+        Application.targetFrameRate = 30;
         if (_newGame) PlayerPrefs.DeleteAll();
         DontDestroyOnLoad(gameObject);
         if (!PlayerPrefs.HasKey("PlayerLevel")){

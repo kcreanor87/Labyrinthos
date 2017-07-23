@@ -15,7 +15,7 @@ public class CameraShake : MonoBehaviour {
         Shaking = false;
     }
     
-    void Update()
+    void FixedUpdate()
     {
         if (ShakeIntensity > 0)
         {
@@ -38,8 +38,8 @@ public class CameraShake : MonoBehaviour {
         OriginalPos = transform.position;
         OriginalRot = transform.rotation;
 
-        ShakeIntensity = 0.05f;
-        ShakeDecay = 0.001f;
+        ShakeIntensity = 0.03f;
+        ShakeDecay = 0.0015f;
         Shaking = true;
     }
 }

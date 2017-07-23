@@ -59,7 +59,7 @@ public class PlayerControls : MonoBehaviour {
         _ghost._yRot = y;
         _sphere.Rotate(y, x, 0, Space.World);
         transform.rotation = Quaternion.LookRotation(lookVec, Vector3.forward);
-        _ghost._shipRot = transform.localRotation.eulerAngles.z;
+        _ghost._shipRot = transform.localRotation.eulerAngles.z;        
     }
 
     public void CameraCheck() {
@@ -77,5 +77,5 @@ public class PlayerControls : MonoBehaviour {
         }
         yield return new WaitForSeconds(0.03f);
         CameraCheck();
-    }
+    }    
 }

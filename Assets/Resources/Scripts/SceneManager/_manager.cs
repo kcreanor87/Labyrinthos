@@ -23,8 +23,7 @@ public class _manager : MonoBehaviour {
     public bool _gameOver;
 
     public GameObject _winScreen;
-    public GameObject _loseScreen;
-    
+    public GameObject _loseScreen;    
 
     public Transform _joystick;
 
@@ -34,8 +33,7 @@ public class _manager : MonoBehaviour {
     public Text _bestTxt;
     public Text _timerTxt;
     public Text _cratesRemainingTxt;
-    public Text _rankText;
-    
+    public Text _rankText;    
 
     public Ghosts _ghosts;    
     public Image _rankImage;

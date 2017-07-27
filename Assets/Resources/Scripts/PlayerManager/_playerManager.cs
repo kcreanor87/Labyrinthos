@@ -16,8 +16,13 @@ public class _playerManager : MonoBehaviour {
 
     public static int _skips = 3;
 
+    public static bool _tooltips;
+
     void Awake()
     {
+
+        _tooltips = (PlayerPrefs.GetInt("Tooltip") > 0);
+        
         Application.targetFrameRate = 30;
         if (_newGame) PlayerPrefs.DeleteAll();
         DontDestroyOnLoad(gameObject);

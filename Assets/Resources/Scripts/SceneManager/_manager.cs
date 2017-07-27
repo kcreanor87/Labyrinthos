@@ -50,6 +50,7 @@ public class _manager : MonoBehaviour {
     public Button _skipButton;
     public Text _skipText;
     public bool _paused;
+    public bool _tooltipActive;
 
     private void Awake()
     {
@@ -79,7 +80,6 @@ public class _manager : MonoBehaviour {
         _rankImage = GameObject.Find("Rank").GetComponent<Image>();
         _rankText = GameObject.Find("RankText").GetComponent<Text>();
         _countdown = 2.0f;
-        Time.timeScale = 1.0f;
         _timer = 0.0f;
         _inMenu = true;
         _bestTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
@@ -93,8 +93,6 @@ public class _manager : MonoBehaviour {
         _levelTxt.enabled = false;
         _winScreen = GameObject.Find("GameOver_win");
         _winScreen.SetActive(false);
-        _loseScreen = GameObject.Find("GameOver_lose");
-        _loseScreen.SetActive(false);
         _timeTakenText = GameObject.Find("TimeTakenTxt").GetComponent<Text>();
         _timeTakenText.enabled = false;
         _timerTxt = GameObject.Find("TimerTxt").GetComponent<Text>();
@@ -124,6 +122,7 @@ public class _manager : MonoBehaviour {
 
     void Countdown()
     {
+        if (_tooltipActive) return;
         _countdown -= Time.deltaTime;
         if (_countdown <= 0.01f)
         {

@@ -1,10 +1,18 @@
 fileFormatVersion: 2
 guid: a162518f0b2e53b49b5a23449d542457
-timeCreated: 1497597882
+timeCreated: 1502089143
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: SectorAtlas_locked_0
+    21300002: SectorAtlas_locked_1
+    21300004: SectorAtlas_locked_2
+    21300006: SectorAtlas_locked_3
+    21300008: SectorAtlas_locked_4
+    21300010: SectorAtlas_locked_5
+    21300012: SectorAtlas_locked_8
+    21300014: SectorAtlas_locked_7
+    21300016: SectorAtlas_locked_6
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -13,6 +21,8 @@ TextureImporter:
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -28,10 +38,13 @@ TextureImporter:
   textureFormat: 1
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: -1
     aniso: 16
     mipBias: -1
-    wrapMode: -1
+    wrapU: -1
+    wrapV: -1
+    wrapW: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -90,7 +103,7 @@ TextureImporter:
       name: SectorAtlas_locked_0
       rect:
         serializedVersion: 2
-        x: 7
+        x: 6
         y: 685
         width: 325
         height: 325
@@ -98,8 +111,122 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SectorAtlas_locked_1
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 685
+        width: 325
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SectorAtlas_locked_2
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 685
+        width: 325
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SectorAtlas_locked_3
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 361
+        width: 325
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SectorAtlas_locked_4
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 362
+        width: 325
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SectorAtlas_locked_5
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 360
+        width: 325
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SectorAtlas_locked_8
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 35
+        width: 325
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SectorAtlas_locked_7
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 36
+        width: 325
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SectorAtlas_locked_6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 35
+        width: 325
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
       tessellationDetail: 0
     outline: []
+    physicsShape: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

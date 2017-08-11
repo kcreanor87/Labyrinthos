@@ -9,6 +9,7 @@ public class _playerManager : MonoBehaviour {
     public static float _version = 0.1f;
 
     public bool _newGame;
+    public bool _unlockAll;
     public static bool _skipscreen;
     public static int _totalLevels = 19;
 
@@ -17,13 +18,10 @@ public class _playerManager : MonoBehaviour {
     public static int _skips = 3;
 
     public static bool _tooltips;
+    public static int _levelIndex;
 
     void Awake()
-    {
-
-        _tooltips = (PlayerPrefs.GetInt("Tooltip") > 0);
-        
-        Application.targetFrameRate = 30;
+    {        
         if (_newGame) PlayerPrefs.DeleteAll();
         DontDestroyOnLoad(gameObject);
         if (!PlayerPrefs.HasKey("PlayerLevel")){
@@ -35,7 +33,7 @@ public class _playerManager : MonoBehaviour {
             }
         }
         else {
-            _playerLevel = PlayerPrefs.GetInt("PlayerLevel");
+            _playerLevel = (_unlockAll) ? _totalLevels - 1 : PlayerPrefs.GetInt("PlayerLevel");
             _skips = PlayerPrefs.GetInt("Skips");
             for (int i = 0; i < (_playerLevel + 1); i++)
             {
@@ -44,6 +42,7 @@ public class _playerManager : MonoBehaviour {
             LoadTimes();
         }
         _skipscreen = false;
+        _tooltips = (PlayerPrefs.GetInt("Tooltip") > 0);
     }
 
     public static void SaveTimes()

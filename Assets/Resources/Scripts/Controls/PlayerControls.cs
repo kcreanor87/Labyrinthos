@@ -5,10 +5,11 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerControls : MonoBehaviour {
 
-    public Transform _sphere;
+    public Transform _lookPos;
+    public Transform _ship;
     public GameObject _particleReference;   
     public float _baseSpeed = 1f;
-    public float _speed = 1f;
+    public float _speed = 0.8f;
     private int inputX;
     public _manager manager;
     public Ghosts _ghost;
@@ -25,17 +26,18 @@ public class PlayerControls : MonoBehaviour {
     void Awake () {
         manager = GameObject.Find("UI").GetComponent<_manager>();
         _ghost = GameObject.Find("UI").GetComponent<Ghosts>();
-        _sphere = GameObject.Find("World001Container").GetComponentInChildren<Transform>();
-        _particleReference = GameObject.Find("ParticleReference");        
-        _particleReference.transform.SetParent(_sphere);        
+        _lookPos = GameObject.Find("LookPos").GetComponent<Transform>();
+        _ship = GameObject.Find("Player").GetComponent<Transform>();
         CameraCheck();
 	}
 
     public void FixedUpdate()
     {
         if (manager._inMenu) return;
-        var x = CrossPlatformInputManager.GetAxis("Horizontal");
-        var y = CrossPlatformInputManager.GetAxis("Vertical");
+        var x = Input.GetAxis("Horizontal_Game");
+        var y = Input.GetAxis("Vertical_Game");
+        var pos = new Vector3((Screen.width / 2) + (x * (Screen.height/2)), (Screen.height / 2)  + (-y * (Screen.height / 2)), 16f);
+        _lookPos.position = Camera.main.ScreenToWorldPoint(pos);
         if (Mathf.Abs(x) <= 0.12f && Mathf.Abs(y) <= 0.12f) return;        
         if (_brake && _speed > _brakeAmount)
         {
@@ -52,14 +54,15 @@ public class PlayerControls : MonoBehaviour {
             _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
             
         }
-        var lookVec = new Vector3(y, x, 4096);
         x *= _speed;
         y *= _speed;
         _ghost._xRot = x;
         _ghost._yRot = y;
-        _sphere.Rotate(y, x, 0, Space.World);
-        transform.rotation = Quaternion.LookRotation(lookVec, Vector3.forward);
-        _ghost._shipRot = transform.localRotation.eulerAngles.z;        
+        transform.Rotate(y, -x, 0, Space.Self);
+
+        _ship.LookAt(_lookPos, transform.forward);
+
+        _ghost._shipRot = _ship.localRotation.eulerAngles;
     }
 
     public void CameraCheck() {

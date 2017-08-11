@@ -15,7 +15,16 @@ public class Tooltips : MonoBehaviour {
         _sceneManager = gameObject.GetComponent<_manager>();
         _active = (!_playerManager._tooltips);
         if (_active) StartCoroutine(Countdown());
-    }  
+    }
+
+    public void Update()
+    {
+        if (Input.GetButtonDown("Submit"))
+        {
+            print("Submit Pressed");
+            ClickAnywhereToContinue();
+        }
+    }
 
     public void ClickAnywhereToContinue()
     {

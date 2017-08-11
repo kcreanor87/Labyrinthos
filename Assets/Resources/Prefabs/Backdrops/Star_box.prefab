@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4882706601700292}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BackgroundMeteors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4777585014937108}
   - component: {fileID: 33721488360194788}
   - component: {fileID: 23877639114681724}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Group28502 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4029742770248204}
   - component: {fileID: 123319243305792462}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LensFlare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 4199922479345730}
   - component: {fileID: 33579969500681834}
   - component: {fileID: 23568025419661874}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Group28502 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4955494102702846}
   - component: {fileID: 33054064218842948}
   - component: {fileID: 23393212765062312}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Group28502 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 4879118696809048}
   - component: {fileID: 33729640586491712}
   - component: {fileID: 23112338887471474}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Group28502 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 4419057264238786}
   - component: {fileID: 33575712375702608}
   - component: {fileID: 23696265830668228}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Group28502 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4869468914203364}
   - component: {fileID: 33182678028201624}
   - component: {fileID: 23870298242264472}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Group28502 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 4734378699141218}
   - component: {fileID: 33088412533740780}
   - component: {fileID: 23419603359085790}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Group28502 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 4012648597853262}
   - component: {fileID: 33525702386091142}
   - component: {fileID: 23849692106282560}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Group28502 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 4868364166979052}
   - component: {fileID: 33674305418138844}
   - component: {fileID: 23883998839961174}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Star_box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 4044979959843268}
   - component: {fileID: 33399838405513184}
   - component: {fileID: 23806541230412068}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Group28502
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,8 +245,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1977395086058312}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.34, y: -0, z: 0.89}
-  m_LocalScale: {x: 0.28874728, y: 0.28874722, z: 0.28874722}
+  m_LocalPosition: {x: 0.93, y: -1.7, z: 1.53}
+  m_LocalScale: {x: 0.09465235, y: 0.09465233, z: 0.09465233}
   m_Children: []
   m_Father: {fileID: 4882706601700292}
   m_RootOrder: 0
@@ -311,7 +311,7 @@ Transform:
   m_GameObject: {fileID: 1965422068333342}
   m_LocalRotation: {x: -0.7050559, y: 0.053816836, z: -0.053816836, w: 0.7050559}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2355989, y: 1.2356001, z: 1.2356002}
+  m_LocalScale: {x: 2.0055819, y: 2.0055838, z: 2.005584}
   m_Children:
   - {fileID: 4029742770248204}
   - {fileID: 4882706601700292}
@@ -779,7 +779,7 @@ LensFlare:
   m_Enabled: 1
   m_Flare: {fileID: 12100000, guid: 28f1e8eff353b4e69941c036ea093e73, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_Brightness: 0.54
+  m_Brightness: 0.59
   m_FadeSpeed: 3
   m_IgnoreLayers:
     serializedVersion: 2

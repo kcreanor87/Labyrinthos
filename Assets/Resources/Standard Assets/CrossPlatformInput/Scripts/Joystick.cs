@@ -88,10 +88,8 @@ namespace UnityStandardAssets.CrossPlatformInput
 				delta = Mathf.Clamp(delta, -MovementRange, MovementRange);
 				newPos.y = delta;
 			}
-			var touchPos = new Vector3(m_StartPos.x + newPos.x, m_StartPos.y + newPos.y, m_StartPos.z + newPos.z);
-            transform.position = CheckRange(touchPos, m_StartPos);
-            UpdateVirtualAxes(transform.position);
-			
+			transform.position = new Vector3(m_StartPos.x + newPos.x, m_StartPos.y + newPos.y, m_StartPos.z + newPos.z);
+			UpdateVirtualAxes(transform.position);
 		}
 
 
@@ -116,15 +114,5 @@ namespace UnityStandardAssets.CrossPlatformInput
 				m_VerticalVirtualAxis.Remove();
 			}
 		}
-
-        public float maxRad;
-        private Vector3 CheckRange(Vector3 touchPoint, Vector3 touchZone)
-        {
-            if (Vector3.Distance(touchPoint, touchZone) > maxRad)
-            {
-                touchPoint = touchZone - Vector3.ClampMagnitude((touchZone - touchPoint), maxRad);
-            }
-            return touchPoint;
-        }
-    }
+	}
 }

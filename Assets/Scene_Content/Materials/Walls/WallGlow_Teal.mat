@@ -47,6 +47,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MatCap:
+        m_Texture: {fileID: 2800000, guid: fc83aa10b2d1264459fc18fe1ea152d9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -56,6 +60,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 2800000, guid: babdb274d6c8c8d4abe4b12765819fe3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ToonShade:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -69,9 +81,11 @@ Material:
     - _GlossyReflections: 0
     - _MKGlowPower: 1.63
     - _MKGlowTexStrength: 3.66
+    - _MatCapAccurate: 0
     - _Metallic: 0
     - _Mode: 3
     - _OcclusionStrength: 1
+    - _Outline: 0.002
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 0
@@ -79,7 +93,10 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.3455882, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.4368512, g: 0.74264705, b: 0.74264705, a: 1}
+    - _Color: {r: 0.275519, g: 0.75277454, b: 0.7647059, a: 0.397}
+    - _EmissionColor: {r: 0.33796492, g: 0.97794116, b: 0.9249776, a: 1}
+    - _HColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
     - _MKGlowColor: {r: 0.27205884, g: 0.88088214, b: 1, a: 1}
     - _MKGlowTexColor: {r: 0.61764705, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}

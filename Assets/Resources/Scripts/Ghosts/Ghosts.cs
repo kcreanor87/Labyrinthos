@@ -15,30 +15,34 @@ public class Ghosts : MonoBehaviour {
     public Transform _ghostShip;
     public int _ghostIndex;
 
+    public int _saveIndexi;
+    public int _saveIndexj;
+
     public _manager _Pmanager;
 
     public List<float> _playerTimeX = new List<float>();
     public List<float> _playerTimeY = new List<float>();
-    public List<float> _playerRot = new List<float>();
+    public List<float> _playerRotX = new List<float>();
+    public List<float> _playerRotY = new List<float>();
+    public List<float> _playerRotZ = new List<float>();
     public List<float> _ghostTimeX = new List<float>();
     public List<float> _ghostTimeY = new List<float>();
-    public List<float> _ghostRot = new List<float>();
-     
+    public List<float> _ghostRotX = new List<float>();
+    public List<float> _ghostRotY = new List<float>();
+    public List<float> _ghostRotZ = new List<float>();
+
     public float _xRot;
     public float _yRot;
 
-    public float _shipRot;
+    public Vector3 _shipRot;
 
     public GameObject _ghostParticleReference;
 
     private void Awake()
     {
-        _level = SceneManager.GetActiveScene().buildIndex - 2;
-        _sphere = GameObject.Find("World001Container").GetComponentInChildren<Transform>();
+        _level = _playerManager._levelIndex;
         _ghostGO = GameObject.Find("Ghost").GetComponent<Transform>();
         _ghostShip = _ghostGO.Find("GhostGO").GetComponentInChildren<Transform>();
-        _ghostParticleReference = GameObject.Find("GhostParticleReference");
-        _ghostParticleReference.transform.SetParent(_sphere);
         _ghostGO.gameObject.SetActive(false);
         _Pmanager = gameObject.GetComponent<_manager>();
         LoadGhosts();
@@ -51,16 +55,19 @@ public class Ghosts : MonoBehaviour {
 
     public void LoadGhosts()
     {
-       if (PlayerPrefs.HasKey("GhostLevelx" + _level + "_0"))
+        if (PlayerPrefs.HasKey("GhostLevelx" + _level + "_0"))
         {
             _activeGhost = true;
             for (int j = 0; j < Mathf.FloorToInt(_playerManager._times[_level] * 60.0f); j++)
             {
                 _ghostTimeX.Add(PlayerPrefs.GetFloat("GhostLevelx" + _level + "_" + j));
                 _ghostTimeY.Add(PlayerPrefs.GetFloat("GhostLevely" + _level + "_" + j));
-                _ghostRot.Add(PlayerPrefs.GetFloat("GhostLevelRot" + _level + "_" + j));
+                _ghostRotX.Add(PlayerPrefs.GetFloat("GhostLevelRotx" + _level + "_" + j));
+                _ghostRotY.Add(PlayerPrefs.GetFloat("GhostLevelRoty" + _level + "_" + j));
+                _ghostRotZ.Add(PlayerPrefs.GetFloat("GhostLevelRotz" + _level + "_" + j));
             }
             _totalFrames = _ghostTimeX.Count;
+            StartGhost();
         }
         else
         {
@@ -70,31 +77,48 @@ public class Ghosts : MonoBehaviour {
 
     public void SaveGhost()
     {
-        print("level " + _level + " Ghost saved");
-        for (int j = 0; j < _ghostIndex; j++)
+        StartCoroutine(SaveData());
+    }
+
+    public IEnumerator SaveData()
+    {
+        print("level " + _level + " Ghost saved");        
+        while (_saveIndexi < _ghostIndex)
         {
-            PlayerPrefs.DeleteKey(("GhostLevelx" + _level + "_" + j));
-            PlayerPrefs.DeleteKey(("GhostLevely" + _level + "_" + j));
-            PlayerPrefs.DeleteKey(("GhostLevelRot" + _level + "_" + j));
+            if (_saveIndexi < _playerTimeX.Count) {
+                PlayerPrefs.SetFloat(("GhostLevelx" + _level + "_" + _saveIndexj), _playerTimeX[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevely" + _level + "_" + _saveIndexj), _playerTimeY[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelRotx" + _level + "_" + _saveIndexj), _playerRotX[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelRoty" + _level + "_" + _saveIndexj), _playerRotY[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelRotz" + _level + "_" + _saveIndexj), _playerRotZ[_saveIndexi]);
+
+            }
+            else
+            {
+                PlayerPrefs.DeleteKey(("GhostLevelx" + _level + "_" + _saveIndexi));
+                PlayerPrefs.DeleteKey(("GhostLevely" + _level + "_" + _saveIndexi));
+                PlayerPrefs.DeleteKey(("GhostLevelRotx" + _level + "_" + _saveIndexi));
+                PlayerPrefs.DeleteKey(("GhostLevelRoty" + _level + "_" + _saveIndexi));
+                PlayerPrefs.DeleteKey(("GhostLevelRotz" + _level + "_" + _saveIndexi));
+            }
+            _saveIndexi++;
+            yield return null;
         }
-        for (int j = 0; j < _playerTimeX.Count; j++)
-        {
-            PlayerPrefs.SetFloat(("GhostLevelx" + _level + "_" + j), _playerTimeX[j]);
-            PlayerPrefs.SetFloat(("GhostLevely" + _level + "_" + j), _playerTimeY[j]);
-            PlayerPrefs.SetFloat(("GhostLevelRot" + _level + "_" + j), _playerRot[j]);
-        }
+        _Pmanager.EnableButtons();
     }
 
     private void FixedUpdate()
     {
         if (_Pmanager._inMenu) return; 
         _playerTimeX.Add(-_xRot);
-        _playerTimeY.Add(-_yRot);
-        _playerRot.Add(_shipRot);
+        _playerTimeY.Add(_yRot);
+        _playerRotX.Add(_shipRot.x);
+        _playerRotY.Add(_shipRot.y);
+        _playerRotZ.Add(_shipRot.z);
         if (_activeGhost)
         {            
             _ghostGO.Rotate(_ghostTimeY[_ghostIndex], _ghostTimeX[_ghostIndex], 0, Space.Self);
-            _ghostShip.localRotation = Quaternion.Euler(0, 0, _ghostRot[_ghostIndex]);
+            _ghostShip.localRotation = Quaternion.Euler(_ghostRotX[_ghostIndex], _ghostRotY[_ghostIndex], _ghostRotZ[_ghostIndex]);
             _ghostIndex++;
             _activeGhost = (_Pmanager._timer <= _playerManager._times[_level]);
         }

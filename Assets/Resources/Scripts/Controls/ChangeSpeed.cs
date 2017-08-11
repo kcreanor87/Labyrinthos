@@ -6,67 +6,50 @@ public class ChangeSpeed : MonoBehaviour {
 
     public PlayerControls _playerControls;
     public _manager _sceneManager;
-    public ParticleSystem _boostParticle;
-    public ParticleSystem _boostGaps;
-    public ParticleSystem _regParticle;
-    public ParticleSystem _regGaps;
+    public GameObject _boostParticle;
+    public GameObject _regParticle;
 
     private void Awake()
     {
         _sceneManager = GameObject.Find("UI").GetComponent<_manager>();
-        _boostParticle = GameObject.Find("BoostParticles").GetComponent<ParticleSystem>();
-        _boostParticle.Stop();
-        _boostGaps = GameObject.Find("BoostGaps").GetComponent<ParticleSystem>();
-        _boostGaps.Stop();
-        _regGaps = GameObject.Find("Jet_gaps").GetComponent<ParticleSystem>();
-        _regParticle = GameObject.Find("Jet").GetComponent<ParticleSystem>();
-        _playerControls = GameObject.Find("Player").GetComponent<PlayerControls>();
+        _boostParticle = GameObject.Find("BoostParticles");
+        _regParticle = GameObject.Find("Jet");
+        _playerControls = GameObject.Find("pfbPlayer001").GetComponent<PlayerControls>();
+        _boostParticle.SetActive(false);
     }
 
     public void FixedUpdate()
     {
-        if (!_sceneManager._inMenu) return;
-        if (_playerControls._boost && !_boostParticle.IsAlive())
+        if (_sceneManager._inMenu) return;
+        if (Input.GetAxis("SpeedChange") <= -0.05f) SpeedUp();
+        else if (Input.GetAxis("SpeedChange") >= 0.05f) SlowDown();
+        else ReturnToNormal();
+        if (_playerControls._boost && !_boostParticle.activeInHierarchy)
         {
-            _boostGaps.Play();
-            _boostParticle.Play();
-            _regParticle.Stop();
-            _regGaps.Stop();
+            _boostParticle.SetActive(true);
         }
         else if (!_playerControls._boost)
         {
-            _boostParticle.Stop();
-            _boostGaps.Stop();
-            _regParticle.Play();
-            _regGaps.Play();
+            _boostParticle.SetActive(false);
         }
     }
 
     public void SpeedUp()
     {
         _playerControls._boost = true;
-        _boostParticle.Play();
-        _boostGaps.Play();
-        _regParticle.Stop();
-        _regGaps.Stop();
+        _boostParticle.SetActive(true);
     }
 
     public void SlowDown()
     {
         _playerControls._brake = true;
-        _boostParticle.Stop();
-        _boostGaps.Stop();
-        _regParticle.Play();
-        _regGaps.Play();
+        _boostParticle.SetActive(false);
     }
 
     public void ReturnToNormal()
     {
         _playerControls._boost = false;
         _playerControls._brake = false;
-        _boostParticle.Stop();
-        _boostGaps.Stop();
-        _regParticle.Play();
-        _regGaps.Play();
+        _boostParticle.SetActive(false);
     }
 }

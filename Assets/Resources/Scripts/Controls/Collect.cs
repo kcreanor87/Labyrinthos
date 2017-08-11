@@ -13,6 +13,8 @@ public class Collect : MonoBehaviour {
 
     public bool _gameOver;
 
+    public GameObject _collected;
+
     private void Start()
     {
         manager = GameObject.Find("UI").GetComponent<_manager>();
@@ -24,9 +26,9 @@ public class Collect : MonoBehaviour {
         if (other.tag == "Crate")
         {           
             Destroy(other.transform.parent.gameObject);
-            other.transform.parent.parent.Find("Collected").GetComponent<ParticleSystem>().Play();
+            Instantiate(_collected, other.transform.position, transform.rotation);
             manager.UpdateCrates();
-            _click.Play();
+            //_click.Play();
         }
         else if (other.tag == "Wall" || other.tag == "Hazard")
         {

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23664455340879058}
   - component: {fileID: 135221638992080932}
   - component: {fileID: 54791814239759370}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Slicer_blade 4
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23080210296235610}
   - component: {fileID: 136517737707585246}
   - component: {fileID: 54297764437052098}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Slicerx3
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 23262469135808706}
   - component: {fileID: 135681963104943372}
   - component: {fileID: 54442969849192876}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Slicer_blade 6
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 4988625378296084}
   - component: {fileID: 95953970653255362}
   - component: {fileID: 114975769949956362}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Slicer_x03_CCW
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 23304072650700310}
   - component: {fileID: 135363450749855604}
   - component: {fileID: 54566895159049466}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Slicer_blade 5
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1931333397852740}
-  m_Mesh: {fileID: 4300014, guid: 104386439ed736d43b4039e52c5f8ca3, type: 3}
+  m_Mesh: {fileID: 4300016, guid: 104386439ed736d43b4039e52c5f8ca3, type: 3}
 --- !u!33 &33355475582330064
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -333,7 +333,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1292811972940554}
-  m_Mesh: {fileID: 4300012, guid: 104386439ed736d43b4039e52c5f8ca3, type: 3}
+  m_Mesh: {fileID: 4300014, guid: 104386439ed736d43b4039e52c5f8ca3, type: 3}
 --- !u!54 &54297764437052098
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -469,7 +469,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.06
+  m_Radius: 0.03
   m_Height: 0.27
   m_Direction: 2
   m_Center: {x: -0.00000016577542, y: 0.0000000018640385, z: 0.000000007450578}

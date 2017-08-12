@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4957069279587398}
   - component: {fileID: 95155318997628412}
   - component: {fileID: 114393319694238716}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Slicer_doubler
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 23108079504815526}
   - component: {fileID: 135427177920167838}
   - component: {fileID: 54546094672590076}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Slicer_blade 3
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 23315825746748362}
   - component: {fileID: 136999516000907448}
   - component: {fileID: 54260911984638804}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Slicerx2_crossover
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 23131923960988070}
   - component: {fileID: 135672049935631740}
   - component: {fileID: 54426903008508310}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Slicer_blade_reverse
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.06
+  m_Radius: 0.03
   m_Height: 0.27
   m_Direction: 2
   m_Center: {x: -0.00000016577542, y: 0.0000000018640385, z: 0.000000007450578}

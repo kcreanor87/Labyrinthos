@@ -19,6 +19,19 @@ ModelImporter:
     100022: Slicerx2
     100024: Slicerx2_crossover
     100026: Slicerx3
+    100028: BaseSlicer001
+    100030: Slicer_blade001
+    100032: Slicer_blade002
+    100034: Slicer_blade003
+    100036: Slicer_blade004
+    100038: Slicer_blade005
+    100040: Slicer_blade006
+    100042: Slicer_blade007
+    100044: Slicer_blade_reverse001
+    100046: Slicerx004
+    100048: Slicerx005
+    100050: Slicerx006
+    100052: Slicerx2_crossover001
     400000: BaseSlicer
     400002: Slicer_blade
     400004: Slicer_blade 1
@@ -33,6 +46,19 @@ ModelImporter:
     400022: Slicerx2
     400024: Slicerx2_crossover
     400026: Slicerx3
+    400028: BaseSlicer001
+    400030: Slicer_blade001
+    400032: Slicer_blade002
+    400034: Slicer_blade003
+    400036: Slicer_blade004
+    400038: Slicer_blade005
+    400040: Slicer_blade006
+    400042: Slicer_blade007
+    400044: Slicer_blade_reverse001
+    400046: Slicerx004
+    400048: Slicerx005
+    400050: Slicerx006
+    400052: Slicerx2_crossover001
     2300000: BaseSlicer
     2300002: Slicer_blade
     2300004: Slicer_blade 1
@@ -46,6 +72,19 @@ ModelImporter:
     2300020: Slicerx2
     2300022: Slicerx2_crossover
     2300024: Slicerx3
+    2300026: BaseSlicer001
+    2300028: Slicer_blade001
+    2300030: Slicer_blade002
+    2300032: Slicer_blade003
+    2300034: Slicer_blade004
+    2300036: Slicer_blade005
+    2300038: Slicer_blade006
+    2300040: Slicer_blade007
+    2300042: Slicer_blade_reverse001
+    2300044: Slicerx004
+    2300046: Slicerx005
+    2300048: Slicerx006
+    2300050: Slicerx2_crossover001
     3300000: BaseSlicer
     3300002: Slicer_blade
     3300004: Slicer_blade 1
@@ -59,6 +98,19 @@ ModelImporter:
     3300020: Slicerx2
     3300022: Slicerx2_crossover
     3300024: Slicerx3
+    3300026: BaseSlicer001
+    3300028: Slicer_blade001
+    3300030: Slicer_blade002
+    3300032: Slicer_blade003
+    3300034: Slicer_blade004
+    3300036: Slicer_blade005
+    3300038: Slicer_blade006
+    3300040: Slicer_blade007
+    3300042: Slicer_blade_reverse001
+    3300044: Slicerx004
+    3300046: Slicerx005
+    3300048: Slicerx006
+    3300050: Slicerx2_crossover001
     4300000: Slicerx1
     4300002: Slicer_blade
     4300004: Slicerx2
@@ -72,6 +124,19 @@ ModelImporter:
     4300020: Slicer_blade
     4300022: Slicer_blade_reverse
     4300024: BaseSlicer
+    4300026: Slicerx004
+    4300028: Slicer_blade001
+    4300030: Slicer_blade002
+    4300032: Slicer_blade003
+    4300034: Slicerx005
+    4300036: Slicer_blade004
+    4300038: Slicer_blade005
+    4300040: BaseSlicer001
+    4300042: Slicerx006
+    4300044: Slicer_blade006
+    4300046: Slicerx2_crossover001
+    4300048: Slicer_blade007
+    4300050: Slicer_blade_reverse001
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -134,10 +199,10 @@ ModelImporter:
     addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -150,7 +215,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 0
     normalCalculationMode: 4
   importAnimation: 1
   copyAvatar: 0

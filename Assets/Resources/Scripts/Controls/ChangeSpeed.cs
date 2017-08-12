@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChangeSpeed : MonoBehaviour {
 
     public PlayerControls _playerControls;
+    public CameraShake _camShake;
     public _manager _sceneManager;
     public GameObject _boostParticle;
     public GameObject _regParticle;
@@ -12,6 +13,7 @@ public class ChangeSpeed : MonoBehaviour {
     private void Awake()
     {
         _sceneManager = GameObject.Find("UI").GetComponent<_manager>();
+        _camShake = Camera.main.GetComponent<CameraShake>();
         _boostParticle = GameObject.Find("BoostParticles");
         _regParticle = GameObject.Find("Jet");
         _playerControls = GameObject.Find("pfbPlayer001").GetComponent<PlayerControls>();
@@ -27,6 +29,7 @@ public class ChangeSpeed : MonoBehaviour {
         if (_playerControls._boost && !_boostParticle.activeInHierarchy)
         {
             _boostParticle.SetActive(true);
+            
         }
         else if (!_playerControls._boost)
         {
@@ -35,9 +38,10 @@ public class ChangeSpeed : MonoBehaviour {
     }
 
     public void SpeedUp()
-    {
+    {        
         _playerControls._boost = true;
-        _boostParticle.SetActive(true);
+        if (!_boostParticle.activeInHierarchy) _camShake.Shake();
+        _boostParticle.SetActive(true);        
     }
 
     public void SlowDown()

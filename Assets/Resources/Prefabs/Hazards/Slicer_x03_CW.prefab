@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23862328536370498}
   - component: {fileID: 135952001692740420}
   - component: {fileID: 54626144123516336}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Slicer_blade 6
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23015505870358458}
   - component: {fileID: 136647054171175042}
   - component: {fileID: 54467228892594062}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Slicerx3
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 23141554098821690}
   - component: {fileID: 135698439409909370}
   - component: {fileID: 54240596302304724}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Slicer_blade 5
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 23566874502937818}
   - component: {fileID: 135833505494604230}
   - component: {fileID: 54555379074103514}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Slicer_blade 4
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4309712521614058}
   - component: {fileID: 95598404459142182}
   - component: {fileID: 114180529400049726}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Slicer_x03_CW
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1796156786161082}
-  m_Mesh: {fileID: 4300012, guid: 104386439ed736d43b4039e52c5f8ca3, type: 3}
+  m_Mesh: {fileID: 4300014, guid: 104386439ed736d43b4039e52c5f8ca3, type: 3}
 --- !u!54 &54240596302304724
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -469,7 +469,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.06
+  m_Radius: 0.03
   m_Height: 0.27
   m_Direction: 2
   m_Center: {x: -0.00000016577542, y: 0.0000000018640385, z: 0.000000007450578}

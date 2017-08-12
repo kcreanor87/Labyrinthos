@@ -27,7 +27,6 @@ public class _manager : MonoBehaviour {
 
     public Text _timeTakenText;
     public Text _recordTxt;
-    public Text _levelTxt;
     public Text _bestTxt;
     public Text _timerTxt;
     public Text _cratesRemainingTxt;
@@ -70,6 +69,8 @@ public class _manager : MonoBehaviour {
     {                
         GameObjectFinder();
         SpawnCrates();
+        _cratesRemaining = GameObject.FindGameObjectsWithTag("Crate").Length;
+        _cratesRemainingTxt.text = _cratesRemaining.ToString();
         _nextLevel.interactable = false;
         _mainMenu.interactable = false;
         _restart.interactable = false;
@@ -81,11 +82,8 @@ public class _manager : MonoBehaviour {
         build = (_playerManager._times[levelIndex] == 0.0f) ? "--:--" : _playerManager._times[levelIndex].ToString("F2");
         _bestTxt.text = "Record: " + build + " s";
         _recordTxt.text = build + " s";
-        _levelTxt.text = "Level " + (levelIndex + 1);
-        _levelTxt.enabled = false;
         _winScreen.SetActive(false);
         _timeTakenText.enabled = false;
-        _cratesRemainingTxt.text = _cratesRemaining.ToString();
         _timerTxt.text = _timer.ToString("F2");
     }
 
@@ -107,6 +105,7 @@ public class _manager : MonoBehaviour {
         foreach (GameObject collectable in collectables)
         {
             Instantiate(Resources.Load("Prefabs/Collectables/Collectable_base01") as GameObject, collectable.transform);
+            print(collectable.transform.parent.parent.name);
         }
     }
 
@@ -119,12 +118,10 @@ public class _manager : MonoBehaviour {
         _bestTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
         _recordTxt = GameObject.Find("RecordTxt").GetComponent<Text>();
         _winScreen = GameObject.Find("GameOver_win");
-        _cratesRemainingTxt = GameObject.Find("CratesRemainingTxt").GetComponent<Text>();
-        _cratesRemaining = GameObject.FindGameObjectsWithTag("Crate").Length;
+        _cratesRemainingTxt = GameObject.Find("CratesRemainingTxt").GetComponent<Text>();        
         _timeTakenText = GameObject.Find("TimeTakenTxt").GetComponent<Text>();
         _winScreen = GameObject.Find("GameOver_win");
         _timerTxt = GameObject.Find("TimerTxt").GetComponent<Text>();
-        _levelTxt = GameObject.Find("LevelTxt").GetComponent<Text>();
         _pauseScreen = GameObject.Find("PauseMenu");
         _rotCam = GameObject.Find("RotationCam");
         _UIanim = gameObject.GetComponent<Animator>();
@@ -195,8 +192,7 @@ public class _manager : MonoBehaviour {
     {
         _playerAnim.SetBool("Outro", true);
         _UIanim.SetBool("Complete", true);
-        _UIanim.SetBool("Victory", victory);     
-        _levelTxt.enabled = true;
+        _UIanim.SetBool("Victory", victory);
         _inMenu = true;
         _gameOver = true;
         AnalyticsData(victory);        

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23120180581512462}
   - component: {fileID: 135435364392807820}
   - component: {fileID: 54011673797036420}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Slicer_blade 2
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 4314544486151362}
   - component: {fileID: 95278134076208238}
   - component: {fileID: 114040720211581072}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Slicer_x02_CW
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 23033370757641916}
   - component: {fileID: 135078439273214376}
   - component: {fileID: 54172805611103740}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Slicer_blade 1
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 23008796519460070}
   - component: {fileID: 136171471749745582}
   - component: {fileID: 54554159265769510}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Slicerx2
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.06
+  m_Radius: 0.03
   m_Height: 0.27
   m_Direction: 2
   m_Center: {x: -0.00000016577542, y: 0.0000000018640385, z: 0.000000007450578}

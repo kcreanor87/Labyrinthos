@@ -11,7 +11,6 @@ public class MainMenu : MonoBehaviour {
     public List<Image> _buttonImages = new List<Image>();
     public List<Button> _sectorButtons = new List<Button>();
     public List<Image> _lines = new List<Image>();
-    public List<string> _sectorNames = new List<string>();
 
     public LevelTimeContainer _timeContainer;  
 
@@ -23,7 +22,6 @@ public class MainMenu : MonoBehaviour {
     public GameObject _worldcontainer;   
 
     public Text _bestTimeTxt;
-    public Text _sectorNameTxt;
 
     //Increase this as sectors are added
     public int _maxSector = 2;
@@ -56,6 +54,11 @@ public class MainMenu : MonoBehaviour {
 
     public int _screenIndex;
     public int _playerNumber;
+
+    public Animator _introAnim;
+    public Animator _sectorAnim;
+    public Animator _levelAnim;
+    public Animator _planetFader;
 
     // Use this for initialization
 
@@ -127,10 +130,13 @@ public class MainMenu : MonoBehaviour {
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
         _worldContainerAnim = _worldcontainer.GetComponent<Animator>();
         _intro = transform.Find("Intro").gameObject;
+        _introAnim = _intro.GetComponent<Animator>();
         _sectorSelect = transform.Find("SectorSelect").gameObject;
+        _sectorAnim = _sectorSelect.GetComponent<Animator>();
         _levelSelect = transform.Find("LevelSelect").gameObject;
+        _levelAnim = _levelSelect.GetComponent<Animator>();
+        _planetFader = GameObject.Find("PlanetFader").GetComponent<Animator>();
         _bestTimeTxt = _levelSelect.transform.Find("BestTimeTxt").GetComponent<Text>();
-        _sectorNameTxt = _levelSelect.transform.Find("SectorName").GetComponent<Text>();
         _startGame = GameObject.Find("StartGame").GetComponent<Button>();
         _highlighter = GameObject.Find("Highlighter").GetComponent<RectTransform>();
     }
@@ -139,10 +145,9 @@ public class MainMenu : MonoBehaviour {
     {
         _levelSelected = i + (_activeSector * 9);
         _playerManager._levelIndex = _levelSelected;
-        //var path = "Prefabs/Worlds/Sc0" + (_activeSector + 1) + "/pfbWorldSc0" + (_activeSector + 1)+ "_0" + (i + 1);
         foreach (Transform child in _worldcontainer.transform)
         {
-            GameObject.Destroy(child.gameObject);
+            if (child.name != "StartPad") GameObject.Destroy(child.gameObject);
         }
         Instantiate (_planets[_levelSelected] as GameObject, _worldcontainer.transform);
         _worldContainerAnim.SetBool("Reset", !_worldContainerAnim.GetBool("Reset"));
@@ -154,8 +159,7 @@ public class MainMenu : MonoBehaviour {
             {
                 _buttonImages[j].sprite = _lockedSprite;
                 _buttonImages[j].color = Color.white;
-            }            
-            _buttons[j].GetComponentInChildren<Text>().enabled = (_playerManager._playerLevel >= (j + (_activeSector * 9)));
+            }
             _buttons[j].GetComponentInChildren<Animator>().enabled = (i == j);
         }
         _bestTimeTxt.text = (_playerManager._times[_levelSelected] > 0.0f) ? "Record: " + _playerManager._times[_levelSelected].ToString("F2") + "s" : "Record: - - : - -";        
@@ -191,19 +195,24 @@ public class MainMenu : MonoBehaviour {
 
     public void ToggleSector(int sector)
     {
+        StartCoroutine(FadeOutToLevel(sector));
+    }
+
+    public void OpenLevel(int sector)
+    {
         for (int i = 0; i < _buttons.Count; i++)
         {
             _buttons[i].transform.Find("ButtonImg").rotation = Quaternion.identity;
         }
         _activeSector = sector;
         _levelSelect.SetActive(true);
-        _sectorNameTxt.text = _sectorNames[sector];
         _worldcontainer.SetActive(true);
         var maxLevel = (_playerManager._playerLevel >= (_activeSector + 1) * 9) ? 8 : (_playerManager._playerLevel - (_activeSector) * 9);
         SelectLevel(maxLevel);
         _buttons[maxLevel].Select();
         _sectorSelect.SetActive(false);
         _screenIndex = 1;
+        _planetFader.SetBool("Active", true);
     }
 
     public void SectorSwitcher(bool increase)
@@ -234,6 +243,20 @@ public class MainMenu : MonoBehaviour {
 
     public void OpenSectorSelect()
     {
+        if (_screenIndex < 1)
+        {
+            StartCoroutine(FadeOutToSector(_introAnim));
+        }
+        else
+        {
+            _planetFader.SetBool("Active", false);
+            StartCoroutine(FadeOutToSector(_levelAnim));
+        }
+        
+    }
+
+    public void OpenSector()
+    {
         for (int i = 0; i < _lines.Count; i++)
         {
             if (!(i < Mathf.FloorToInt(_playerManager._playerLevel / 9))) _lines[i].gameObject.SetActive(false);
@@ -243,6 +266,27 @@ public class MainMenu : MonoBehaviour {
         _levelSelect.SetActive(false);
         _sectorSelect.SetActive(true);
         _sectorButtons[Mathf.FloorToInt(_playerManager._playerLevel / 9)].Select();
+    }
+
+    public IEnumerator FadeOutToSector(Animator anim)
+    {
+        anim.SetBool("Outro", true);
+        yield return new WaitForSeconds(1.8f);
+        OpenSector();
+    }
+
+    public IEnumerator FadeOutToLevel(int sector)
+    {
+        _sectorAnim.SetBool("Outro", true);
+        yield return new WaitForSeconds(1.4f);
+        OpenLevel(sector);
+    }
+
+    public IEnumerator FadeOutToIntro()
+    {
+        _sectorAnim.SetBool("Outro", true);
+        yield return new WaitForSeconds(1.4f);
+        ToggleIntro();
     }
 
     public void ToggleIntro()
@@ -265,7 +309,7 @@ public class MainMenu : MonoBehaviour {
     {
         if (index == 0)
         {
-            ToggleIntro();
+            StartCoroutine(FadeOutToIntro());
         }
         else
         {
@@ -312,7 +356,9 @@ public class MainMenu : MonoBehaviour {
 
     public void Play()
     {
-        SceneManager.LoadScene(_playerNumber + 1);
+        _levelAnim.SetBool("Outro", true);
+        _planetFader.SetBool("Active", false);
+        StartCoroutine(SceneChange());
     }
 
     public void Quit()
@@ -324,5 +370,11 @@ public class MainMenu : MonoBehaviour {
     {
         AudioListener.pause = !AudioListener.pause;
         //_muteBtn.sprite = (AudioListener.pause == true) ? _unmute : _mute;
+    }
+
+    public IEnumerator SceneChange()
+    {
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene(_playerNumber + 1);
     }
 }

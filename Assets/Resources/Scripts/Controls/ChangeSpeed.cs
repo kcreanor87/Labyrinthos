@@ -23,7 +23,12 @@ public class ChangeSpeed : MonoBehaviour {
     public void FixedUpdate()
     {
         if (_sceneManager._inMenu) return;
-        if (Input.GetAxis("SpeedChange") <= -0.05f) SpeedUp();
+        if (_sceneManager._ending)
+        {
+            SlowDown();
+            return;
+        }
+        if (Input.GetAxis("SpeedChange") <= -0.05f && !_sceneManager._ending) SpeedUp();
         else if (Input.GetAxis("SpeedChange") >= 0.05f) SlowDown();
         else ReturnToNormal();
         if (_playerControls._boost && !_boostParticle.activeInHierarchy)
@@ -38,9 +43,9 @@ public class ChangeSpeed : MonoBehaviour {
     }
 
     public void SpeedUp()
-    {        
+    {
         _playerControls._boost = true;
-        if (!_boostParticle.activeInHierarchy) _camShake.Shake();
+        if (!_boostParticle.activeInHierarchy && !_sceneManager._ending) _camShake.Shake();
         _boostParticle.SetActive(true);        
     }
 

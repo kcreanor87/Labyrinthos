@@ -45,11 +45,12 @@ public class _manager : MonoBehaviour {
     public GameObject _rotCam;
     public bool _paused;
     public bool _tooltipActive;
+    public bool _saving;
+    public bool _ending;
+
+    public GameObject _playerCol;
 
     //Initial selection buttons
-    public Button _nextLevel;
-    public Button _mainMenu;
-    public Button _restart;
     public Button _resume;
 
     private void Awake()
@@ -71,9 +72,6 @@ public class _manager : MonoBehaviour {
         SpawnCrates();
         _cratesRemaining = GameObject.FindGameObjectsWithTag("Crate").Length;
         _cratesRemainingTxt.text = _cratesRemaining.ToString();
-        _nextLevel.interactable = false;
-        _mainMenu.interactable = false;
-        _restart.interactable = false;
         _pauseScreen.SetActive(false);
         _rotCam.SetActive(false);
         _countdown = 2.0f;
@@ -112,6 +110,7 @@ public class _manager : MonoBehaviour {
     void GameObjectFinder()
     {
         _playerAnim = GameObject.Find("Player").GetComponent<Animator>();
+        _playerCol = _playerAnim.transform.Find("Collider").gameObject;
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
         _rankImage = GameObject.Find("Rank").GetComponent<Image>();
         _rankText = GameObject.Find("RankText").GetComponent<Text>();
@@ -126,9 +125,6 @@ public class _manager : MonoBehaviour {
         _rotCam = GameObject.Find("RotationCam");
         _UIanim = gameObject.GetComponent<Animator>();
         _ghosts = gameObject.GetComponent<Ghosts>();
-        _nextLevel = GameObject.Find("NextLevel").GetComponent<Button>();
-        _mainMenu = GameObject.Find("MainMenu").GetComponent<Button>();
-        _restart = GameObject.Find("Restart").GetComponent<Button>();
         _resume = GameObject.Find("Resume").GetComponent<Button>();
     }
 
@@ -140,7 +136,11 @@ public class _manager : MonoBehaviour {
         }
         if (!_gameOver && !_paused) UpdateTimer();
         if (Input.GetKeyDown(KeyCode.W)){ EndLevel(true);}
-        if (_gameOver && EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject == null) _nextLevel.Select();
+        if (_gameOver && !_saving)
+        {
+            print("Waiting selection");
+            EndGameInput();
+        }
     }
 
     private void Update()
@@ -150,7 +150,7 @@ public class _manager : MonoBehaviour {
 
     void InputManager()
     {
-        if (Input.GetButtonDown("Pause") && !_tooltipActive && !_gameOver) PauseGame(!_paused);
+        if (Input.GetButtonDown("Pause") && !_tooltipActive && !_ending) PauseGame(!_paused);
     }
 
     void UpdateTimer()
@@ -190,26 +190,22 @@ public class _manager : MonoBehaviour {
 
     public void EndLevel(bool victory)
     {
+        _ending = true;
         _playerAnim.SetBool("Outro", true);
-        _UIanim.SetBool("Complete", true);
-        _UIanim.SetBool("Victory", victory);
-        _inMenu = true;
-        _gameOver = true;
-        AnalyticsData(victory);        
+        AnalyticsData(victory);
+        _playerCol.SetActive(false);
         if (victory)
         {
             RankSwitcher(levelIndex, _timer);
+            Camera.main.GetComponent<Animator>().SetBool("GameOver", true);
             if (_timer < _playerManager._times[levelIndex] || (_playerManager._times[levelIndex] == 0.0f))
             {
+                _saving = true;
                 _playerManager._times[levelIndex] = _timer;
-                _bestTxt.text = "New Record: " + _timer.ToString("F2") + "s";
-                _bestTxt.color = Color.green;
                 _playerManager.SaveTimes();
+                _bestTxt.text = "New Record: " + _timer.ToString("F2") + "s";
+                _bestTxt.color = Color.green;                                
                 _ghosts.SaveGhost();
-            }
-            else
-            {
-                EnableButtons();
             }
             _bestTxt.enabled = true;
             if (_playerManager._playerLevel < levelIndex + 1) _playerManager._playerLevel = levelIndex + 1;
@@ -219,12 +215,21 @@ public class _manager : MonoBehaviour {
             _timeTakenText.text = "Completed in: " + timeString + "s";
             _timeTakenText.enabled = true;
             _timeContainer.CheckTimes();
-            _nextLevel.Select();
+            StartCoroutine(WaitForEnding());
         }
         else
         {
             StartCoroutine(LevelReset());
         }
+    }
+
+    public IEnumerator WaitForEnding()
+    {
+        yield return new WaitForSeconds(2.0f);        
+        _UIanim.SetBool("Complete", true);
+        _UIanim.SetBool("Victory", true);
+        //_rotCam.SetActive(true);
+        _gameOver = true;
     }
 
     public IEnumerator LevelReset()
@@ -273,19 +278,13 @@ public class _manager : MonoBehaviour {
         SceneManager.LoadScene(2);
     }
 
-    public void EnableButtons()
+    public void SaveTimes()
     {
-        _restart.interactable = true;
-        _mainMenu.interactable = true;
-        _nextLevel.interactable = true;
+        _ghosts.SaveGhost();
     }
 
     public void NextLevel()
     {
-        if (_timer < _playerManager._times[levelIndex] || (_playerManager._times[levelIndex] == 0.0f))
-        {
-            _ghosts.SaveGhost();
-        }
         if (levelIndex < _playerManager._totalLevels)
         {
             _playerManager._levelIndex++;
@@ -294,6 +293,22 @@ public class _manager : MonoBehaviour {
         else {
             ChangeScene();
         }        
+    }
+
+    public void EndGameInput()
+    {
+        if (Input.GetButtonDown("Submit"))
+        {
+            NextLevel();
+        }
+        if (Input.GetButtonDown("Restart"))
+        {
+            Restart();
+        }
+        if (Input.GetButtonDown("MainMenu"))
+        {
+            ChangeScene();
+        }
     }
 
     public void Quit()

@@ -16,7 +16,6 @@ public class Ghosts : MonoBehaviour {
     public int _ghostIndex;
 
     public int _saveIndexi;
-    public int _saveIndexj;
 
     public _manager _Pmanager;
 
@@ -35,8 +34,6 @@ public class Ghosts : MonoBehaviour {
     public float _yRot;
 
     public Vector3 _shipRot;
-
-    public GameObject _ghostParticleReference;
 
     private void Awake()
     {
@@ -82,15 +79,16 @@ public class Ghosts : MonoBehaviour {
 
     public IEnumerator SaveData()
     {
+        if (_ghostIndex == 0) _ghostIndex = _playerTimeX.Count;
         print("level " + _level + " Ghost saved");        
         while (_saveIndexi < _ghostIndex)
         {
             if (_saveIndexi < _playerTimeX.Count) {
-                PlayerPrefs.SetFloat(("GhostLevelx" + _level + "_" + _saveIndexj), _playerTimeX[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevely" + _level + "_" + _saveIndexj), _playerTimeY[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelRotx" + _level + "_" + _saveIndexj), _playerRotX[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelRoty" + _level + "_" + _saveIndexj), _playerRotY[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelRotz" + _level + "_" + _saveIndexj), _playerRotZ[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelx" + _level + "_" + _saveIndexi), _playerTimeX[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevely" + _level + "_" + _saveIndexi), _playerTimeY[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelRotx" + _level + "_" + _saveIndexi), _playerRotX[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelRoty" + _level + "_" + _saveIndexi), _playerRotY[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelRotz" + _level + "_" + _saveIndexi), _playerRotZ[_saveIndexi]);
 
             }
             else
@@ -104,7 +102,7 @@ public class Ghosts : MonoBehaviour {
             _saveIndexi++;
             yield return null;
         }
-        _Pmanager.EnableButtons();
+        _Pmanager._saving = false;
     }
 
     private void FixedUpdate()

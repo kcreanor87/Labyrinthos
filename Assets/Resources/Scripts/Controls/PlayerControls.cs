@@ -34,22 +34,24 @@ public class PlayerControls : MonoBehaviour {
     public void FixedUpdate()
     {
         if (manager._inMenu) return;
+        if (manager._ending) _boost = false;
         var x = Input.GetAxis("Horizontal_Game");
         var y = Input.GetAxis("Vertical_Game");
         var pos = new Vector3((Screen.width / 2) + (x * (Screen.height/2)), (Screen.height / 2)  + (-y * (Screen.height / 2)), 16f);
         _lookPos.position = Camera.main.ScreenToWorldPoint(pos);
         if (Mathf.Abs(x) <= 0.12f && Mathf.Abs(y) <= 0.12f) return;        
-        if (_brake && _speed > _brakeAmount)
+        if (_brake && _speed >= _brakeAmount)
         {
             _speed -= Time.deltaTime * 2;
+            if (manager._ending) _brakeAmount = 0.0f;
             
         }
-        else if (_boost && _speed < _boostAmount)
+        else if (_boost && _speed <= _boostAmount)
         {
             _speed += Time.deltaTime * 2;
             
         }
-        else
+        else if (!_brake && !_boost)
         {
             _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
             
@@ -60,7 +62,7 @@ public class PlayerControls : MonoBehaviour {
         _ghost._yRot = y;
         transform.Rotate(y, -x, 0, Space.Self);
 
-        _ship.LookAt(_lookPos, transform.forward);
+         if (_speed >=  0.15f) _ship.LookAt(_lookPos, transform.forward);
 
         _ghost._shipRot = _ship.localRotation.eulerAngles;
     }

@@ -5,9 +5,6 @@ using UnityEngine;
 public class Collect : MonoBehaviour {
 
     public _manager manager;
-    public AudioSource _explode;
-    public AudioSource _lock;
-    public AudioSource _click;
 
     public CameraShake _camShake;
 
@@ -28,7 +25,6 @@ public class Collect : MonoBehaviour {
             Destroy(other.transform.parent.gameObject);
             Instantiate(_collected, other.transform.position, transform.rotation);
             manager.UpdateCrates();
-            //_click.Play();
         }
         else if (other.tag == "Wall" || other.tag == "Hazard")
         {
@@ -38,11 +34,6 @@ public class Collect : MonoBehaviour {
                 manager.EndLevel(false);
                 _gameOver = true;
             }            
-        }
-        else if (other.tag == "Lock")
-        {
-            other.transform.GetComponentInParent<LockControl>().SwitchWalls(true);
-            _lock.Play();
         }
     }
 }

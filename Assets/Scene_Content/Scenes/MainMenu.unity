@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.5661765, g: 0.5661765, b: 0.5661765, a: 1}
+  m_AmbientSkyColor: {r: 0.8088235, g: 0.8088235, b: 0.8088235, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.5
@@ -440,7 +440,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4915926549975152, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.96592593
       objectReference: {fileID: 0}
     - target: {fileID: 4915926549975152, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
       propertyPath: m_LocalRotation.z
@@ -448,39 +448,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4915926549975152, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.2588188
       objectReference: {fileID: 0}
     - target: {fileID: 4915926549975152, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4014745903386916, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.106365085
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014745903386916, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0.19560507
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014745903386916, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0.9746975
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014745903386916, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.019750958
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014745903386916, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 22.676
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014745903386916, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
+    - target: {fileID: 4915926549975152, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -12.494
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014745903386916, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -180.193
+      value: 210
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79bb6a15364388a4992488fcbe703a5b, type: 2}
@@ -3063,7 +3039,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 677235683}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 862b5e44d487dae4f807ddfdb05c9e88, type: 3}
   m_Name: 

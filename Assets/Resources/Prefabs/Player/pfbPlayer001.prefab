@@ -1223,6 +1223,7 @@ GameObject:
   - component: {fileID: 114770507278102806}
   - component: {fileID: 114722767461655194}
   - component: {fileID: 114739557450484546}
+  - component: {fileID: 95163673581295254}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1876,7 +1877,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1960633356045428}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: -0.37835515, z: 27.08}
   m_LocalScale: {x: 1.4007171, y: 1.4007168, z: 1.4007169}
   m_Children:
@@ -2197,8 +2198,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1140058954370770}
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -4e-15, y: 0.1, z: 1.1}
-  m_LocalScale: {x: 8.409495, y: 8.409495, z: 8.409495}
+  m_LocalPosition: {x: -4e-15, y: 0.1, z: -19.7}
+  m_LocalScale: {x: 13.0654, y: 13.065403, z: 13.065403}
   m_Children: []
   m_Father: {fileID: 4475459560713352}
   m_RootOrder: 0
@@ -4323,6 +4324,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95163673581295254
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960633356045428}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1e1a70f2eace1964e8be9aa7f9546d86, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95281083582586654
 Animator:
   serializedVersion: 3
@@ -4932,7 +4950,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -47089,7 +47107,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 3
+  m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5

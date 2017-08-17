@@ -39,10 +39,10 @@ public class Ghosts : MonoBehaviour {
     {
         _level = _playerManager._levelIndex;
         _ghostGO = GameObject.Find("Ghost").GetComponent<Transform>();
-        _ghostShip = _ghostGO.Find("GhostGO").GetComponentInChildren<Transform>();
-        _ghostGO.gameObject.SetActive(false);
+        _ghostShip = _ghostGO.Find("GhostGO").GetComponentInChildren<Transform>();        
         _Pmanager = gameObject.GetComponent<_manager>();
         LoadGhosts();
+        _ghostGO.gameObject.SetActive(false);
     }
 
     public void StartGhost()
@@ -102,18 +102,19 @@ public class Ghosts : MonoBehaviour {
             _saveIndexi++;
             yield return null;
         }
-        _Pmanager._saving = false;
+        _Pmanager._saving = false; 
+        _Pmanager._gameOverPrompt.SetBool("Saving", false);
     }
 
     private void FixedUpdate()
     {
-        if (_Pmanager._inMenu) return; 
+        if (_Pmanager._inMenu) return;
         _playerTimeX.Add(-_xRot);
         _playerTimeY.Add(_yRot);
         _playerRotX.Add(_shipRot.x);
         _playerRotY.Add(_shipRot.y);
         _playerRotZ.Add(_shipRot.z);
-        if (_activeGhost)
+        if (_activeGhost && !_Pmanager._ending)
         {            
             _ghostGO.Rotate(_ghostTimeY[_ghostIndex], _ghostTimeX[_ghostIndex], 0, Space.Self);
             _ghostShip.localRotation = Quaternion.Euler(_ghostRotX[_ghostIndex], _ghostRotY[_ghostIndex], _ghostRotZ[_ghostIndex]);

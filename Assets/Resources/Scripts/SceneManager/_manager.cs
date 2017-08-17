@@ -9,12 +9,11 @@ using UnityEngine.EventSystems;
 public class _manager : MonoBehaviour {
 
     public bool _developmentMode;
-    public GameObject _playerManagerPrefab;
 
     public float _timer;
     public float _maxTime = 30.0f;
     public float _best;
-    public float _countdown = 1.2f;
+    public float _countdown = 0.5f;
 
     public int _cratesRemaining;
     public int levelIndex;
@@ -23,32 +22,35 @@ public class _manager : MonoBehaviour {
     public bool _inMenu;   
     public bool _gameOver;
 
-    public GameObject _winScreen;    
+    public GameObject _winScreen;
+    public GameObject _pauseScreen;
+    public GameObject _rotCam;
+    public GameObject _playerCol;
+    public GameObject _playerManagerPrefab;
+    public GameObject _rankFX;
 
     public Text _timeTakenText;
     public Text _recordTxt;
     public Text _bestTxt;
     public Text _timerTxt;
     public Text _cratesRemainingTxt;
-    public Text _rankText;    
-
-    public Ghosts _ghosts;    
+    public Text _rankText;
+    
     public Image _rankImage;
     public Sprite _rankSsprite, _rankAsprite, _rankBsprite, _rankCsprite;
     public LevelTimeContainer _timeContainer;
+    public Ghosts _ghosts;
 
     public Animator _UIanim;
     public Animator _playerAnim;
-
-    //Skip function variables
-    public GameObject _pauseScreen;
-    public GameObject _rotCam;
+    public Animator _gameOverPrompt;
+    
     public bool _paused;
     public bool _tooltipActive;
     public bool _saving;
     public bool _ending;
 
-    public GameObject _playerCol;
+    public Color _newRecordColour;
 
     //Initial selection buttons
     public Button _resume;
@@ -70,19 +72,27 @@ public class _manager : MonoBehaviour {
     {                
         GameObjectFinder();
         SpawnCrates();
+
         _cratesRemaining = GameObject.FindGameObjectsWithTag("Crate").Length;
         _cratesRemainingTxt.text = _cratesRemaining.ToString();
-        _pauseScreen.SetActive(false);
+
+        _pauseScreen.SetActive(false);        
         _rotCam.SetActive(false);
-        _countdown = 2.0f;
+        _winScreen.SetActive(false);
+        _gameOverPrompt.gameObject.SetActive(false);
+        _rankFX.SetActive(false);
+
+        _countdown = 0.9f;
         _timer = 0.0f;
         _inMenu = true;
+
         build = (_playerManager._times[levelIndex] == 0.0f) ? "--:--" : _playerManager._times[levelIndex].ToString("F2");
-        _bestTxt.text = "Record: " + build + " s";
+        _bestTxt.text = build + " s";
         _recordTxt.text = build + " s";
-        _winScreen.SetActive(false);
-        _timeTakenText.enabled = false;
         _timerTxt.text = _timer.ToString("F2");
+
+        _bestTxt.enabled = false;
+        _timeTakenText.enabled = false;
     }
 
     void SpawnLevel()
@@ -126,6 +136,8 @@ public class _manager : MonoBehaviour {
         _UIanim = gameObject.GetComponent<Animator>();
         _ghosts = gameObject.GetComponent<Ghosts>();
         _resume = GameObject.Find("Resume").GetComponent<Button>();
+        _gameOverPrompt = GameObject.Find("GameOverPrompt").GetComponent<Animator>();
+        _rankFX = GameObject.Find("RankFX");
     }
 
 	void FixedUpdate () {
@@ -134,11 +146,11 @@ public class _manager : MonoBehaviour {
             Countdown();
             return;
         }
-        if (!_gameOver && !_paused) UpdateTimer();
+        if (!_ending && !_paused) UpdateTimer();
         if (Input.GetKeyDown(KeyCode.W)){ EndLevel(true);}
+        if (Input.GetButtonDown("Restart")) Restart();
         if (_gameOver && !_saving)
         {
-            print("Waiting selection");
             EndGameInput();
         }
     }
@@ -166,8 +178,7 @@ public class _manager : MonoBehaviour {
         _countdown -= Time.deltaTime;
         if (_countdown <= 0.01f)
         {
-            if (!_developmentMode) _ghosts.StartGhost();
-            _bestTxt.enabled = false;
+            if (!_developmentMode) _ghosts.StartGhost();            
             _inMenu = false;
         }
     }   
@@ -193,26 +204,33 @@ public class _manager : MonoBehaviour {
         _ending = true;
         _playerAnim.SetBool("Outro", true);
         AnalyticsData(victory);
-        _playerCol.SetActive(false);
+        _playerCol.SetActive(false);        
         if (victory)
         {
+            _gameOverPrompt.gameObject.SetActive(true);
             RankSwitcher(levelIndex, _timer);
             Camera.main.GetComponent<Animator>().SetBool("GameOver", true);
             if (_timer < _playerManager._times[levelIndex] || (_playerManager._times[levelIndex] == 0.0f))
             {
-                _saving = true;
+                _saving = true;                
+                _gameOverPrompt.SetBool("Saving", true);
                 _playerManager._times[levelIndex] = _timer;
                 _playerManager.SaveTimes();
-                _bestTxt.text = "New Record: " + _timer.ToString("F2") + "s";
-                _bestTxt.color = Color.green;                                
+                _bestTxt.text = _timer.ToString("F2") + "s";
+                _bestTxt.color = _newRecordColour;
+                _rankFX.SetActive(true);
                 _ghosts.SaveGhost();
+            }
+            else
+            {
+                _gameOverPrompt.SetBool("Saving", false);
             }
             _bestTxt.enabled = true;
             if (_playerManager._playerLevel < levelIndex + 1) _playerManager._playerLevel = levelIndex + 1;
             if (_playerManager._playerLevel >= _playerManager._totalLevels) _playerManager._playerLevel = _playerManager._totalLevels - 1;
             PlayerPrefs.SetInt("PlayerLevel", _playerManager._playerLevel);
             var timeString = _timer.ToString("F2");
-            _timeTakenText.text = "Completed in: " + timeString + "s";
+            _timeTakenText.text = timeString + "s";
             _timeTakenText.enabled = true;
             _timeContainer.CheckTimes();
             StartCoroutine(WaitForEnding());
@@ -225,10 +243,9 @@ public class _manager : MonoBehaviour {
 
     public IEnumerator WaitForEnding()
     {
-        yield return new WaitForSeconds(2.0f);        
+        yield return new WaitForSeconds(1.5f);        
         _UIanim.SetBool("Complete", true);
         _UIanim.SetBool("Victory", true);
-        //_rotCam.SetActive(true);
         _gameOver = true;
     }
 
@@ -300,14 +317,17 @@ public class _manager : MonoBehaviour {
         if (Input.GetButtonDown("Submit"))
         {
             NextLevel();
+            _gameOverPrompt.SetBool("Pressed", true);
         }
         if (Input.GetButtonDown("Restart"))
         {
             Restart();
+            _gameOverPrompt.SetBool("Pressed", true);
         }
         if (Input.GetButtonDown("MainMenu"))
         {
             ChangeScene();
+            _gameOverPrompt.SetBool("Pressed", true);
         }
     }
 

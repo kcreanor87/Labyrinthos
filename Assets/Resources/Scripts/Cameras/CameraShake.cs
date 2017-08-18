@@ -38,8 +38,8 @@ public class CameraShake : MonoBehaviour {
         OriginalPos = transform.localPosition;
         OriginalRot = transform.localRotation;
 
-        ShakeIntensity = 0.03f;
-        ShakeDecay = 0.0015f;
+        ShakeIntensity = 0.02f;
+        ShakeDecay = 0.001f;
         Shaking = true;
     }
 }

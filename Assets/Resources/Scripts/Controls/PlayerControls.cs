@@ -13,7 +13,6 @@ public class PlayerControls : MonoBehaviour {
     private int inputX;
     public _manager manager;
     public Ghosts _ghost;
-    public RectTransform _joystickTransform;
     public bool _brake;
     public bool _boost;
     public float _cameraBase = 56.0f;
@@ -43,18 +42,15 @@ public class PlayerControls : MonoBehaviour {
         if (_brake && _speed >= _brakeAmount)
         {
             _speed -= Time.deltaTime * 2;
-            if (manager._ending) _brakeAmount = 0.0f;
-            
+            if (manager._ending) _brakeAmount = 0.0f;            
         }
         else if (_boost && _speed <= _boostAmount)
         {
-            _speed += Time.deltaTime * 2;
-            
+            _speed += Time.deltaTime * 2;            
         }
         else if (!_brake && !_boost)
         {
             _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
-            
         }
         x *= _speed;
         y *= _speed;

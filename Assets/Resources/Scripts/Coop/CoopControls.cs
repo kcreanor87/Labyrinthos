@@ -17,7 +17,6 @@ public class CoopControls : MonoBehaviour
     public float _speed = 0.8f;
     private int inputX;
     public _CoopManager manager;
-    public RectTransform _joystickTransform;
     public bool _brake;
     public bool _boost;
     public float _cameraBase = 56.0f;
@@ -48,33 +47,32 @@ public class CoopControls : MonoBehaviour
     public void FixedUpdate()
     {
         if (manager._inMenu || _resetting) return;
+        if (manager._ending) _boost = false;
         var pathX = "Joy" + _playerIndex + "X";
         var pathY = "Joy" + _playerIndex + "Y";
         var x = Input.GetAxis(pathX);
         var y = Input.GetAxis(pathY);
         float lookOrigin = _playerIndex > 0 ? ((Screen.width / 4) * 3) : (Screen.width / 4);
-        var pos = new Vector3(lookOrigin + (x * (Screen.width / 4)), (Screen.width / 4) + (-y * (Screen.width / 4)), 16f);
+        var pos = new Vector3(lookOrigin + (x * (Screen.width / 4)), (Screen.height / 2) + (-y * (Screen.width / 4)), 16f);
         _lookPos.position = _cam.ScreenToWorldPoint(pos);
         if (Mathf.Abs(x) <= 0.12f && Mathf.Abs(y) <= 0.12f) return;
         if (_brake && _speed > _brakeAmount)
         {
             _speed -= Time.deltaTime * 2;
-
+            if (manager._ending) _brakeAmount = 0.0f;
         }
         else if (_boost && _speed < _boostAmount)
         {
             _speed += Time.deltaTime * 2;
-
         }
         else
         {
             _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
-
         }
         x *= _speed;
         y *= _speed;
         transform.Rotate(y, -x, 0, Space.Self);
-        _ship.LookAt(_lookPos, transform.forward);
+        _ship.LookAt(_lookPos, transform.forward); 
     }
 
     public void CameraCheck()
@@ -105,11 +103,11 @@ public class CoopControls : MonoBehaviour
 
     public IEnumerator ResetPosition()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         transform.rotation = _startRot;
         _playerAnim.Play("PlayerIntro");
         _entryParticles.SetActive(true);
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.9f);
         _resetting = false;
     }
 }

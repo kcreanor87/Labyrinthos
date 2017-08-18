@@ -8,14 +8,12 @@ public class ChangeSpeed : MonoBehaviour {
     public CameraShake _camShake;
     public _manager _sceneManager;
     public GameObject _boostParticle;
-    public GameObject _regParticle;
 
     private void Awake()
     {
         _sceneManager = GameObject.Find("UI").GetComponent<_manager>();
         _camShake = Camera.main.GetComponent<CameraShake>();
         _boostParticle = GameObject.Find("BoostParticles");
-        _regParticle = GameObject.Find("Jet");
         _playerControls = GameObject.Find("pfbPlayer001").GetComponent<PlayerControls>();
         _boostParticle.SetActive(false);
     }
@@ -33,8 +31,7 @@ public class ChangeSpeed : MonoBehaviour {
         else ReturnToNormal();
         if (_playerControls._boost && !_boostParticle.activeInHierarchy)
         {
-            _boostParticle.SetActive(true);
-            
+            _boostParticle.SetActive(true);            
         }
         else if (!_playerControls._boost)
         {

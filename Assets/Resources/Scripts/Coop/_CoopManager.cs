@@ -8,8 +8,7 @@ using UnityEngine.EventSystems;
 
 public class _CoopManager : MonoBehaviour {
 
-    public bool _developmentMode;
-    public GameObject _playerManagerPrefab;
+    public bool _developmentMode;    
 
     public float _timer;
     public float _maxTime = 30.0f;
@@ -24,30 +23,34 @@ public class _CoopManager : MonoBehaviour {
     public bool _inMenu;   
     public bool _gameOver;
 
-    public GameObject _winScreen;    
+    public GameObject _winScreen;
+    public GameObject _pauseScreen;
+    public GameObject _rotCam;
+    public GameObject _player1Col;
+    public GameObject _player2Col;
+    public GameObject _playerManagerPrefab;
 
     public Text _timeTakenText;
     public Text _recordTxt;
-    public Text _levelTxt;
     public Text _bestTxt;
     public Text _timerTxt;
-    public Text _cratesRemainingTxt;
-    public Text _rankText;     
+    public Text _P1cratesRemainingTxt;
+    public Text _P2cratesRemainingTxt;
+    public Text _rankText;  
+    
     public Image _rankImage;
     public Sprite _rankSsprite, _rankAsprite, _rankBsprite, _rankCsprite;
     public LevelTimeContainer _timeContainer;
 
     public Animator _UIanim;
-    public Animator _playerAnim;
-
-    //Skip function variables
-    public GameObject _pauseScreen;
-    public GameObject _rotCam;
+    public Animator _player1Anim;
+    public Animator _player2Anim;
+    public Animator _gameOverPrompt;
+    
     public bool _paused;
     public bool _tooltipActive;
-
-    //Initial selection buttons
-    public Button _nextLevel;
+    public bool _ending;
+    
     public Button _resume;
 
     private void Awake()
@@ -64,29 +67,36 @@ public class _CoopManager : MonoBehaviour {
 
     // Use this for initialization
     void Start()
-    {        
-        SpawnCrates();
+    {
         GameObjectFinder();
+        SpawnCrates();
+        _cratesRemaining_P1 = GameObject.FindGameObjectsWithTag("Crate0").Length;
+        _cratesRemaining_P2 = GameObject.FindGameObjectsWithTag("Crate1").Length;
+        _P1cratesRemainingTxt.text = _cratesRemaining_P1.ToString();
+        _P2cratesRemainingTxt.text = _cratesRemaining_P2.ToString();
+
         _pauseScreen.SetActive(false);
         _rotCam.SetActive(false);
-        _countdown = 2.0f;
+        _winScreen.SetActive(false);
+        _gameOverPrompt.gameObject.SetActive(false);
+
+        _countdown = 1.5f;
         _timer = 0.0f;
         _inMenu = true;
+
         build = (_playerManager._times[levelIndex] == 0.0f) ? "--:--" : _playerManager._times[levelIndex].ToString("F2");
         _winScreen.SetActive(false);
         _timeTakenText.enabled = false;
-        _cratesRemainingTxt.text = _cratesRemaining_P1.ToString();
+        
         _timerTxt.text = _timer.ToString("F2");
-        _nextLevel.Select();
     }
 
     void SpawnLevel()
     {
-        levelIndex = _playerManager._levelIndex;
+        levelIndex = Random.Range(8, 17);
         var sector = Mathf.Floor(levelIndex / 9) + 1;
         var level = levelIndex - ((sector - 1) * 9);
-        var path = "Prefabs/2P_Worlds/Sc0" + sector + "/pfbWorldSc0" + sector + "_0" + (level + 1) + "_2P";
-        print(path);
+        var path = "Prefabs/Worlds/Sc0" + sector + "/pfbWorldSc0" + sector + "_0" + (level + 1);
         GameObject World = Instantiate(Resources.Load(path, typeof (GameObject))) as GameObject;
         World.transform.parent = GameObject.Find("World001Container").GetComponent<Transform>();
         World.transform.localPosition = new Vector3(0,0,0);
@@ -105,20 +115,22 @@ public class _CoopManager : MonoBehaviour {
 
     void GameObjectFinder()
     {
-        //_playerAnim = GameObject.Find("Player").GetComponent<Animator>();
+        _player1Anim = GameObject.Find("Player1").GetComponent<Animator>();
+        _player2Anim = GameObject.Find("Player2").GetComponent<Animator>();
+        _player1Col = _player1Anim.transform.Find("Collider").gameObject;
+        _player2Col = _player2Anim.transform.Find("Collider").gameObject;
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
         _winScreen = GameObject.Find("GameOver_win");
-        _cratesRemainingTxt = GameObject.Find("CratesRemainingTxt").GetComponent<Text>();
-        _cratesRemaining_P1 = GameObject.FindGameObjectsWithTag("Crate0").Length;
-        _cratesRemaining_P2 = GameObject.FindGameObjectsWithTag("Crate1").Length;
+        _P1cratesRemainingTxt = GameObject.Find("P1CratesRemainingTxt").GetComponent<Text>();
+        _P2cratesRemainingTxt = GameObject.Find("P2CratesRemainingTxt").GetComponent<Text>();
         _timeTakenText = GameObject.Find("TimeTakenTxt").GetComponent<Text>();
         _winScreen = GameObject.Find("GameOver_win");
         _timerTxt = GameObject.Find("TimerTxt").GetComponent<Text>();
         _pauseScreen = GameObject.Find("PauseMenu");
         _rotCam = GameObject.Find("RotationCam");
         _UIanim = gameObject.GetComponent<Animator>();
-        _nextLevel = GameObject.Find("NextLevel").GetComponent<Button>();
         _resume = GameObject.Find("Resume").GetComponent<Button>();
+        _gameOverPrompt = GameObject.Find("GameOverPrompt").GetComponent<Animator>();
     }
 
 	void FixedUpdate () {
@@ -128,7 +140,11 @@ public class _CoopManager : MonoBehaviour {
             return;
         }
         if (!_gameOver && !_paused) UpdateTimer();
-        if (_gameOver && EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject == null) _nextLevel.Select();
+        if (Input.GetKeyDown(KeyCode.W)) { EndLevel(0);}
+        if (_gameOver)
+        {
+            EndGameInput();
+        }
     }
 
     private void Update()
@@ -139,6 +155,31 @@ public class _CoopManager : MonoBehaviour {
     void InputManager()
     {
         if (Input.GetButtonDown("Pause") && !_tooltipActive && !_gameOver) PauseGame(!_paused);
+
+        if (Input.GetButton("Pause"))
+            print("joystick 1 detected");
+        else if (Input.GetButton("Pause2"))
+            print("joystick 2 detected");
+        else if (Input.GetButton("Pause3"))
+            print("joystick 3 detected");
+        else if (Input.GetButton("Pause4"))
+            print("joystick 4 detected");
+        else if (Input.GetButton("Pause5"))
+            print("joystick 5 detected");
+        else if (Input.GetButton("Pause6"))
+            print("joystick 6 detected");
+        else if (Input.GetButton("Pause7"))
+            print("joystick 7 detected");
+        else if (Input.GetButton("Pause8"))
+            print("joystick 8 detected");
+        else if (Input.GetButton("Pause8"))
+            print("joystick 8 detected");
+        else if (Input.GetButton("Pause9"))
+            print("joystick 8 detected");
+        else if (Input.GetButton("Pause10"))
+            print("joystick 8 detected");
+        else if (Input.GetButton("Pause11"))
+            print("joystick 8 detected");
     }
 
     void UpdateTimer()
@@ -160,9 +201,17 @@ public class _CoopManager : MonoBehaviour {
 
     public void UpdateCrates(int playerIndex)
     {
-        if (playerIndex == 0) _cratesRemaining_P1--;
-        if (playerIndex == 1) _cratesRemaining_P2--;
-        _cratesRemainingTxt.text = _cratesRemaining_P1.ToString();
+        if (playerIndex == 0)
+        {
+            _cratesRemaining_P1--;
+            _P1cratesRemainingTxt.text = _cratesRemaining_P1.ToString();
+        }
+        if (playerIndex == 1)
+        {
+            _P2cratesRemainingTxt.text = _cratesRemaining_P1.ToString();
+            _cratesRemaining_P2--;
+        }
+        
         if (_cratesRemaining_P1 == 0) EndLevel(0);
         if (_cratesRemaining_P2 == 0) EndLevel(1);
     }
@@ -178,7 +227,8 @@ public class _CoopManager : MonoBehaviour {
 
     public void EndLevel(int victor)
     {
-        //_playerAnim.SetBool("Outro", true);
+        _player1Anim.SetBool("Outro", true);
+        _player2Anim.SetBool("Outro", true);
         _UIanim.SetBool("Complete", true);
         _UIanim.SetBool("Victory", true);
         _inMenu = true;
@@ -186,7 +236,15 @@ public class _CoopManager : MonoBehaviour {
         var timeString = _timer.ToString("F2");
         _timeTakenText.text = "Completed in: " + timeString + "s";
         _timeTakenText.enabled = true;
-        _nextLevel.Select();
+        StartCoroutine(WaitForEnding());
+    }
+
+    public IEnumerator WaitForEnding()
+    {
+        yield return new WaitForSeconds(1.5f);
+        _UIanim.SetBool("Complete", true);
+        _UIanim.SetBool("Victory", true);
+        _gameOver = true;
     }
 
     public void ChangeScene()
@@ -197,6 +255,7 @@ public class _CoopManager : MonoBehaviour {
 
     public void NextLevel()
     {
+        /*
         if (levelIndex < _playerManager._totalLevels)
         {
             _playerManager._levelIndex++;
@@ -204,6 +263,21 @@ public class _CoopManager : MonoBehaviour {
         }
         else {
             ChangeScene();
-        }        
+        }   
+        */
+    }
+
+    public void EndGameInput()
+    {
+        if (Input.GetButtonDown("Submit"))
+        {
+            NextLevel();
+            _gameOverPrompt.SetBool("Pressed", true);
+        }
+        if (Input.GetButtonDown("MainMenu"))
+        {
+            ChangeScene();
+            _gameOverPrompt.SetBool("Pressed", true);
+        }
     }
 }

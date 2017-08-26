@@ -34,7 +34,6 @@ public class _manager : MonoBehaviour {
     public Text _bestTxt;
     public Text _timerTxt;
     public Text _cratesRemainingTxt;
-    public Text _rankText;
     
     public Image _rankImage;
     public Sprite _rankSsprite, _rankAsprite, _rankBsprite, _rankCsprite;
@@ -50,9 +49,7 @@ public class _manager : MonoBehaviour {
     public bool _saving;
     public bool _ending;
 
-    public Color _newRecordColour;
-
-    public Button _resume;
+    public Color _newRecordColour;    
 
     private void Awake()
     {
@@ -124,7 +121,6 @@ public class _manager : MonoBehaviour {
         _playerCol = _playerAnim.transform.Find("Collider").gameObject;
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
         _rankImage = GameObject.Find("Rank").GetComponent<Image>();
-        _rankText = GameObject.Find("RankText").GetComponent<Text>();
         _bestTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
         _recordTxt = GameObject.Find("RecordTxt").GetComponent<Text>();
         _winScreen = GameObject.Find("GameOver_win");
@@ -136,7 +132,6 @@ public class _manager : MonoBehaviour {
         _rotCam = GameObject.Find("RotationCam");
         _UIanim = gameObject.GetComponent<Animator>();
         _ghosts = gameObject.GetComponent<Ghosts>();
-        _resume = GameObject.Find("Resume").GetComponent<Button>();
         _gameOverPrompt = GameObject.Find("GameOverPrompt").GetComponent<Animator>();
         _rankFX = GameObject.Find("RankFX");
     }
@@ -148,8 +143,11 @@ public class _manager : MonoBehaviour {
             return;
         }
         if (!_ending && !_paused) UpdateTimer();
-        if (Input.GetKeyDown(KeyCode.W)){ EndLevel(true);}
         if (Input.GetButtonDown("Restart")) Restart();
+        if (_paused)
+        {
+            PausedInput();
+        }
         if (_gameOver && !_saving)
         {
             EndGameInput();
@@ -197,7 +195,6 @@ public class _manager : MonoBehaviour {
         _pauseScreen.SetActive(_paused);
         _rotCam.SetActive(_paused);
         _inMenu = _paused;
-        _resume.Select();
     }
 
     public void EndLevel(bool victory)
@@ -210,7 +207,7 @@ public class _manager : MonoBehaviour {
         {
             _gameOverPrompt.gameObject.SetActive(true);
             RankSwitcher(levelIndex, _timer);
-            Camera.main.GetComponent<Animator>().SetBool("GameOver", true);
+            Camera.main.GetComponent<Animator>().enabled = true;
             if (_timer < _playerManager._times[levelIndex] || (_playerManager._times[levelIndex] == 0.0f))
             {
                 if (_timer <= _timeContainer._levelTimes[levelIndex]._C_time)
@@ -264,25 +261,21 @@ public class _manager : MonoBehaviour {
         if (time <= _timeContainer._levelTimes[index]._S_time)
         {
             _rankImage.sprite = _rankSsprite;
-            _rankText.text = "S";
             _UIanim.SetInteger("Class", 3);
         }
         else if (time <= _timeContainer._levelTimes[index]._A_time)
         {
             _rankImage.sprite = _rankAsprite;
-            _rankText.text = "A";
             _UIanim.SetInteger("Class", 2);
         }
         else if (time <= _timeContainer._levelTimes[index]._B_time)
         {
             _rankImage.sprite = _rankBsprite;
-            _rankText.text = "B";
             _UIanim.SetInteger("Class", 1);
         }
         else
         {
             _rankImage.sprite = _rankCsprite;
-            _rankText.text = "C";
             _UIanim.SetInteger("Class", 0);
         }        
     }
@@ -321,6 +314,22 @@ public class _manager : MonoBehaviour {
         if (Input.GetButtonDown("Submit"))
         {
             NextLevel();
+        }
+        if (Input.GetButtonDown("Restart"))
+        {
+            Restart();
+        }
+        if (Input.GetButtonDown("MainMenu"))
+        {
+            ChangeScene();
+        }
+    }
+
+    public void PausedInput()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            PauseGame(false);
             _gameOverPrompt.SetBool("Pressed", true);
         }
         if (Input.GetButtonDown("Restart"))

@@ -22,9 +22,7 @@ public class MainMenu : MonoBehaviour {
     public GameObject _intro;
     public GameObject _levelSelect;
     public GameObject _sectorSelect;
-    public GameObject _worldcontainer;   
-
-    public Text _bestTimeTxt;
+    public GameObject _worldcontainer;  
 
     //Increase this as sectors are added
     public int _maxSector = 2;
@@ -45,11 +43,13 @@ public class MainMenu : MonoBehaviour {
 
     public Color _highlightColor;
     public Color _regColor;
+    public Color _lockedColour;
     public Animator _uiAnims;
 
     public List<GameObject> _planets = new List<GameObject>();
 
     public Animator _worldContainerAnim;
+    public Animator _buttonPrompt;
 
     public int _screenIndex;
     public int _playerNumber;
@@ -121,9 +121,9 @@ public class MainMenu : MonoBehaviour {
         _levelSelect = transform.Find("LevelSelect").gameObject;
         _levelAnim = _levelSelect.GetComponent<Animator>();
         _planetFader = GameObject.Find("PlanetFader").GetComponent<Animator>();
-        _bestTimeTxt = _levelSelect.transform.Find("BestTimeTxt").GetComponent<Text>();
         _startGame = GameObject.Find("StartGame").GetComponent<Button>();
         _introSpheres = GameObject.Find("Circles").GetComponent<Animator>();
+        _buttonPrompt = GameObject.Find("ButtonPrompt").GetComponent<Animator>();
     }
 
     public void SelectLevel(int i)
@@ -144,11 +144,11 @@ public class MainMenu : MonoBehaviour {
             _buttons[j].interactable = (_playerManager._playerLevel >= (j + (_activeSector * 9)));
             if (!_buttons[j].interactable)
             {
+                _buttonImages[j].color = _lockedColour;
                 _buttonImages[j].sprite = _lockedSprite;
             }
             _buttons[j].GetComponentInChildren<Animator>().enabled = (i == j);
-        }
-        _bestTimeTxt.text = (_playerManager._times[level] > 0.0f) ? _playerManager._times[level].ToString("F2") + "s" : "- - : - -";        
+        }     
     }
 
     void SpriteSelector(int index)
@@ -203,6 +203,7 @@ public class MainMenu : MonoBehaviour {
         _sectorSelect.SetActive(false);
         _screenIndex = 1;
         _planetFader.SetBool("Active", true);
+        _buttonPrompt.SetBool("Pressed", false);
     }
 
     /*public void SectorSwitcher(bool increase)
@@ -241,6 +242,7 @@ public class MainMenu : MonoBehaviour {
         else
         {
             _planetFader.SetBool("Active", false);
+            _buttonPrompt.SetBool("Pressed", true);
             StartCoroutine(FadeOutToSector(_levelAnim));
         }
         
@@ -350,6 +352,7 @@ public class MainMenu : MonoBehaviour {
     public void Play()
     {
         _levelAnim.SetBool("Outro", true);
+        _buttonPrompt.SetBool("Pressed", true);
         _planetFader.SetBool("Active", false);
         StartCoroutine(SceneChange());
     }

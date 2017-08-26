@@ -10,23 +10,19 @@ public class CameraShake : MonoBehaviour {
     private Vector3 OriginalPos;
     private Quaternion OriginalRot;
 
-    public Transform _transform;
-
     public bool _singlePlayer;
 
     void Start()
     {
         Shaking = false;
-        if (_singlePlayer) _transform = Camera.main.transform;
-        else _transform = transform;
     }
     
     void FixedUpdate()
     {
         if (ShakeIntensity > 0)
         {
-            _transform.localPosition = OriginalPos + Random.insideUnitSphere * ShakeIntensity;
-            _transform.localRotation = new Quaternion(OriginalRot.x + Random.Range(-ShakeIntensity, ShakeIntensity) * .2f,
+            transform.localPosition = OriginalPos + Random.insideUnitSphere * ShakeIntensity;
+            transform.localRotation = new Quaternion(OriginalRot.x + Random.Range(-ShakeIntensity, ShakeIntensity) * .2f,
             OriginalRot.y + Random.Range(-ShakeIntensity, ShakeIntensity) * .2f,
             OriginalRot.z + Random.Range(-ShakeIntensity, ShakeIntensity) * .2f,
             OriginalRot.w + Random.Range(-ShakeIntensity, ShakeIntensity) * .2f);
@@ -41,20 +37,18 @@ public class CameraShake : MonoBehaviour {
 
     public void Shake()
     {
-        OriginalPos = _transform.localPosition;
-        OriginalRot = _transform.localRotation;
+        OriginalPos = transform.localPosition;
+        OriginalRot = transform.localRotation;
+
         if (_singlePlayer)
         {
-            ShakeIntensity = 0.3f;
-            ShakeDecay = 0.015f;
+            ShakeIntensity = 0.03f;
+            ShakeDecay = 0.0015f;
             Shaking = true;
+            return;
         }
-        else
-        {
-            ShakeIntensity = 0.02f;
-            ShakeDecay = 0.001f;
-            Shaking = true;
-        }
-        
+        ShakeIntensity = 0.02f;
+        ShakeDecay = 0.001f;
+        Shaking = true;
     }
 }

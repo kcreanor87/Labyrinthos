@@ -11,7 +11,6 @@ public class _manager : MonoBehaviour {
     public bool _developmentMode;
 
     public float _timer;
-    public float _maxTime = 30.0f;
     public float _best;
     public float _countdown = 0.5f;
 
@@ -45,7 +44,6 @@ public class _manager : MonoBehaviour {
     public Animator _gameOverPrompt;
     
     public bool _paused;
-    public bool _tooltipActive;
     public bool _saving;
     public bool _ending;
 
@@ -59,7 +57,10 @@ public class _manager : MonoBehaviour {
             GameObject _pmPrefab = Instantiate(_playerManagerPrefab) as GameObject;
             _pmPrefab.name = "_playerManager";
         }
-        SpawnLevel();
+        else
+        {
+            SpawnLevel();
+        }
 
     }
 
@@ -161,7 +162,7 @@ public class _manager : MonoBehaviour {
 
     void InputManager()
     {
-        if (Input.GetButtonDown("Pause") && !_tooltipActive && !_ending) PauseGame(!_paused);
+        if (Input.GetButtonDown("Pause") && !_gameOver && !_ending) PauseGame(!_paused);
     }
 
     void UpdateTimer()
@@ -173,7 +174,6 @@ public class _manager : MonoBehaviour {
 
     void Countdown()
     {
-        if (_tooltipActive) return;
         _countdown -= Time.deltaTime;
         if (_countdown <= 0.01f)
         {

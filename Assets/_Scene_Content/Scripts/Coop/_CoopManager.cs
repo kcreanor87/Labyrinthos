@@ -11,7 +11,6 @@ public class _CoopManager : MonoBehaviour {
     public bool _developmentMode;    
 
     public float _timer;
-    public float _maxTime = 30.0f;
     public float _best;
     public float _countdown = 1.2f;
 
@@ -50,11 +49,8 @@ public class _CoopManager : MonoBehaviour {
     public Animator _gameOverPrompt;
     
     public bool _paused;
-    public bool _tooltipActive;
     public bool _ending;
     public bool _switching;
-    
-    public Button _resume;
 
     private void Awake()
     {
@@ -137,7 +133,6 @@ public class _CoopManager : MonoBehaviour {
         _P1rotCam = GameObject.Find("P1RotationCam");
         _P2rotCam = GameObject.Find("P2RotationCam");
         _UIanim = gameObject.GetComponent<Animator>();
-        _resume = GameObject.Find("Resume").GetComponent<Button>();
         _gameOverPrompt = GameObject.Find("GameOverPrompt").GetComponent<Animator>();
         _gameOverPanel = GameObject.Find("GameOverPanel");
     }
@@ -149,7 +144,11 @@ public class _CoopManager : MonoBehaviour {
             return;
         }
         if (!_ending && !_paused) UpdateTimer();
-        if (Input.GetKeyDown(KeyCode.W)) { EndLevel(0);}
+        //if (Input.GetKeyDown(KeyCode.W)) { EndLevel(0);}
+        if (_paused)
+        {
+            PausedInput();
+        }
         if (_gameOver && !_switching)
         {
             EndGameInput();
@@ -163,31 +162,7 @@ public class _CoopManager : MonoBehaviour {
 
     void InputManager()
     {
-        if (Input.GetButtonDown("Pause") && !_tooltipActive && !_gameOver) PauseGame(!_paused);
-
-        if (Input.GetButton("Pause"))
-            print("joystick 1 detected");
-        else if (Input.GetButton("Pause2"))
-            print("joystick 2 detected");
-        else if (Input.GetButton("Pause3"))
-            print("joystick 3 detected");
-        else if (Input.GetButton("Pause4"))
-            print("joystick 4 detected");
-        else if (Input.GetButton("Pause5"))
-            print("joystick 5 detected");
-        else if (Input.GetButton("Pause6"))
-            print("joystick 6 detected");
-        else if (Input.GetButton("Pause7"))
-            print("joystick 7 detected");
-        else if (Input.GetButton("Pause8"))
-            print("joystick 8 detected");
-        else if (Input.GetButton("Pause9"))
-            print("joystick 9 detected");
-        else if (Input.GetButton("Pause10"))
-            print("joystick 10 detected");
-        else if (Input.GetButton("Pause11"))
-            print("joystick 11 detected");
-
+        if (Input.GetButtonDown("Pause") && !_ending && !_gameOver) PauseGame(!_paused);
         if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
     }
 
@@ -201,7 +176,6 @@ public class _CoopManager : MonoBehaviour {
 
     void Countdown()
     {
-        if (_tooltipActive) return;
         _countdown -= Time.deltaTime;
         if (_countdown <= 0.01f)
         {
@@ -230,10 +204,10 @@ public class _CoopManager : MonoBehaviour {
     {
         _paused = active;
         _pauseScreen.SetActive(_paused);
+        _gameOverPanel.SetActive(_paused);
         _P1rotCam.SetActive(_paused);
         _P2rotCam.SetActive(_paused);
         _inMenu = _paused;
-        _resume.Select();
     }
 
     public void EndLevel(int victor)
@@ -279,6 +253,20 @@ public class _CoopManager : MonoBehaviour {
         _switching = true;
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(index);
+    }
+
+    public void PausedInput()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            PauseGame(false);
+            _gameOverPrompt.SetBool("Pressed", true);
+        }
+        if (Input.GetButtonDown("MainMenu"))
+        {
+            ChangeScene();
+            _gameOverPrompt.SetBool("Pressed", true);
+        }
     }
 
     public void EndGameInput()

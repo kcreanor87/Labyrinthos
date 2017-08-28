@@ -144,20 +144,20 @@ public class _manager : MonoBehaviour {
             return;
         }
         if (!_ending && !_paused) UpdateTimer();
-        if (Input.GetButtonDown("Restart")) Restart();
-        if (_paused)
-        {
-            PausedInput();
-        }
-        if (_gameOver && !_saving)
-        {
-            EndGameInput();
-        }
+        if (Input.GetButtonDown("Restart")) Restart();              
     }
 
     private void Update()
     {
         InputManager();
+        if (_paused)
+        {
+            PausedInput();
+        }
+        if (_ending && !_saving)
+        {
+            EndGameInput();
+        }
     }
 
     void InputManager()
@@ -205,6 +205,7 @@ public class _manager : MonoBehaviour {
         _playerCol.SetActive(false);        
         if (victory)
         {
+            _gameOver = true;
             _gameOverPrompt.gameObject.SetActive(true);
             RankSwitcher(levelIndex, _timer);
             Camera.main.GetComponent<Animator>().enabled = true;
@@ -247,7 +248,6 @@ public class _manager : MonoBehaviour {
         yield return new WaitForSeconds(1.5f);        
         _UIanim.SetBool("Complete", true);
         _UIanim.SetBool("Victory", true);
-        _gameOver = true;
     }
 
     public IEnumerator LevelReset()

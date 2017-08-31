@@ -80,15 +80,24 @@ public class MainMenu : MonoBehaviour {
         {
             _sectorButtons[i].interactable = (i <= (_playerManager._playerLevel / 9));
         }
-        SelectLevel(0);        
-        _levelSelect.SetActive(false);
-        _worldcontainer.SetActive(false);
-        _sectorSelect.SetActive(false);
+        
         if (_playerManager._skipscreen)
         {
             _intro.SetActive(false);
-            OpenLevel(Mathf.FloorToInt((float)_playerManager._playerLevel / 9));
-        }        
+            var sector = Mathf.FloorToInt((float)_playerManager._levelIndex / 9);
+            var level = _playerManager._levelIndex - (sector * 9);
+            OpenLevel(sector);
+            SelectLevel(level);
+            _buttons[level].Select();
+            _playerNumber = 1;
+        }
+        else
+        {
+            SelectLevel(0);
+            _levelSelect.SetActive(false);
+            _worldcontainer.SetActive(false);
+            _sectorSelect.SetActive(false);
+        }
     }
 
     private void Update()
@@ -205,32 +214,6 @@ public class MainMenu : MonoBehaviour {
         _planetFader.SetBool("Active", true);
         _buttonPrompt.SetBool("Pressed", false);
     }
-
-    /*public void SectorSwitcher(bool increase)
-    {
-        if (increase)
-        {
-            if ((_activeSector + 1) <= (_playerManager._playerLevel/9))
-            {
-                ToggleSector(_activeSector + 1);
-            }
-            else
-            {
-                ToggleSector(0);
-            }
-        }
-        else
-        {
-            if (_activeSector > 0)
-            {
-                ToggleSector(_activeSector - 1);
-            }
-            else
-            {
-                ToggleSector(Mathf.FloorToInt(_playerManager._playerLevel / 9));
-            }
-        }
-    }*/
 
     public void OpenSectorSelect()
     {

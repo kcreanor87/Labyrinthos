@@ -136,7 +136,7 @@ public class _manager : MonoBehaviour {
         _gameOverPrompt = GameObject.Find("GameOverPrompt").GetComponent<Animator>();
         _rankFX = GameObject.Find("RankFX");
         GameObject.Find("Prompt1").SetActive(_playerManager._levelIndex == 0);
-        GameObject.Find("Prompt2").SetActive(_playerManager._levelIndex == 4);
+        GameObject.Find("Prompt2").SetActive(_playerManager._levelIndex == 1 || _playerManager._levelIndex == 4);
     }
 
 	void FixedUpdate () {

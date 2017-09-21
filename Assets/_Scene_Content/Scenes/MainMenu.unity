@@ -2311,6 +2311,7 @@ GameObject:
   - component: {fileID: 623554195}
   - component: {fileID: 623554200}
   - component: {fileID: 623554201}
+  - component: {fileID: 623554202}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2480,6 +2481,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: bfd4f63a4d46fe447a699774a683cea9, type: 2}
+--- !u!114 &623554202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 623554194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87e4989c5e703e428df4339d59e2c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blurShader: {fileID: 4800000, guid: 1855d9636fad3914bacc4a543165c974, type: 3}
+  compositeShader: {fileID: 4800000, guid: e384de4389ba527479054baf0ddb1d3e, type: 3}
+  glowRenderShader: {fileID: 4800000, guid: c04b7cae8accdfb4e9c2648823ff39d7, type: 3}
+  glowLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  renderCamera: {fileID: 623554198}
+  glowType: 0
+  glowTint: {r: 1, g: 1, b: 1, a: 0}
+  blurSpread: 0.25
+  blurIterations: 7
+  glowIntensity: 0.55
+  samples: 3
 --- !u!1 &677235683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2650,13 +2675,13 @@ MonoBehaviour:
   _muteBtn: {fileID: 0}
   _highlightColor: {r: 0.61764705, g: 1, b: 1, a: 1}
   _regColor: {r: 0.32628676, g: 0.5879184, b: 0.625, a: 1}
-  _lockedColour: {r: 0, g: 0.2794118, b: 0.2794118, a: 1}
+  _lockedColour: {r: 0, g: 0, b: 0, a: 0}
   _uiAnims: {fileID: 0}
   _planets:
   - {fileID: 1742901927397904, guid: 867c026d10bdfa94bb60ad7bba105821, type: 2}
   - {fileID: 1749475948032902, guid: 801a05c83dfbf4444b1c4c7bf1451922, type: 2}
   - {fileID: 1220584185961804, guid: d91653d5ca500b54e8d781e107d6abc1, type: 2}
-  - {fileID: 1660541061204110, guid: f8b53edbe5fd4904193da504f8ed8fb0, type: 2}
+  - {fileID: 1739380869292660, guid: f8b53edbe5fd4904193da504f8ed8fb0, type: 2}
   - {fileID: 1972947638938562, guid: 8d11128d4d2cb0044a6890cdebf791d4, type: 2}
   - {fileID: 1846489665427892, guid: 58cb1e6c225e0c24a940305f56358179, type: 2}
   - {fileID: 1877774362330676, guid: 02e1a908abe1a3447aada8eb4a57e934, type: 2}
@@ -4365,7 +4390,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: a7b749075abd2bc49a8ef98aa0720638, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -6261,7 +6286,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: a7b749075abd2bc49a8ef98aa0720638, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

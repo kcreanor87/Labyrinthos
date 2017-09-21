@@ -150,13 +150,16 @@ public class MainMenu : MonoBehaviour {
         for (int j = 0; j < _buttons.Count; j++) {
             SpriteSelector(j);
             _buttonImages[j].color = (i == j) ? _highlightColor : _regColor;
-            _buttons[j].interactable = (_playerManager._playerLevel >= (j + (_activeSector * 9)));
-            if (!_buttons[j].interactable)
+            if (_playerManager._playerLevel >= (j + (_activeSector * 9)))
             {
-                _buttonImages[j].color = _lockedColour;
-                _buttonImages[j].sprite = _lockedSprite;
+                _buttonImages[j].gameObject.SetActive(true);
+                _buttons[j].interactable = true;
+                _buttons[j].GetComponentInChildren<Animator>().enabled = (i == j);                
             }
-            _buttons[j].GetComponentInChildren<Animator>().enabled = (i == j);
+            else
+            {
+                _buttonImages[j].gameObject.SetActive(false);
+            }
         }     
     }
 

@@ -11,7 +11,7 @@ public class Chaser : MonoBehaviour {
     public int _playerPosIndex;
     public _manager _Pmanager;
     public Ghosts _ghosts;
-
+    public Quaternion _startPos;
     public bool _chasing;
 
     public void Start()
@@ -24,6 +24,8 @@ public class Chaser : MonoBehaviour {
         _chaserCol = _chaserBody.GetComponentInChildren<Collider>();
         _chaserCol.enabled = false;
         _chaser.gameObject.SetActive(false);
+        _startPos = transform.rotation;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,7 +46,7 @@ public class Chaser : MonoBehaviour {
 
     public IEnumerator WaitForSpawn()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(1.0f);
         _chaserCol.enabled = true;
         _chasing = true;
     }
@@ -56,7 +58,7 @@ public class Chaser : MonoBehaviour {
             if (_Pmanager._inMenu) return;
             if (!_Pmanager._ending)
             {
-                _chaser.Rotate(_ghosts._playerTimeY[_playerPosIndex], _ghosts._playerTimeX[_playerPosIndex], 0, Space.Self);
+                _chaser.Rotate(_ghosts._playerTimeY[_playerPosIndex], _ghosts._playerTimeX[_playerPosIndex], 0.0f, Space.Self);
                 _chaserBody.localRotation = Quaternion.Euler(_ghosts._playerRotX[_playerPosIndex], _ghosts._playerRotY[_playerPosIndex], _ghosts._playerRotZ[_playerPosIndex]);
                 _playerPosIndex++;
             }

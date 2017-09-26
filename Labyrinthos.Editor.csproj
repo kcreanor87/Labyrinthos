@@ -130,9 +130,6 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
-    <Reference Include="JMOAssets">
-      <HintPath>Assets\JMO Assets\Editor\JMOAssets.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Labyrinthos.Plugins.csproj">
@@ -150,15 +147,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_MK\MKGlowFree\Editor\MKGlowFreeEditor.cs" />
-    <Compile Include="Assets\JMO Assets\Toony Colors\Editor\TCF_MaterialInspector.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\JMO Assets\!JMO Assets Readme.txt" />
-    <None Include="Assets\JMO Assets\Toony Colors\!ToonyColors Readme.txt" />
-    <None Include="Assets\JMO Assets\Toony Colors\Shaders 2.0\Regular.shader" />
-    <None Include="Assets\JMO Assets\Toony Colors\Shaders 2.0\Rim Alpha.shader" />
-    <None Include="Assets\JMO Assets\Toony Colors\Shaders 2.0\Rim Lighting.shader" />
-    <None Include="Assets\JMO Assets\Toony Colors\Shaders 2.0\Rim Outline.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Readme.txt" />

@@ -5,10 +5,13 @@ using UnityEngine;
 public class WallSetup : MonoBehaviour {
 
     public GameObject[] _walls;
+    public GameObject[] _grounds;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         _walls = GameObject.FindGameObjectsWithTag("Wall");
+        _grounds = GameObject.FindGameObjectsWithTag("Ground");
         Setup();
 	}
 
@@ -18,6 +21,15 @@ public class WallSetup : MonoBehaviour {
         {
             _wall.AddComponent<MeshCollider>();
             Rigidbody rb = _wall.AddComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.isKinematic = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+        }
+
+        foreach (GameObject _ground in _grounds)
+        {
+            _ground.AddComponent<MeshCollider>();
+            Rigidbody rb = _ground.AddComponent<Rigidbody>();
             rb.useGravity = false;
             rb.isKinematic = true;
             rb.constraints = RigidbodyConstraints.FreezeAll;

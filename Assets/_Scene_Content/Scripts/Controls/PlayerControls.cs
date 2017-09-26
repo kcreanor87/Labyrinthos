@@ -36,7 +36,7 @@ public class PlayerControls : MonoBehaviour {
         if (manager._ending) _boost = false;
         var x = Input.GetAxis("Horizontal_Game");
         var y = Input.GetAxis("Vertical_Game");
-        var pos = new Vector3((Screen.width / 2) + (x * (Screen.height/2)), (Screen.height / 2)  + (-y * (Screen.height / 2)), 16f);
+        var pos = new Vector3((Screen.width / 2) + (x * (Screen.height/2)), (Screen.height / 2)  + (-y * (Screen.height / 2)), 16.5f);
         _lookPos.position = Camera.main.ScreenToWorldPoint(pos);
         if (Mathf.Abs(x) <= 0.12f && Mathf.Abs(y) <= 0.12f) return;        
         if (_brake && _speed >= _brakeAmount)
@@ -55,8 +55,9 @@ public class PlayerControls : MonoBehaviour {
         }
         x *= _speed;
         y *= _speed;
-        _ghost._xRot = x;
-        _ghost._yRot = y;
+        _ghost._xRot = transform.eulerAngles.x;
+        _ghost._yRot = transform.eulerAngles.y;
+        _ghost._zRot = transform.eulerAngles.z;
         transform.Rotate(y, -x, 0, Space.Self);
 
          if (_speed >=  0.15f) _ship.LookAt(_lookPos, transform.forward);

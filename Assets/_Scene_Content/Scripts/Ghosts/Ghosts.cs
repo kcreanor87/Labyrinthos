@@ -21,17 +21,20 @@ public class Ghosts : MonoBehaviour {
 
     public List<float> _playerTimeX = new List<float>();
     public List<float> _playerTimeY = new List<float>();
+    public List<float> _playerTimeZ = new List<float>();
     public List<float> _playerRotX = new List<float>();
     public List<float> _playerRotY = new List<float>();
     public List<float> _playerRotZ = new List<float>();
     public List<float> _ghostTimeX = new List<float>();
     public List<float> _ghostTimeY = new List<float>();
+    public List<float> _ghostTimeZ = new List<float>();
     public List<float> _ghostRotX = new List<float>();
     public List<float> _ghostRotY = new List<float>();
     public List<float> _ghostRotZ = new List<float>();
 
     public float _xRot;
     public float _yRot;
+    public float _zRot;
 
     public Vector3 _shipRot;
 
@@ -59,6 +62,7 @@ public class Ghosts : MonoBehaviour {
             {
                 _ghostTimeX.Add(PlayerPrefs.GetFloat("GhostLevelx" + _level + "_" + j));
                 _ghostTimeY.Add(PlayerPrefs.GetFloat("GhostLevely" + _level + "_" + j));
+                _ghostTimeZ.Add(PlayerPrefs.GetFloat("GhostLevelz" + _level + "_" + j));
                 _ghostRotX.Add(PlayerPrefs.GetFloat("GhostLevelRotx" + _level + "_" + j));
                 _ghostRotY.Add(PlayerPrefs.GetFloat("GhostLevelRoty" + _level + "_" + j));
                 _ghostRotZ.Add(PlayerPrefs.GetFloat("GhostLevelRotz" + _level + "_" + j));
@@ -80,12 +84,14 @@ public class Ghosts : MonoBehaviour {
     public IEnumerator SaveData()
     {
         if (_ghostIndex == 0) _ghostIndex = _playerTimeX.Count;
-        print("level " + _level + " Ghost saved");        
-        while (_saveIndexi < _ghostIndex)
+        print("level " + _level + " Ghost saved");
+        for (int i = 0; i < _ghostIndex; i++)
         {
-            if (_saveIndexi < _playerTimeX.Count) {
+            if (_saveIndexi < _playerTimeX.Count)
+            {
                 PlayerPrefs.SetFloat(("GhostLevelx" + _level + "_" + _saveIndexi), _playerTimeX[_saveIndexi]);
                 PlayerPrefs.SetFloat(("GhostLevely" + _level + "_" + _saveIndexi), _playerTimeY[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelz" + _level + "_" + _saveIndexi), _playerTimeZ[_saveIndexi]);
                 PlayerPrefs.SetFloat(("GhostLevelRotx" + _level + "_" + _saveIndexi), _playerRotX[_saveIndexi]);
                 PlayerPrefs.SetFloat(("GhostLevelRoty" + _level + "_" + _saveIndexi), _playerRotY[_saveIndexi]);
                 PlayerPrefs.SetFloat(("GhostLevelRotz" + _level + "_" + _saveIndexi), _playerRotZ[_saveIndexi]);
@@ -95,6 +101,29 @@ public class Ghosts : MonoBehaviour {
             {
                 PlayerPrefs.DeleteKey(("GhostLevelx" + _level + "_" + _saveIndexi));
                 PlayerPrefs.DeleteKey(("GhostLevely" + _level + "_" + _saveIndexi));
+                PlayerPrefs.DeleteKey(("GhostLevelz" + _level + "_" + _saveIndexi));
+                PlayerPrefs.DeleteKey(("GhostLevelRotx" + _level + "_" + _saveIndexi));
+                PlayerPrefs.DeleteKey(("GhostLevelRoty" + _level + "_" + _saveIndexi));
+                PlayerPrefs.DeleteKey(("GhostLevelRotz" + _level + "_" + _saveIndexi));
+            }
+            _saveIndexi++;
+        }
+        /*while (_saveIndexi < _ghostIndex)
+        {
+            if (_saveIndexi < _playerTimeX.Count) {
+                PlayerPrefs.SetFloat(("GhostLevelx" + _level + "_" + _saveIndexi), _playerTimeX[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevely" + _level + "_" + _saveIndexi), _playerTimeY[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelz" + _level + "_" + _saveIndexi), _playerTimeZ[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelRotx" + _level + "_" + _saveIndexi), _playerRotX[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelRoty" + _level + "_" + _saveIndexi), _playerRotY[_saveIndexi]);
+                PlayerPrefs.SetFloat(("GhostLevelRotz" + _level + "_" + _saveIndexi), _playerRotZ[_saveIndexi]);
+
+            }
+            else
+            {
+                PlayerPrefs.DeleteKey(("GhostLevelx" + _level + "_" + _saveIndexi));
+                PlayerPrefs.DeleteKey(("GhostLevely" + _level + "_" + _saveIndexi));
+                PlayerPrefs.DeleteKey(("GhostLevelz" + _level + "_" + _saveIndexi));
                 PlayerPrefs.DeleteKey(("GhostLevelRotx" + _level + "_" + _saveIndexi));
                 PlayerPrefs.DeleteKey(("GhostLevelRoty" + _level + "_" + _saveIndexi));
                 PlayerPrefs.DeleteKey(("GhostLevelRotz" + _level + "_" + _saveIndexi));
@@ -102,8 +131,10 @@ public class Ghosts : MonoBehaviour {
             _saveIndexi++;
             yield return null;
         }
+        */
         _Pmanager._saving = false; 
         _Pmanager._gameOverPrompt.SetBool("Saving", false);
+        yield return null;
     }
 
     private void FixedUpdate()
@@ -111,12 +142,13 @@ public class Ghosts : MonoBehaviour {
         if (_Pmanager._inMenu) return;
         _playerTimeX.Add(-_xRot);
         _playerTimeY.Add(_yRot);
+        _playerTimeZ.Add(_zRot);
         _playerRotX.Add(_shipRot.x);
         _playerRotY.Add(_shipRot.y);
         _playerRotZ.Add(_shipRot.z);
         if (_activeGhost && !_Pmanager._ending)
         {            
-            _ghostGO.Rotate(_ghostTimeY[_ghostIndex], _ghostTimeX[_ghostIndex], 0, Space.Self);
+            _ghostGO.eulerAngles = new Vector3(-_ghostTimeX[_ghostIndex], _ghostTimeY[_ghostIndex], _ghostTimeZ[_ghostIndex]);
             _ghostShip.localRotation = Quaternion.Euler(_ghostRotX[_ghostIndex], _ghostRotY[_ghostIndex], _ghostRotZ[_ghostIndex]);
             _ghostIndex++;
             _activeGhost = (_Pmanager._timer <= _playerManager._times[_level]);

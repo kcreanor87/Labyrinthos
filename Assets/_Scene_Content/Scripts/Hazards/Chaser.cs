@@ -13,6 +13,7 @@ public class Chaser : MonoBehaviour {
     public Ghosts _ghosts;
     public Quaternion _startPos;
     public bool _chasing;
+    public float _timeDiff = 0.5f;
 
     public void Start()
     {
@@ -32,21 +33,21 @@ public class Chaser : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            SpawnChaser();
             _col.enabled = false;
+            SpawnChaser();
         }
     }
 
     void SpawnChaser()
-    {
-        _playerPosIndex = _ghosts._playerTimeX.Count;
+    {        
+        _playerPosIndex = _ghosts._playerTimeX.Count + 5;
         _chaser.gameObject.SetActive(true);
         StartCoroutine(WaitForSpawn());
     }
 
     public IEnumerator WaitForSpawn()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(_timeDiff);
         _chaserCol.enabled = true;
         _chasing = true;
     }
@@ -58,7 +59,7 @@ public class Chaser : MonoBehaviour {
             if (_Pmanager._inMenu) return;
             if (!_Pmanager._ending)
             {
-                _chaser.Rotate(_ghosts._playerTimeY[_playerPosIndex], _ghosts._playerTimeX[_playerPosIndex], 0.0f, Space.Self);
+                _chaser.eulerAngles = new Vector3(-_ghosts._playerTimeX[_playerPosIndex], _ghosts._playerTimeY[_playerPosIndex], _ghosts._playerTimeZ[_playerPosIndex]);
                 _chaserBody.localRotation = Quaternion.Euler(_ghosts._playerRotX[_playerPosIndex], _ghosts._playerRotY[_playerPosIndex], _ghosts._playerRotZ[_playerPosIndex]);
                 _playerPosIndex++;
             }

@@ -94,6 +94,7 @@
     <Compile Include="Assets\_Scene_Content\Scripts\Cameras\CameraShake.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Controls\ChangeSpeed.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Controls\Collect.cs" />
+    <Compile Include="Assets\_Scene_Content\Scripts\Controls\GroundDetect.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Controls\PlayerControls.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Coop\_CoopManager.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Coop\CoopCollect.cs" />
@@ -113,15 +114,8 @@
     <Compile Include="Assets\_Scene_Content\Scripts\ScrollingTexture.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Times\LevelTime.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Times\LevelTimeContainer.cs" />
-    <Compile Include="Assets\JMO Assets\Toony Colors\Demo 2.0\TCF_Demo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\JMO Assets\!JMO Assets Readme.txt" />
-    <None Include="Assets\JMO Assets\Toony Colors\!ToonyColors Readme.txt" />
-    <None Include="Assets\JMO Assets\Toony Colors\Shaders 2.0\Regular.shader" />
-    <None Include="Assets\JMO Assets\Toony Colors\Shaders 2.0\Rim Alpha.shader" />
-    <None Include="Assets\JMO Assets\Toony Colors\Shaders 2.0\Rim Lighting.shader" />
-    <None Include="Assets\JMO Assets\Toony Colors\Shaders 2.0\Rim Outline.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Readme.txt" />

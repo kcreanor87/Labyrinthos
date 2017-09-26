@@ -156,7 +156,7 @@ public class _manager : MonoBehaviour {
         {
             PausedInput();
         }
-        if (_ending && !_saving)
+        if (_ending)
         {
             EndGameInput();
         }
@@ -222,7 +222,6 @@ public class _manager : MonoBehaviour {
                     _bestTxt.text = _timer.ToString("F2") + "s";
                     _bestTxt.color = _newRecordColour;
                     _rankFX.SetActive(true);
-                    _ghosts.SaveGhost();
                 }
             }
             else
@@ -254,7 +253,7 @@ public class _manager : MonoBehaviour {
 
     public IEnumerator LevelReset()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
         Restart();
     }
 
@@ -303,6 +302,7 @@ public class _manager : MonoBehaviour {
     {
         if (levelIndex < _playerManager._totalLevels)
         {
+            if (_saving) _ghosts.SaveGhost();
             _playerManager._levelIndex++;
             SceneManager.LoadScene(2);
         }

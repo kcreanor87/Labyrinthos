@@ -34,8 +34,8 @@ public class PlayerControls : MonoBehaviour {
     {
         if (manager._inMenu) return;
         if (manager._ending) _boost = false;
-        var x = Input.GetAxis("Horizontal_Game");
-        var y = Input.GetAxis("Vertical_Game");
+        var x = Mathf.Abs(Input.GetAxis("Horizontal")) > Mathf.Abs(Input.GetAxis("Horizontal_Game")) ? Input.GetAxis("Horizontal") : Input.GetAxis("Horizontal_Game");
+        var y = Mathf.Abs(Input.GetAxis("Vertical")) > Mathf.Abs(Input.GetAxis("Vertical_Game")) ? -Input.GetAxis("Vertical") : Input.GetAxis("Vertical_Game");
         var pos = new Vector3((Screen.width / 2) + (x * (Screen.height/2)), (Screen.height / 2)  + (-y * (Screen.height / 2)), 16.5f);
         _lookPos.position = Camera.main.ScreenToWorldPoint(pos);
         if (Mathf.Abs(x) <= 0.12f && Mathf.Abs(y) <= 0.12f) return;        

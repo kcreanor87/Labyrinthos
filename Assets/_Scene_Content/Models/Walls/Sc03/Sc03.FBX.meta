@@ -42,6 +42,14 @@ ModelImporter:
     100068: Sc03_07_platforms04
     100070: Sc3_02
     100072: Sphere001
+    100074: Sc03_08
+    100076: Sc03_08 1
+    100078: Sc03_08_platforms01
+    100080: Sc03_08_platforms02
+    100082: Sc03_09
+    100084: Sc03_09 1
+    100086: Sc03_09_platform01
+    100088: Sc03_09_platform02
     400000: Sc01_07
     400002: //RootNode
     400004: Sc03_01
@@ -79,6 +87,14 @@ ModelImporter:
     400068: Sc03_07_platforms04
     400070: Sc3_02
     400072: Sphere001
+    400074: Sc03_08
+    400076: Sc03_08 1
+    400078: Sc03_08_platforms01
+    400080: Sc03_08_platforms02
+    400082: Sc03_09
+    400084: Sc03_09 1
+    400086: Sc03_09_platform01
+    400088: Sc03_09_platform02
     2300000: Sc01_07
     2300002: Sc03_01 1
     2300004: Sc03_01_platforms
@@ -109,6 +125,12 @@ ModelImporter:
     2300054: Sc03_07_platforms03
     2300056: Sc03_07_platforms04
     2300058: Sphere001
+    2300060: Sc03_08 1
+    2300062: Sc03_08_platforms01
+    2300064: Sc03_08_platforms02
+    2300066: Sc03_09 1
+    2300068: Sc03_09_platform01
+    2300070: Sc03_09_platform02
     3300000: Sc01_07
     3300002: Sc03_01 1
     3300004: Sc03_01_platforms
@@ -139,6 +161,12 @@ ModelImporter:
     3300054: Sc03_07_platforms03
     3300056: Sc03_07_platforms04
     3300058: Sphere001
+    3300060: Sc03_08 1
+    3300062: Sc03_08_platforms01
+    3300064: Sc03_08_platforms02
+    3300066: Sc03_09 1
+    3300068: Sc03_09_platform01
+    3300070: Sc03_09_platform02
     4300000: Sc03_01
     4300002: Sc03_01_platforms
     4300004: Sc03_03_platform01
@@ -169,10 +197,16 @@ ModelImporter:
     4300054: Sc03_07_middle
     4300056: Sc03_07_platforms03
     4300058: Sc03_07_platforms04
+    4300060: Sc03_08
+    4300062: Sc03_08_platforms01
+    4300064: Sc03_08_platforms02
+    4300066: Sc03_09
+    4300068: Sc03_09_platform01
+    4300070: Sc03_09_platform02
     7400000: Take 001
     9500000: //RootNode
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -194,7 +228,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

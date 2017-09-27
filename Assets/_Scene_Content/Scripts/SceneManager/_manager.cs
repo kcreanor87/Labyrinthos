@@ -201,6 +201,7 @@ public class _manager : MonoBehaviour {
 
     public void EndLevel(bool victory)
     {
+        print(victory);
         _ending = true;
         _playerAnim.SetBool("Outro", true);
         AnalyticsData(victory);
@@ -216,7 +217,7 @@ public class _manager : MonoBehaviour {
                 if (_timer <= _timeContainer._levelTimes[levelIndex]._C_time)
                 {
                     _saving = true;
-                    _gameOverPrompt.SetBool("Saving", true);
+                    _gameOverPrompt.SetBool("Saving", false);
                     _playerManager._times[levelIndex] = _timer;
                     _playerManager.SaveTimes();
                     _bestTxt.text = _timer.ToString("F2") + "s";
@@ -237,6 +238,7 @@ public class _manager : MonoBehaviour {
             _timeTakenText.enabled = true;
             _timeContainer.CheckTimes();
             StartCoroutine(WaitForEnding());
+            
         }
         else
         {
@@ -246,7 +248,7 @@ public class _manager : MonoBehaviour {
 
     public IEnumerator WaitForEnding()
     {
-        yield return new WaitForSeconds(1.5f);        
+        yield return new WaitForSeconds(0.5f);
         _UIanim.SetBool("Complete", true);
         _UIanim.SetBool("Victory", true);
     }
@@ -283,19 +285,16 @@ public class _manager : MonoBehaviour {
 
     public void ChangeScene()
     {
+        if (_saving) _ghosts.SaveGhost();
         _playerManager._skipscreen = true;
         SceneManager.LoadScene(1);        
     }
 
     public void Restart()
     {
+        if (_saving) _ghosts.SaveGhost();
         if (!_inMenu) AnalyticsData(false);
         SceneManager.LoadScene(2);
-    }
-
-    public void SaveTimes()
-    {
-        _ghosts.SaveGhost();
     }
 
     public void NextLevel()

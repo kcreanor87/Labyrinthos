@@ -17,12 +17,12 @@ public class GroundDetect : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Ground") _grounded = false;
+        if (other.tag == "Ground" || other.tag == "Wall") _grounded = false;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        _grounded = (other.tag == "Ground"); 
+        _grounded = (other.tag == "Ground" || other.tag == "Wall"); 
     }
 
     private void Update()

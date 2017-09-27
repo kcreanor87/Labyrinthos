@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 23494895156431072}
   m_Layer: 0
   m_Name: Planet01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -939,14 +939,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1601169276793378}
-  m_LocalRotation: {x: -0.009314286, y: 0.8555478, z: 0.00034083796, w: 0.51763994}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4863974476817722}
   m_Father: {fileID: 4853475345390816}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.586, y: 117.65301, z: -0.89300007}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4487218148842724
 Transform:
   m_ObjectHideFlags: 1

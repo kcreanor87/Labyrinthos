@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 23890013728135280}
   m_Layer: 0
   m_Name: Planet01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 23868896188618610}
   m_Layer: 0
   m_Name: Sc01_09_grate
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1343,6 +1343,7 @@ MonoBehaviour:
   _ghosts: {fileID: 0}
   _startPos: {x: 0, y: 0, z: 0, w: 0}
   _chasing: 0
+  _timeDiff: 0.5
 --- !u!135 &135851500379028128
 SphereCollider:
   m_ObjectHideFlags: 1

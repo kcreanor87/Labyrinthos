@@ -159,6 +159,7 @@ public class MainMenu : MonoBehaviour {
             else
             {
                 _buttonImages[j].gameObject.SetActive(false);
+                _buttons[j].interactable = false;
             }
         }     
     }

@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 114478391758153472}
   m_Layer: 0
   m_Name: BaseSlicer
-  m_TagString: Wall
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 114873081413246880}
   m_Layer: 0
   m_Name: BaseSlicer
-  m_TagString: Wall
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 114133722778759354}
   m_Layer: 0
   m_Name: BaseSlicer
-  m_TagString: Wall
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 114716003997493444}
   m_Layer: 0
   m_Name: BaseSlicer
-  m_TagString: Wall
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1466,6 +1466,7 @@ MonoBehaviour:
   _ghosts: {fileID: 0}
   _startPos: {x: 0, y: 0, z: 0, w: 0}
   _chasing: 0
+  _timeDiff: 0.5
 --- !u!114 &114873081413246880
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,6 +12,8 @@ public class CoopControls : MonoBehaviour
 
     public Transform _lookPos;
     public Transform _ship;
+    public Transform _lookDirGO;
+    public Transform _focalPoint;
     public GameObject _entryParticles;
     public float _baseSpeed = 1f;
     public float _speed = 0.8f;
@@ -27,8 +29,6 @@ public class CoopControls : MonoBehaviour
 
     public Animator _playerAnim;
 
-    public Quaternion _startRot;
-
     public bool _resetting;
     public bool _destroyed;
 
@@ -42,9 +42,10 @@ public class CoopControls : MonoBehaviour
         _lookPos = GameObject.Find("LookPos" + _playerIndex).GetComponent<Transform>();
         _ship = GameObject.Find("Player" + (_playerIndex + 1)).GetComponent<Transform>();
         _playerAnim = gameObject.GetComponentInChildren<Animator>();
-        _startRot = GameObject.Find("Start_P" + (_playerIndex + 1)).transform.rotation;
         _entryParticles = transform.Find("Player" + (_playerIndex + 1)).Find("EntryParticles").gameObject;
         _camShake = _cam.GetComponent<CameraShake>();
+        _lookDirGO = transform.Find("LookDir" + (_playerIndex + 1)).GetComponent<Transform>();
+        _focalPoint = _lookDirGO.Find("FocalPoint" + (_playerIndex + 1)).GetComponent<Transform>();
         CameraCheck();
     }
 
@@ -77,7 +78,12 @@ public class CoopControls : MonoBehaviour
         x *= _speed;
         y *= _speed;
         transform.Rotate(y, -x, 0, Space.Self);
-        _ship.LookAt(_lookPos, transform.forward); 
+
+        var targetPoint = _lookPos.position - _lookDirGO.position;
+        var targetRotation = Quaternion.LookRotation(targetPoint, Vector3.forward);
+        _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 12.0f);
+
+        _ship.LookAt(_focalPoint, transform.forward);
     }
 
     public void CameraCheck()
@@ -110,7 +116,6 @@ public class CoopControls : MonoBehaviour
     {
         yield return new WaitForSeconds(0.7f);
         _resetting = true;
-        transform.rotation = _startRot;
         _playerAnim.Play("PlayerIntro");
         _entryParticles.SetActive(true);
         yield return new WaitForSeconds(0.9f);

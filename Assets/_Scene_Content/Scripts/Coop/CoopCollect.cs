@@ -35,7 +35,7 @@ public class CoopCollect : MonoBehaviour {
             Instantiate(_collected, other.transform.position, transform.rotation);
             manager.UpdateCrates(_playerIndex);
         }
-        else if (other.tag == "Wall" || other.tag == "Hazard" || other.tag == "Player")
+        else if (other.tag == "Wall" || other.tag == "Hazard")
         {
             if (!manager._ending)
             {

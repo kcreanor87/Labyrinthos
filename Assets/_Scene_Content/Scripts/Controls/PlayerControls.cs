@@ -7,7 +7,9 @@ public class PlayerControls : MonoBehaviour {
 
     public Transform _lookPos;
     public Transform _ship;
-    public GameObject _particleReference;   
+    public Transform _lookDirGO;
+    public Transform _focalPoint;
+    public GameObject _particleReference;    
     public float _baseSpeed = 1f;
     public float _speed = 0.8f;
     private int inputX;
@@ -27,6 +29,8 @@ public class PlayerControls : MonoBehaviour {
         _ghost = GameObject.Find("UI").GetComponent<Ghosts>();
         _lookPos = GameObject.Find("LookPos").GetComponent<Transform>();
         _ship = GameObject.Find("Player").GetComponent<Transform>();
+        _lookDirGO = GameObject.Find("LookDir").GetComponent<Transform>();
+        _focalPoint = GameObject.Find("FocalPoint").GetComponent<Transform>();
         CameraCheck();
 	}
 
@@ -58,9 +62,13 @@ public class PlayerControls : MonoBehaviour {
         _ghost._xRot = transform.eulerAngles.x;
         _ghost._yRot = transform.eulerAngles.y;
         _ghost._zRot = transform.eulerAngles.z;
-        transform.Rotate(y, -x, 0, Space.Self);
+        transform.Rotate(y, -x, 0, Space.Self);        
 
-         if (_speed >=  0.15f) _ship.LookAt(_lookPos, transform.forward);
+        var targetPoint = _lookPos.position - _lookDirGO.position;
+        var targetRotation = Quaternion.LookRotation(targetPoint, Vector3.forward);
+        _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 12.0f);
+
+        _ship.LookAt(_focalPoint, transform.forward);
 
         _ghost._shipRot = _ship.localRotation.eulerAngles;
     }

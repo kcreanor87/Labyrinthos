@@ -27,6 +27,7 @@ public class _manager : MonoBehaviour {
     public GameObject _playerCol;
     public GameObject _playerManagerPrefab;
     public GameObject _rankFX;
+    public GameObject _fadeOut;
 
     public Text _timeTakenText;
     public Text _recordTxt;
@@ -46,6 +47,7 @@ public class _manager : MonoBehaviour {
     public bool _paused;
     public bool _saving;
     public bool _ending;
+    public bool _endActive;
 
     public Color _newRecordColour;    
 
@@ -78,6 +80,7 @@ public class _manager : MonoBehaviour {
         _winScreen.SetActive(false);
         _gameOverPrompt.gameObject.SetActive(false);
         _rankFX.SetActive(false);
+        _fadeOut.SetActive(false);
 
         _countdown = 0.9f;
         _timer = 0.0f;
@@ -124,6 +127,7 @@ public class _manager : MonoBehaviour {
         _rankImage = GameObject.Find("Rank").GetComponent<Image>();
         _bestTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
         _recordTxt = GameObject.Find("RecordTxt").GetComponent<Text>();
+        _fadeOut = GameObject.Find("FadeOut");
         _winScreen = GameObject.Find("GameOver_win");
         _cratesRemainingTxt = GameObject.Find("CratesRemainingTxt").GetComponent<Text>();        
         _timeTakenText = GameObject.Find("TimeTakenTxt").GetComponent<Text>();
@@ -156,7 +160,7 @@ public class _manager : MonoBehaviour {
         {
             PausedInput();
         }
-        if (_ending)
+        if (_ending && !_endActive)
         {
             EndGameInput();
         }
@@ -285,29 +289,38 @@ public class _manager : MonoBehaviour {
 
     public void ChangeScene()
     {
-        if (_saving) _ghosts.SaveGhost();
         _playerManager._skipscreen = true;
-        SceneManager.LoadScene(1);        
+        if (_saving) StartCoroutine(Save(1));
+        else SceneManager.LoadScene(1);
     }
 
     public void Restart()
     {
-        if (_saving) _ghosts.SaveGhost();
         if (!_inMenu) AnalyticsData(false);
-        SceneManager.LoadScene(2);
+        if (_saving) StartCoroutine(Save(2));
+        else SceneManager.LoadScene(2);
+
     }
 
     public void NextLevel()
     {
         if (levelIndex < _playerManager._totalLevels)
         {
-            if (_saving) _ghosts.SaveGhost();
             _playerManager._levelIndex++;
-            SceneManager.LoadScene(2);
+            if (_saving) StartCoroutine(Save(2));
+            else SceneManager.LoadScene(2);
         }
         else {
             ChangeScene();
         }        
+    }
+
+    public IEnumerator Save(int sceneIndex)
+    {
+        _fadeOut.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        _ghosts.SaveGhost();
+        SceneManager.LoadScene(sceneIndex);
     }
 
     public void EndGameInput()
@@ -315,14 +328,17 @@ public class _manager : MonoBehaviour {
         if (Input.GetButtonDown("Submit"))
         {
             NextLevel();
+            _endActive = true;
         }
         if (Input.GetButtonDown("Restart"))
         {
             Restart();
+            _endActive = true;
         }
         if (Input.GetButtonDown("MainMenu"))
         {
             ChangeScene();
+            _endActive = true;
         }
     }
 

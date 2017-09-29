@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 20627762158633600}
   - component: {fileID: 124247189184368842}
   - component: {fileID: 114416223488579188}
+  - component: {fileID: 114329973198067100}
   m_Layer: 13
   m_Name: RotCam
   m_TagString: Untagged
@@ -574,6 +575,30 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114329973198067100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583116358792008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87e4989c5e703e428df4339d59e2c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blurShader: {fileID: 4800000, guid: 1855d9636fad3914bacc4a543165c974, type: 3}
+  compositeShader: {fileID: 4800000, guid: e384de4389ba527479054baf0ddb1d3e, type: 3}
+  glowRenderShader: {fileID: 4800000, guid: c04b7cae8accdfb4e9c2648823ff39d7, type: 3}
+  glowLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  renderCamera: {fileID: 0}
+  glowType: 0
+  glowTint: {r: 1, g: 1, b: 1, a: 0}
+  blurSpread: 0.055
+  blurIterations: 10
+  glowIntensity: 0.525
+  samples: 3
 --- !u!114 &114416223488579188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -585,7 +610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 6c449b2bdfb7e72438b5588e4bedeae1, type: 2}
+  profile: {fileID: 11400000, guid: bfd4f63a4d46fe447a699774a683cea9, type: 2}
 --- !u!124 &124247189184368842
 Behaviour:
   m_ObjectHideFlags: 1

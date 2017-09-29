@@ -21,7 +21,7 @@ public class Collect : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Crate")
-        {           
+        {
             Destroy(other.transform.parent.gameObject);
             Instantiate(_collected, other.transform.position, transform.rotation);
             manager.UpdateCrates();
@@ -33,7 +33,13 @@ public class Collect : MonoBehaviour {
                 _camShake.Shake();
                 manager.EndLevel(false);
                 _gameOver = true;
-            }            
+            }
+        }
+        else if (other.tag == "Trigger")
+        {
+            other.gameObject.GetComponent<LockControl>().Trigger();
+            Destroy(other.transform.parent.gameObject);
+            Instantiate(_collected, other.transform.position, transform.rotation);
         }
     }
 }

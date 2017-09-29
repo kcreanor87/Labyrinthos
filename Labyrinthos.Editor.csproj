@@ -298,6 +298,7 @@
     <None Include="Assets\_MK\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-DiffuseBumped.shader" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-Glossy.shader" />
     <None Include="Assets\_Scene_Content\Shaders\ToonLighted Bumped Outline.shader" />
+    <None Include="Assets\_Scene_Content\Times.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

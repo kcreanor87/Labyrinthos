@@ -2475,7 +2475,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 623554194}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
@@ -2501,9 +2501,9 @@ MonoBehaviour:
   renderCamera: {fileID: 623554198}
   glowType: 0
   glowTint: {r: 1, g: 1, b: 1, a: 0}
-  blurSpread: 0.25
+  blurSpread: 0.056
   blurIterations: 7
-  glowIntensity: 0.55
+  glowIntensity: 0.519
   samples: 3
 --- !u!1 &677235683
 GameObject:
@@ -6129,7 +6129,7 @@ Animator:
   m_GameObject: {fileID: 1832995540}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1ba0199c2f4dfef49a3263ba318d20cc, type: 2}
+  m_Controller: {fileID: 9100000, guid: 92c9581b38ed6a04fa9dbdc79fae16f0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -58,12 +58,13 @@ public class CoopControls : MonoBehaviour
         var x = Input.GetAxis(pathX);
         var y = Input.GetAxis(pathY);
         float lookOrigin = _playerIndex > 0 ? ((Screen.width / 4) * 3) : (Screen.width / 4);
-        var pos = new Vector3(lookOrigin + (x * (Screen.width / 4)), (Screen.height / 2) + (-y * (Screen.width / 4)), 16f);
+        var pos = new Vector3(lookOrigin + (x * (Screen.width / 4)), (Screen.height / 2) + (-y * (Screen.width / 4)), 16.5f);
         _lookPos.position = _cam.ScreenToWorldPoint(pos);
         if (Mathf.Abs(x) <= 0.12f && Mathf.Abs(y) <= 0.12f) return;
-        if ((_brake || _destroyed) && _speed > _brakeAmount)
+        if ((_brake || _destroyed) && _speed >= _brakeAmount)
         {
             _speed -= Time.deltaTime * 2;
+            if (_speed < _brakeAmount) _speed = _brakeAmount;
             if (manager._ending||_destroyed) _brakeAmount = 0.0f;
         }
         else if (_boost && _speed < _boostAmount)
@@ -73,7 +74,7 @@ public class CoopControls : MonoBehaviour
         else if (!manager._ending)
         {
             _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
-            _brakeAmount = 0.15f;
+            _brakeAmount = 0.4f;
         }
         x *= _speed;
         y *= _speed;
@@ -81,7 +82,7 @@ public class CoopControls : MonoBehaviour
 
         var targetPoint = _lookPos.position - _lookDirGO.position;
         var targetRotation = Quaternion.LookRotation(targetPoint, Vector3.forward);
-        _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 12.0f);
+        _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 14.0f);
 
         _ship.LookAt(_focalPoint, transform.forward);
     }
@@ -114,12 +115,16 @@ public class CoopControls : MonoBehaviour
 
     public IEnumerator ResetPosition()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.45f);
         _resetting = true;
+        yield return new WaitForSeconds(0.25f);        
         _playerAnim.Play("PlayerIntro");
         _entryParticles.SetActive(true);
+        transform.rotation = Quaternion.identity;
+        _ship.eulerAngles = new Vector3(-90, 180, 0);
         yield return new WaitForSeconds(0.9f);
         _destroyed = false;
         _resetting = false;
+        
     }
 }

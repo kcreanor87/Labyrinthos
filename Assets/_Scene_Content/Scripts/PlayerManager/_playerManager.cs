@@ -43,10 +43,6 @@ public class _playerManager : MonoBehaviour {
         }
         _skipscreen = false;
         _tooltips = (PlayerPrefs.GetInt("Tooltip") > 0);
-        for (int i = 0; i < Input.GetJoystickNames().Length; i++)
-        {
-            print(Input.GetJoystickNames()[i]);
-        }
     }
 
     public static void SaveTimes()

@@ -52,6 +52,8 @@ public class _CoopManager : MonoBehaviour {
     public bool _ending;
     public bool _switching;
 
+    public List<int> _exclusions = new List<int>();
+
     private void Awake()
     {
         if (GameObject.Find("_playerManager") == null && !_developmentMode) SceneManager.LoadScene(0);
@@ -71,8 +73,6 @@ public class _CoopManager : MonoBehaviour {
         SpawnCrates();
         _cratesRemaining_P1 = GameObject.FindGameObjectsWithTag("Crate0").Length;
         _cratesRemaining_P2 = GameObject.FindGameObjectsWithTag("Crate1").Length;
-        _P1cratesRemainingTxt.text = _cratesRemaining_P1.ToString();
-        _P2cratesRemainingTxt.text = _cratesRemaining_P2.ToString();
 
         _pauseScreen.SetActive(false);
         _P1rotCam.SetActive(false);
@@ -94,7 +94,11 @@ public class _CoopManager : MonoBehaviour {
 
     void SpawnLevel()
     {
-        levelIndex = Random.Range(9, 17);
+        levelIndex = Random.Range(0, _playerManager._playerLevel);
+        while (_exclusions.Contains(levelIndex))
+        {
+            levelIndex = Random.Range(0, 26);
+        }
         var sector = Mathf.Floor(levelIndex / 9) + 1;
         var level = levelIndex - ((sector - 1) * 9);
         var path = "Prefabs/Worlds/Sc0" + sector + "/pfbWorldSc0" + sector + "_0" + (level + 1);
@@ -124,6 +128,8 @@ public class _CoopManager : MonoBehaviour {
         _winScreen = GameObject.Find("GameOver_win");
         _P1cratesRemainingTxt = GameObject.Find("P1CratesRemainingTxt").GetComponent<Text>();
         _P2cratesRemainingTxt = GameObject.Find("P2CratesRemainingTxt").GetComponent<Text>();
+        _P1cratesRemainingTxt.text = _playerManager._P1Score.ToString();
+        _P2cratesRemainingTxt.text = _playerManager._P2Score.ToString();
         _P1Score = GameObject.Find("P1Score").GetComponent<Text>();
         _P2Score = GameObject.Find("P2Score").GetComponent<Text>();
         _winScreen = GameObject.Find("GameOver_win");
@@ -187,12 +193,10 @@ public class _CoopManager : MonoBehaviour {
     {
         if (playerIndex == 0)
         {
-            _cratesRemaining_P1--;
-            _P1cratesRemainingTxt.text = _cratesRemaining_P1.ToString();
+            _cratesRemaining_P1--;           
         }
         if (playerIndex == 1)
         {
-            _P2cratesRemainingTxt.text = _cratesRemaining_P2.ToString();
             _cratesRemaining_P2--;
         }
         
@@ -230,6 +234,8 @@ public class _CoopManager : MonoBehaviour {
         _gameOverPanel.SetActive(true);
         _P1Score.text = _playerManager._P1Score.ToString();
         _P2Score.text = _playerManager._P2Score.ToString();
+        _P1cratesRemainingTxt.text = _playerManager._P1Score.ToString();
+        _P2cratesRemainingTxt.text = _playerManager._P2Score.ToString();
         _inMenu = true;
         _UIanim.SetBool("Complete", true);
         _UIanim.SetBool("Victory", true);

@@ -4,26 +4,10 @@ using UnityEngine;
 
 public class LockControl : MonoBehaviour {
 
-    public GameObject _baseWall;
-    public GameObject _deactivatedWall;
-    public GameObject _lock;
-    public float _timer = 3.0f;
+    public Animator _triggeredAnim;
 
-	// Use this for initialization
-	void Start () {
-        _deactivatedWall.SetActive(false);		
-	}
-
-    public void SwitchWalls(bool active) {
-        _baseWall.SetActive(!active);
-        _deactivatedWall.SetActive(active);
-        _lock.SetActive(!active);
-        if (active) StartCoroutine(Timer());
-    }
-
-    public IEnumerator Timer()
+    public void Trigger()
     {
-        yield return new WaitForSeconds(_timer);
-        SwitchWalls(false);
+        _triggeredAnim.SetBool("Triggered", true);
     }
 }

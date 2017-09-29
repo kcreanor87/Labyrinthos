@@ -46,6 +46,7 @@ public class PlayerControls : MonoBehaviour {
         if (_brake && _speed >= _brakeAmount)
         {
             _speed -= Time.deltaTime * 2;
+            if (_speed < _brakeAmount) _speed = _brakeAmount;
             if (manager._ending) _brakeAmount = 0.0f;            
         }
         else if (_boost && _speed <= _boostAmount)
@@ -55,7 +56,7 @@ public class PlayerControls : MonoBehaviour {
         else if (!_brake && !_boost)
         {
             _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
-            _brakeAmount = 0.15f;
+            _brakeAmount = 0.4f;
         }
         x *= _speed;
         y *= _speed;
@@ -66,7 +67,7 @@ public class PlayerControls : MonoBehaviour {
 
         var targetPoint = _lookPos.position - _lookDirGO.position;
         var targetRotation = Quaternion.LookRotation(targetPoint, Vector3.forward);
-        _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 12.0f);
+        _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 14.0f);
 
         _ship.LookAt(_focalPoint, transform.forward);
 

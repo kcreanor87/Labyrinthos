@@ -37,7 +37,7 @@ public class CoopCollect : MonoBehaviour {
         }
         else if (other.tag == "Wall" || other.tag == "Hazard")
         {
-            if (!manager._ending)
+            if (!manager._ending & !_controls._destroyed)
             {
                 _camShake.Shake();
                 _controls.ReturnToStart();

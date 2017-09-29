@@ -99,6 +99,7 @@
     <Compile Include="Assets\_Scene_Content\Scripts\Coop\_CoopManager.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Coop\CoopCollect.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Coop\CoopControls.cs" />
+    <Compile Include="Assets\_Scene_Content\Scripts\Coop\CoopGroundDetect.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Coop\CoopSpeedChange.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Crates\Crates.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\Ghosts\Ghosts.cs" />
@@ -265,6 +266,7 @@
     <None Include="Assets\_MK\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-DiffuseBumped.shader" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-Glossy.shader" />
     <None Include="Assets\_Scene_Content\Shaders\ToonLighted Bumped Outline.shader" />
+    <None Include="Assets\_Scene_Content\Times.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -18,6 +18,7 @@ public class GroundDetect : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Ground" || other.tag == "Wall") _grounded = false;
+        print(other.name);
     }
 
     private void OnTriggerStay(Collider other)
@@ -29,6 +30,7 @@ public class GroundDetect : MonoBehaviour {
     {
         if (!_grounded)
         {
+
             if (!_gameOver)
             {
                 _camShake.Shake();

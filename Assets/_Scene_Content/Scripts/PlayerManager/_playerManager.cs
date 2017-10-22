@@ -11,7 +11,7 @@ public class _playerManager : MonoBehaviour {
     public bool _newGame;
     public bool _unlockAll;
     public static bool _skipscreen;
-    public static int _totalLevels = 27;
+    public static int _totalLevels = 26;
 
     public static List<float> _times = new List<float>();
 
@@ -34,7 +34,7 @@ public class _playerManager : MonoBehaviour {
             }
         }
         else {
-            _playerLevel = (_unlockAll) ? _totalLevels - 1 : PlayerPrefs.GetInt("PlayerLevel");
+            _playerLevel = (_unlockAll) ? _totalLevels : PlayerPrefs.GetInt("PlayerLevel");
             for (int i = 0; i < (_playerLevel + 1); i++)
             {
                 _times.Add(0.0f);

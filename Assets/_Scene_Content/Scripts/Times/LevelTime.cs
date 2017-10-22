@@ -11,7 +11,7 @@ public class LevelTime {
 
     public float _B_time;
 
-    public float _C_time;
+    public float _C_time = 20.00f;
 
     public string _rank;
 }

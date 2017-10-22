@@ -93,6 +93,8 @@ public class _manager : MonoBehaviour {
 
         _bestTxt.enabled = false;
         _timeTakenText.enabled = false;
+
+        print(levelIndex);
     }
 
     void SpawnLevel()
@@ -169,6 +171,7 @@ public class _manager : MonoBehaviour {
     void InputManager()
     {
         if (Input.GetButtonDown("Pause") && !_gameOver && !_ending) PauseGame(!_paused);
+        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
     }
 
     void UpdateTimer()
@@ -234,7 +237,7 @@ public class _manager : MonoBehaviour {
             }
             _bestTxt.enabled = true;
             if (_playerManager._playerLevel < levelIndex + 1) _playerManager._playerLevel = levelIndex + 1;
-            if (_playerManager._playerLevel >= _playerManager._totalLevels) _playerManager._playerLevel = _playerManager._totalLevels - 1;
+            if (_playerManager._playerLevel > _playerManager._totalLevels) _playerManager._playerLevel = _playerManager._totalLevels;
             PlayerPrefs.SetInt("PlayerLevel", _playerManager._playerLevel);
             var timeString = _timer.ToString("F2");
             _timeTakenText.text = timeString + "s";

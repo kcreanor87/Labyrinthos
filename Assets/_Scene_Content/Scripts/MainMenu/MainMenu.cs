@@ -167,7 +167,7 @@ public class MainMenu : MonoBehaviour {
     void SpriteSelector(int index)
     {
         var level = index + (_activeSector * 9);
-        if (level >= _playerManager._totalLevels)
+        if (level >= _playerManager._totalLevels + 1)
         {
             _buttonImages[index].sprite = _lockedSprite;
             return;

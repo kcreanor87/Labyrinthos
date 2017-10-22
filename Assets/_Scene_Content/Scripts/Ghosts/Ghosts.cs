@@ -40,6 +40,7 @@ public class Ghosts : MonoBehaviour {
 
     private void Awake()
     {
+        _saveIndexi = 0;
         _level = _playerManager._levelIndex;
         _ghostGO = GameObject.Find("Ghost").GetComponent<Transform>();
         _ghostShip = _ghostGO.Find("GhostGO").GetComponentInChildren<Transform>();        
@@ -130,8 +131,7 @@ public class Ghosts : MonoBehaviour {
             }
             _saveIndexi++;
             yield return null;
-        }
-        */
+        }*/
         _Pmanager._saving = false; 
         _Pmanager._gameOverPrompt.SetBool("Saving", false);
         yield return null;

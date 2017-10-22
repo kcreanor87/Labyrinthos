@@ -257,6 +257,7 @@ public class _CoopManager : MonoBehaviour {
     public IEnumerator ChangeSceneTo(int index)
     {
         _switching = true;
+        _playerManager._skipscreen = false;
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(index);
     }

@@ -46,7 +46,6 @@ public class Ghosts : MonoBehaviour {
         _ghostShip = _ghostGO.Find("GhostGO").GetComponentInChildren<Transform>();        
         _Pmanager = gameObject.GetComponent<_manager>();
         LoadGhosts();
-        _ghostGO.gameObject.SetActive(false);
     }
 
     public void StartGhost()
@@ -56,25 +55,33 @@ public class Ghosts : MonoBehaviour {
 
     public void LoadGhosts()
     {
-        if (PlayerPrefs.HasKey("GhostLevelx" + _level + "_0"))
+        if (_playerManager._times[_level] > 0)
         {
-            _activeGhost = true;
-            for (int j = 0; j < Mathf.FloorToInt(_playerManager._times[_level] * 60.0f); j++)
+            GhostData.inst.LoadGhostData();
+            if (GhostData.inst._ghostLevels[_level]._framePos.Count > 0)
             {
-                _ghostTimeX.Add(PlayerPrefs.GetFloat("GhostLevelx" + _level + "_" + j));
-                _ghostTimeY.Add(PlayerPrefs.GetFloat("GhostLevely" + _level + "_" + j));
-                _ghostTimeZ.Add(PlayerPrefs.GetFloat("GhostLevelz" + _level + "_" + j));
-                _ghostRotX.Add(PlayerPrefs.GetFloat("GhostLevelRotx" + _level + "_" + j));
-                _ghostRotY.Add(PlayerPrefs.GetFloat("GhostLevelRoty" + _level + "_" + j));
-                _ghostRotZ.Add(PlayerPrefs.GetFloat("GhostLevelRotz" + _level + "_" + j));
+                _activeGhost = true;
+                for (int j = 0; j < GhostData.inst._ghostLevels[_level]._framePos.Count; j++)
+                {
+                    _ghostTimeX.Add(GhostData.inst._ghostLevels[_level]._framePos[j].x);
+                    _ghostTimeY.Add(GhostData.inst._ghostLevels[_level]._framePos[j].y);
+                    _ghostTimeZ.Add(GhostData.inst._ghostLevels[_level]._framePos[j].z);
+                    _ghostRotX.Add(GhostData.inst._ghostLevels[_level]._frameRot[j].x);
+                    _ghostRotY.Add(GhostData.inst._ghostLevels[_level]._frameRot[j].y);
+                    _ghostRotZ.Add(GhostData.inst._ghostLevels[_level]._frameRot[j].z);
+                }
+                _totalFrames = _ghostTimeX.Count;
             }
-            _totalFrames = _ghostTimeX.Count;
-            StartGhost();
+            else
+            {
+                _ghostGO.gameObject.SetActive(false);
+            }
         }
         else
         {
             _ghostGO.gameObject.SetActive(false);
         }
+            
     }
 
     public void SaveGhost()
@@ -84,54 +91,20 @@ public class Ghosts : MonoBehaviour {
 
     public IEnumerator SaveData()
     {
+        GhostData.inst._ghostLevels[_level]._framePos.Clear();
+        GhostData.inst._ghostLevels[_level]._frameRot.Clear();
         if (_ghostIndex == 0) _ghostIndex = _playerTimeX.Count;
         print("level " + _level + " Ghost saved");
-        for (int i = 0; i < _ghostIndex; i++)
-        {
-            if (_saveIndexi < _playerTimeX.Count)
-            {
-                PlayerPrefs.SetFloat(("GhostLevelx" + _level + "_" + _saveIndexi), _playerTimeX[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevely" + _level + "_" + _saveIndexi), _playerTimeY[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelz" + _level + "_" + _saveIndexi), _playerTimeZ[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelRotx" + _level + "_" + _saveIndexi), _playerRotX[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelRoty" + _level + "_" + _saveIndexi), _playerRotY[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelRotz" + _level + "_" + _saveIndexi), _playerRotZ[_saveIndexi]);
-
-            }
-            else
-            {
-                PlayerPrefs.DeleteKey(("GhostLevelx" + _level + "_" + _saveIndexi));
-                PlayerPrefs.DeleteKey(("GhostLevely" + _level + "_" + _saveIndexi));
-                PlayerPrefs.DeleteKey(("GhostLevelz" + _level + "_" + _saveIndexi));
-                PlayerPrefs.DeleteKey(("GhostLevelRotx" + _level + "_" + _saveIndexi));
-                PlayerPrefs.DeleteKey(("GhostLevelRoty" + _level + "_" + _saveIndexi));
-                PlayerPrefs.DeleteKey(("GhostLevelRotz" + _level + "_" + _saveIndexi));
-            }
-            _saveIndexi++;
-        }
-        /*while (_saveIndexi < _ghostIndex)
+        while (_saveIndexi < _ghostIndex)
         {
             if (_saveIndexi < _playerTimeX.Count) {
-                PlayerPrefs.SetFloat(("GhostLevelx" + _level + "_" + _saveIndexi), _playerTimeX[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevely" + _level + "_" + _saveIndexi), _playerTimeY[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelz" + _level + "_" + _saveIndexi), _playerTimeZ[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelRotx" + _level + "_" + _saveIndexi), _playerRotX[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelRoty" + _level + "_" + _saveIndexi), _playerRotY[_saveIndexi]);
-                PlayerPrefs.SetFloat(("GhostLevelRotz" + _level + "_" + _saveIndexi), _playerRotZ[_saveIndexi]);
-
-            }
-            else
-            {
-                PlayerPrefs.DeleteKey(("GhostLevelx" + _level + "_" + _saveIndexi));
-                PlayerPrefs.DeleteKey(("GhostLevely" + _level + "_" + _saveIndexi));
-                PlayerPrefs.DeleteKey(("GhostLevelz" + _level + "_" + _saveIndexi));
-                PlayerPrefs.DeleteKey(("GhostLevelRotx" + _level + "_" + _saveIndexi));
-                PlayerPrefs.DeleteKey(("GhostLevelRoty" + _level + "_" + _saveIndexi));
-                PlayerPrefs.DeleteKey(("GhostLevelRotz" + _level + "_" + _saveIndexi));
+                GhostData.inst._ghostLevels[_level]._framePos.Add(new Vector3(_playerTimeX[_saveIndexi], _playerTimeY[_saveIndexi], _playerTimeZ[_saveIndexi]));
+                GhostData.inst._ghostLevels[_level]._frameRot.Add(new Vector3(_playerRotX[_saveIndexi], _playerRotY[_saveIndexi], _playerRotZ[_saveIndexi]));
             }
             _saveIndexi++;
             yield return null;
-        }*/
+        }
+        //GhostData.inst.SaveGhostData(_level);
         _Pmanager._saving = false; 
         _Pmanager._gameOverPrompt.SetBool("Saving", false);
         yield return null;

@@ -220,15 +220,16 @@ public class _manager : MonoBehaviour {
             Camera.main.GetComponent<Animator>().enabled = true;
             if (_timer < _playerManager._times[levelIndex] || (_playerManager._times[levelIndex] == 0.0f))
             {
-                if (_timer <= _timeContainer._levelTimes[levelIndex]._C_time)
+                if (_timer <= 100.0f)
                 {
                     _saving = true;
-                    _gameOverPrompt.SetBool("Saving", false);
+                    _gameOverPrompt.SetBool("Saving", true);
                     _playerManager._times[levelIndex] = _timer;
                     _playerManager.SaveTimes();
                     _bestTxt.text = _timer.ToString("F2") + "s";
                     _bestTxt.color = _newRecordColour;
                     _rankFX.SetActive(true);
+                    _ghosts.SaveGhost();
                 }
             }
             else
@@ -248,6 +249,11 @@ public class _manager : MonoBehaviour {
         }
         else
         {
+            if ((_playerManager._times[levelIndex] == 0.0f))
+            {
+                _ghosts.SaveGhost();
+                _saving = true;
+            }
             StartCoroutine(LevelReset());
         }
     }
@@ -292,15 +298,13 @@ public class _manager : MonoBehaviour {
     public void ChangeScene()
     {
         _playerManager._skipscreen = true;
-        if (_saving) StartCoroutine(Save(1));
-        else SceneManager.LoadScene(1);
+        StartCoroutine(Switcher(1));
     }
 
     public void Restart()
     {
         if (!_inMenu) AnalyticsData(false);
-        if (_saving) StartCoroutine(Save(2));
-        else SceneManager.LoadScene(2);
+        StartCoroutine(Switcher(2));
 
     }
 
@@ -309,24 +313,23 @@ public class _manager : MonoBehaviour {
         if (levelIndex < _playerManager._totalLevels)
         {
             _playerManager._levelIndex++;
-            if (_saving) StartCoroutine(Save(2));
-            else SceneManager.LoadScene(2);
+            StartCoroutine(Switcher(2));
         }
         else {
             ChangeScene();
         }        
     }
 
-    public IEnumerator Save(int sceneIndex)
+    public IEnumerator Switcher(int sceneIndex)
     {
         _fadeOut.SetActive(true);
         yield return new WaitForSeconds(0.25f);
-        _ghosts.SaveGhost();
         SceneManager.LoadScene(sceneIndex);
     }
 
     public void EndGameInput()
     {
+        if (_saving) return;
         if (Input.GetButtonDown("Submit"))
         {
             NextLevel();

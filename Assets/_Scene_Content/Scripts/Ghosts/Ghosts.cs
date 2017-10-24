@@ -95,16 +95,16 @@ public class Ghosts : MonoBehaviour {
         GhostData.inst._ghostLevels[_level]._frameRot.Clear();
         if (_ghostIndex == 0) _ghostIndex = _playerTimeX.Count;
         print("level " + _level + " Ghost saved");
-        while (_saveIndexi < _ghostIndex)
+        for (int i = 0; i < _ghostIndex; i++)
         {
-            if (_saveIndexi < _playerTimeX.Count) {
+            if (_saveIndexi < _playerTimeX.Count)
+            {
                 GhostData.inst._ghostLevels[_level]._framePos.Add(new Vector3(_playerTimeX[_saveIndexi], _playerTimeY[_saveIndexi], _playerTimeZ[_saveIndexi]));
                 GhostData.inst._ghostLevels[_level]._frameRot.Add(new Vector3(_playerRotX[_saveIndexi], _playerRotY[_saveIndexi], _playerRotZ[_saveIndexi]));
             }
             _saveIndexi++;
-            yield return null;
         }
-        //GhostData.inst.SaveGhostData(_level);
+        GhostData.inst.SaveGhostData(_level);
         _Pmanager._saving = false; 
         _Pmanager._gameOverPrompt.SetBool("Saving", false);
         yield return null;

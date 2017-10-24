@@ -220,7 +220,7 @@ public class _manager : MonoBehaviour {
             Camera.main.GetComponent<Animator>().enabled = true;
             if (_timer < _playerManager._times[levelIndex] || (_playerManager._times[levelIndex] == 0.0f))
             {
-                if (_timer <= 100.0f)
+                if (_timer <= 300.0f)
                 {
                     _saving = true;
                     _gameOverPrompt.SetBool("Saving", true);

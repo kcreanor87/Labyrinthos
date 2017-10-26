@@ -11,7 +11,7 @@ public class PlayerControls : MonoBehaviour {
     public Transform _focalPoint;
     public GameObject _particleReference;    
     public float _baseSpeed = 1f;
-    public float _speed = 0.8f;
+    public float _speed = 0.6f;
     private int inputX;
     public _manager manager;
     public Ghosts _ghost;

@@ -907,7 +907,7 @@ Prefab:
     - target: {fileID: 114715846897842986, guid: 2931a6976a0d6ec479c9c27e43b7dc03,
         type: 2}
       propertyPath: _newGame
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2931a6976a0d6ec479c9c27e43b7dc03, type: 2}
@@ -925,10 +925,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1720014436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 489ff4969029fb3429e47ea025e8726e, type: 3}
+  m_Script: {fileID: 11500000, guid: f5c9e0afd8fb1bf459c5c04f4227cd45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ghostData:
-  - RotX: []
-    RotY: []
-    RotZ: []
+  _ghostLevels: []

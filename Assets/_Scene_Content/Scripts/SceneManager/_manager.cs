@@ -93,8 +93,6 @@ public class _manager : MonoBehaviour {
 
         _bestTxt.enabled = false;
         _timeTakenText.enabled = false;
-
-        print(levelIndex);
     }
 
     void SpawnLevel()
@@ -223,7 +221,7 @@ public class _manager : MonoBehaviour {
                 if (_timer <= 300.0f)
                 {
                     _saving = true;
-                    _gameOverPrompt.SetBool("Saving", true);
+                    //_gameOverPrompt.SetBool("Saving", true);
                     _playerManager._times[levelIndex] = _timer;
                     _playerManager.SaveTimes();
                     _bestTxt.text = _timer.ToString("F2") + "s";
@@ -251,8 +249,8 @@ public class _manager : MonoBehaviour {
         {
             if ((_playerManager._times[levelIndex] == 0.0f))
             {
-                _ghosts.SaveGhost();
                 _saving = true;
+                _ghosts.SaveGhost();                
             }
             StartCoroutine(LevelReset());
         }

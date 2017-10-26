@@ -25,16 +25,27 @@ public class GhostData : MonoBehaviour
         FileStream stream = new FileStream(Application.dataPath + "/StreamingAssets/GhostTimes/Level" + level + ".xml", FileMode.Create);
         serializer.Serialize(stream, _ghostLevels[level]);
         stream.Close();
-        print("File Saved");
+        print("Level" + level + ".xml Saved");
     }
 
-    public void LoadGhostData()
+    public void LoadGhostData(int level)
     {
-        XmlSerializer serializer = new XmlSerializer(typeof(GhostList));
-        FileStream stream = new FileStream(Application.dataPath + "/StreamingAssets/GhostTimes/Level" + _playerManager._levelIndex + ".xml", FileMode.Open);
-        _ghostLevels[_playerManager._levelIndex] = serializer.Deserialize(stream) as GhostList;
-        stream.Close();
-        print("File Loaded");
+        if (File.Exists(Application.dataPath + "/StreamingAssets/GhostTimes/Level" + level + ".xml"))
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(GhostList));
+            FileStream stream = new FileStream(Application.dataPath + "/StreamingAssets/GhostTimes/Level" + level + ".xml", FileMode.Open);
+            _ghostLevels[level] = serializer.Deserialize(stream) as GhostList;
+            stream.Close();
+            print("Level" + level + ".xml Loaded");
+        }
+        else
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(GhostList));
+            FileStream stream = new FileStream(Application.dataPath + "/StreamingAssets/GhostTimes/Level" + level + ".xml", FileMode.Create);
+            serializer.Serialize(stream, _ghostLevels[level]);
+            stream.Close();
+            print("Level" + level + ".xml Created");
+        }
     }
 }
 [System.Serializable]

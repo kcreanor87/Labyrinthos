@@ -59,7 +59,7 @@ public class Chaser : MonoBehaviour {
             if (_Pmanager._inMenu) return;
             if (!_Pmanager._ending)
             {
-                _chaser.eulerAngles = new Vector3(-_ghosts._playerTimeX[_playerPosIndex], _ghosts._playerTimeY[_playerPosIndex], _ghosts._playerTimeZ[_playerPosIndex]);
+                _chaser.eulerAngles = new Vector3(_ghosts._playerTimeX[_playerPosIndex], _ghosts._playerTimeY[_playerPosIndex], _ghosts._playerTimeZ[_playerPosIndex]);
                 _chaserBody.localRotation = Quaternion.Euler(_ghosts._playerRotX[_playerPosIndex], _ghosts._playerRotY[_playerPosIndex], _ghosts._playerRotZ[_playerPosIndex]);
                 _playerPosIndex++;
             }

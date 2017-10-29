@@ -33,6 +33,7 @@ public class Collect : MonoBehaviour {
                 _camShake.Shake();
                 manager.EndLevel(false);
                 _gameOver = true;
+                print(other.name);
             }
         }
         else if (other.tag == "Trigger")

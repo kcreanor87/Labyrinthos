@@ -39,6 +39,9 @@ public class MainMenu : MonoBehaviour {
     public Sprite _unmute;
     public Sprite _lockedSprite;
 
+    public Vector2 _imgSizeHlght = new Vector2(165, 165);
+    public Vector2 _imgSizeReg = new Vector2(105, 105);
+
     public Image _muteBtn;
 
     public Color _highlightColor;
@@ -59,8 +62,6 @@ public class MainMenu : MonoBehaviour {
     public Animator _levelAnim;
     public Animator _planetFader;
     public Animator _introSpheres;
-
-    // Use this for initialization
 
     private void Awake()
     {
@@ -150,6 +151,7 @@ public class MainMenu : MonoBehaviour {
         for (int j = 0; j < _buttons.Count; j++) {
             SpriteSelector(j);
             _buttonImages[j].color = (i == j) ? _highlightColor : _regColor;
+            _buttonImages[j].rectTransform.sizeDelta = (i == j) ? new Vector2(135, 135) : new Vector2(105,105);
             if (_playerManager._playerLevel >= (j + (_activeSector * 9)))
             {
                 _buttonImages[j].gameObject.SetActive(true);
@@ -161,7 +163,7 @@ public class MainMenu : MonoBehaviour {
                 _buttonImages[j].gameObject.SetActive(false);
                 _buttons[j].interactable = false;
             }
-        }     
+        }        
     }
 
     void SpriteSelector(int index)
@@ -212,6 +214,7 @@ public class MainMenu : MonoBehaviour {
         {
             _levelLines[i].SetActive(maxLevel > i);
         }
+        _levelLines[8].SetActive(maxLevel == 8);
         _buttons[maxLevel].Select();
         _sectorSelect.SetActive(false);
         _screenIndex = 1;

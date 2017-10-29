@@ -48,6 +48,7 @@ public class _manager : MonoBehaviour {
     public bool _saving;
     public bool _ending;
     public bool _endActive;
+    public bool _loss;
 
     public Color _newRecordColour;    
 
@@ -115,7 +116,6 @@ public class _manager : MonoBehaviour {
         foreach (GameObject collectable in collectables)
         {
             Instantiate(Resources.Load("Prefabs/Collectables/Collectable_base01") as GameObject, collectable.transform);
-            print(collectable.transform.parent.parent.name);
         }
     }
 
@@ -207,6 +207,7 @@ public class _manager : MonoBehaviour {
     public void EndLevel(bool victory)
     {
         _ending = true;
+        _loss = !victory;
         _playerAnim.SetBool("Outro", true);
         AnalyticsData(victory);
         _playerCol.SetActive(false);        
@@ -327,7 +328,7 @@ public class _manager : MonoBehaviour {
 
     public void EndGameInput()
     {
-        if (_saving) return;
+        if (_saving || _loss) return;
         if (Input.GetButtonDown("Submit"))
         {
             NextLevel();

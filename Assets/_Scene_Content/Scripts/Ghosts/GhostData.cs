@@ -25,7 +25,6 @@ public class GhostData : MonoBehaviour
         FileStream stream = new FileStream(Application.dataPath + "/StreamingAssets/GhostTimes/Level" + level + ".xml", FileMode.Create);
         serializer.Serialize(stream, _ghostLevels[level]);
         stream.Close();
-        print("Level" + level + ".xml Saved");
     }
 
     public void LoadGhostData(int level)
@@ -36,7 +35,6 @@ public class GhostData : MonoBehaviour
             FileStream stream = new FileStream(Application.dataPath + "/StreamingAssets/GhostTimes/Level" + level + ".xml", FileMode.Open);
             _ghostLevels[level] = serializer.Deserialize(stream) as GhostList;
             stream.Close();
-            print("Level" + level + ".xml Loaded");
         }
         else
         {
@@ -44,7 +42,6 @@ public class GhostData : MonoBehaviour
             FileStream stream = new FileStream(Application.dataPath + "/StreamingAssets/GhostTimes/Level" + level + ".xml", FileMode.Create);
             serializer.Serialize(stream, _ghostLevels[level]);
             stream.Close();
-            print("Level" + level + ".xml Created");
         }
     }
 }

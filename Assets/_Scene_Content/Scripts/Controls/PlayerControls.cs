@@ -21,7 +21,8 @@ public class PlayerControls : MonoBehaviour {
     public float _cameraZoomIn = 50.0f;
     public float _cameraZoomOut = 62.0f;
     public float _boostAmount = 1.4f;
-    public float _brakeAmount = 0.15f;
+    public float _brakeAmount = 0.70f;
+    public float _maxBrake = 0.7f;
 
     // Use this for initialization
     void Awake () {
@@ -56,7 +57,7 @@ public class PlayerControls : MonoBehaviour {
         else if (!_brake && !_boost)
         {
             _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
-            _brakeAmount = 0.4f;
+            _brakeAmount = _maxBrake;
         }
         x *= _speed;
         y *= _speed;

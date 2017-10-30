@@ -34,6 +34,8 @@ public class MainMenu : MonoBehaviour {
     public Sprite _rankBsprite;
     public Sprite _rankAsprite;
     public Sprite _rankSsprite;
+    public Sprite _emptyA;
+    public Sprite _emptyB;
     public Sprite _selected;
     public Sprite _mute;
     public Sprite _unmute;
@@ -56,6 +58,7 @@ public class MainMenu : MonoBehaviour {
 
     public int _screenIndex;
     public int _playerNumber;
+    public int _maxLevel;
 
     public Animator _introAnim;
     public Animator _sectorAnim;
@@ -87,7 +90,7 @@ public class MainMenu : MonoBehaviour {
             _intro.SetActive(false);
             var sector = Mathf.FloorToInt((float)_playerManager._levelIndex / 9);
             var level = _playerManager._levelIndex - (sector * 9);
-            OpenLevel(sector);
+            OpenLevelSelect(sector);
             SelectLevel(level);
             _buttons[level].Select();
             _playerNumber = 1;
@@ -149,15 +152,24 @@ public class MainMenu : MonoBehaviour {
         Instantiate (_planets[level] as GameObject, _worldcontainer.transform);
         _worldContainerAnim.SetBool("Reset", !_worldContainerAnim.GetBool("Reset"));
         for (int j = 0; j < _buttons.Count; j++) {
-            SpriteSelector(j);
-            _buttonImages[j].color = (i == j) ? _highlightColor : _regColor;
-            _buttonImages[j].rectTransform.sizeDelta = (i == j) ? new Vector2(135, 135) : new Vector2(105,105);
+            if (i == j)
+            {
+                SpriteSelector(j);
+                _buttonImages[j].color = _highlightColor;
+                _buttonImages[j].rectTransform.sizeDelta = _imgSizeHlght;
+            }
+            else
+            {
+                _buttonImages[j].sprite = (_playerManager._times[i] > 0.0f) ? _emptyB : _emptyA;
+                _buttonImages[j].color = _regColor;
+                _buttonImages[j].rectTransform.sizeDelta = _imgSizeReg;
+            }
             if (_playerManager._playerLevel >= (j + (_activeSector * 9)))
             {
                 _buttonImages[j].gameObject.SetActive(true);
                 _buttons[j].interactable = true;
-                _buttons[j].GetComponentInChildren<Animator>().enabled = (i == j);                
-            }
+                _buttons[j].GetComponentInChildren<Animator>().enabled = (i == j);
+            } 
             else
             {
                 _buttonImages[j].gameObject.SetActive(false);
@@ -199,7 +211,7 @@ public class MainMenu : MonoBehaviour {
         StartCoroutine(FadeOutToLevel(sector));
     }
 
-    public void OpenLevel(int sector)
+    public void OpenLevelSelect(int sector)
     {
         for (int i = 0; i < _buttons.Count; i++)
         {
@@ -208,14 +220,14 @@ public class MainMenu : MonoBehaviour {
         _activeSector = sector;
         _levelSelect.SetActive(true);
         _worldcontainer.SetActive(true);
-        var maxLevel = (_playerManager._playerLevel >= (_activeSector + 1) * 9) ? 8 : (_playerManager._playerLevel - (_activeSector) * 9);
-        SelectLevel(maxLevel);
+        _maxLevel = (_playerManager._playerLevel >= (_activeSector + 1) * 9) ? 8 : (_playerManager._playerLevel - (_activeSector) * 9);
+        SelectLevel(_maxLevel);
         for (int i = 0; i < _levelLines.Count; i++)
         {
-            _levelLines[i].SetActive(maxLevel > i);
+            _levelLines[i].SetActive(_maxLevel > i);
         }
-        _levelLines[8].SetActive(maxLevel == 8);
-        _buttons[maxLevel].Select();
+        _levelLines[8].SetActive(_maxLevel == 8);
+        _buttons[_maxLevel].Select();
         _sectorSelect.SetActive(false);
         _screenIndex = 1;
         _planetFader.SetBool("Active", true);
@@ -266,7 +278,7 @@ public class MainMenu : MonoBehaviour {
         _sectorAnim.SetBool("Outro", true);
         yield return new WaitForSeconds(1.4f);
         _waiting = false;
-        OpenLevel(sector);
+        OpenLevelSelect(sector);
     }
 
     public IEnumerator FadeOutToIntro()

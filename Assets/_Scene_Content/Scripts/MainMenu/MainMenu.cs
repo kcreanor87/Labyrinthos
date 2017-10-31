@@ -160,7 +160,7 @@ public class MainMenu : MonoBehaviour {
             }
             else
             {
-                _buttonImages[j].sprite = (_playerManager._times[i] > 0.0f) ? _emptyB : _emptyA;
+                _buttonImages[j].sprite = (_playerManager._times[j] > 0.0f) ? _emptyA : _emptyB;
                 _buttonImages[j].color = _regColor;
                 _buttonImages[j].rectTransform.sizeDelta = _imgSizeReg;
             }

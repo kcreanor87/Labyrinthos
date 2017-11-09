@@ -24,6 +24,7 @@ public class WallSetup : MonoBehaviour {
             rb.useGravity = false;
             rb.isKinematic = true;
             rb.constraints = RigidbodyConstraints.FreezeAll;
+            _wall.AddComponent<FadingTexture>();
         }
 
         foreach (GameObject _ground in _grounds)

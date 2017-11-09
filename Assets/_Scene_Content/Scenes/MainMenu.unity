@@ -2725,14 +2725,16 @@ MonoBehaviour:
   _rankBsprite: {fileID: 21300000, guid: 2b7cface737492549b87ed155b8262f0, type: 3}
   _rankAsprite: {fileID: 21300000, guid: 3351593bd4ed41b4bb05a20499e5bc9d, type: 3}
   _rankSsprite: {fileID: 21300000, guid: 3d284dc0d9892124289da3e7310d8622, type: 3}
+  _emptyA: {fileID: 21300000, guid: 7ade54aa2ff6f1d4397559576e8f034c, type: 3}
+  _emptyB: {fileID: 21300000, guid: 00bc60ed95d3e0443b268d5d5ee97525, type: 3}
   _selected: {fileID: 21300000, guid: 5e61c8a95277749489aa090504a84b87, type: 3}
   _mute: {fileID: 21300000, guid: 3c8891d494e3bb8478dca91205af9195, type: 3}
   _unmute: {fileID: 21300000, guid: f5f39b3e6bf69f746b560e0b852140e6, type: 3}
   _lockedSprite: {fileID: 21300000, guid: 51820a5c1539c4b42a2e8f12c68e23b5, type: 3}
-  _imgSizeHlght: {x: 165, y: 165}
+  _imgSizeHlght: {x: 105, y: 105}
   _imgSizeReg: {x: 105, y: 105}
   _muteBtn: {fileID: 0}
-  _highlightColor: {r: 0.7205882, g: 1, b: 1, a: 1}
+  _highlightColor: {r: 0.29195502, g: 0.66176474, b: 0.66176474, a: 1}
   _regColor: {r: 0.29195502, g: 0.66176474, b: 0.66176474, a: 1}
   _lockedColour: {r: 0, g: 0, b: 0, a: 0}
   _uiAnims: {fileID: 0}
@@ -2768,6 +2770,7 @@ MonoBehaviour:
   _buttonPrompt: {fileID: 0}
   _screenIndex: 0
   _playerNumber: 0
+  _maxLevel: 0
   _introAnim: {fileID: 0}
   _sectorAnim: {fileID: 0}
   _levelAnim: {fileID: 0}

@@ -37,7 +37,7 @@ $.EditablePoly.weldFlaggedVertices ()
 macros.run "Editable Polygon Object" "EPoly_Convert_Sel_To_Face"
 polyOp.setFaceMatID $ (polyOp.GetFaceSelection $) 3
 actionMan.executeAction 0 "40021"
-$.autoSmoothThreshold = 45
+$.autoSmoothThreshold = 35
 $.EditablePoly.autosmooth ()
 subobjectLevel = 0
 modPanel.addModToSelection (Uvwmap ()) ui:on

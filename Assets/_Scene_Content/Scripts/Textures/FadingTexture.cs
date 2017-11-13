@@ -16,11 +16,19 @@ public class FadingTexture : MonoBehaviour {
 
     void Start()
     {
+
         _minAlpha = _minAlpha / 255;
         _maxAlpha = _maxAlpha/ 255;
         _changeSpeed = _changeSpeed / 255;
         value = _minAlpha;
         rend = GetComponent<Renderer>();
+        for (int i = 0; i < rend.materials.Length; i++)
+        {
+            if (rend.materials[i].name.Contains("Glow"))
+            {
+                _materialIndex = i;
+            }
+        }
         _colour = rend.materials[_materialIndex].color;
     }
     void Update()

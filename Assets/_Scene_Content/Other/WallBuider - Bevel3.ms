@@ -10,6 +10,14 @@ subobjectLevel = 4
 actionMan.executeAction 0 "40021"
 $.EditablePoly.autosmooth ()
 subobjectLevel = 0
+--Set UV's
+subobjectLevel = 0
+modPanel.addModToSelection (Uvwmap ()) ui:on
+$.modifiers[#UVW_Map].maptype = 4
+$.modifiers[#UVW_Map].length = 200
+$.modifiers[#UVW_Map].width = 200
+$.modifiers[#UVW_Map].height = 200
+--Select duplicated mesh to create extruded walls*/
 actionMan.executeAction 0 "40044"  -- Selection: Select Invert
 subobjectLevel = 2
 $.edgeExtrudeWidth = 0.25
@@ -20,6 +28,6 @@ polyOp.setFaceMatID $ (polyOp.GetFaceSelection $) 3
 actionMan.executeAction 0 "40044"
 $.EditablePoly.delete #Face
 subobjectLevel = 0
-actionMan.executeAction 0 "40021"  -- Selection: Select All
 modPanel.addModToSelection (Uvwmap ()) ui:on
-$.EditablePoly.modifiers[#UVW_Map].maptype = 5
+	$.modifiers[#UVW_Map].maptype = 5
+actionMan.executeAction 0 "40021"  -- Selection: Select All

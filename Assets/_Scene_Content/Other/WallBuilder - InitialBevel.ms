@@ -4,7 +4,7 @@ actionMan.executeAction 0 "40044"
 $.EditablePoly.delete #Face
 actionMan.executeAction 0 "40021"  -- Selection: Select All
 $.extrusionType = 1
-$.faceExtrudeHeight = 0.25
+$.faceExtrudeHeight = 0.25f
 $.EditablePoly.buttonOp #Extrude
 $.insetAmount = 0.25
 $.EditablePoly.buttonOp #Inset

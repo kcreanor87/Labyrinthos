@@ -70,7 +70,7 @@ public class PlayerControls : MonoBehaviour {
         var targetRotation = Quaternion.LookRotation(targetPoint, Vector3.forward);
         _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 20.0f);
 
-        _ship.LookAt(_focalPoint, transform.forward);
+        if (!manager._ending) _ship.LookAt(_focalPoint, transform.forward);
 
         _ghost._shipRot = _ship.localRotation.eulerAngles;
     }

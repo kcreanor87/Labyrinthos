@@ -222,7 +222,6 @@ public class _manager : MonoBehaviour {
                 if (_timer <= 300.0f)
                 {
                     _saving = true;
-                    //_gameOverPrompt.SetBool("Saving", true);
                     _playerManager._times[levelIndex] = _timer;
                     _playerManager.SaveTimes();
                     _bestTxt.text = _timer.ToString("F2") + "s";

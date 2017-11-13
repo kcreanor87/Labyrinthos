@@ -1,5 +1,4 @@
-/* Part One - Clone object for use later and map out affected polys for review*/
-
+/*Clone object for use later and map out affected polys for review*/
 actionMan.executeAction 0 "281"  -- Tools: Hide Unselected
 maxOps.cloneNodes $ cloneType:#copy newNodes:&nnl
 select nnl

@@ -21,8 +21,8 @@ public class PlayerControls : MonoBehaviour {
     public float _cameraZoomIn = 50.0f;
     public float _cameraZoomOut = 62.0f;
     public float _boostAmount = 1.4f;
-    public float _brakeAmount = 0.70f;
-    public float _maxBrake = 0.7f;
+    public float _brakeAmount = 0.50f;
+    public float _maxBrake = 0.5f;
 
     // Use this for initialization
     void Awake () {

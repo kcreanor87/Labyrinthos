@@ -43,6 +43,7 @@ public class _manager : MonoBehaviour {
     public Animator _UIanim;
     public Animator _playerAnim;
     public Animator _gameOverPrompt;
+    public Animator _rankSwitcher;
     
     public bool _paused;
     public bool _saving;
@@ -82,6 +83,7 @@ public class _manager : MonoBehaviour {
         _gameOverPrompt.gameObject.SetActive(false);
         _rankFX.SetActive(false);
         _fadeOut.SetActive(false);
+        _rankSwitcher.gameObject.SetActive(false);
 
         _countdown = 0.9f;
         _timer = 0.0f;
@@ -131,13 +133,13 @@ public class _manager : MonoBehaviour {
         _winScreen = GameObject.Find("GameOver_win");
         _cratesRemainingTxt = GameObject.Find("CratesRemainingTxt").GetComponent<Text>();        
         _timeTakenText = GameObject.Find("TimeTakenTxt").GetComponent<Text>();
-        _winScreen = GameObject.Find("GameOver_win");
         _timerTxt = GameObject.Find("TimerTxt").GetComponent<Text>();
         _pauseScreen = GameObject.Find("PauseMenu");
         _rotCam = GameObject.Find("RotationCam");
         _UIanim = gameObject.GetComponent<Animator>();
         _ghosts = gameObject.GetComponent<Ghosts>();
         _gameOverPrompt = GameObject.Find("GameOverPrompt").GetComponent<Animator>();
+        _rankSwitcher = GameObject.Find("Rank").GetComponent<Animator>();
         _rankFX = GameObject.Find("RankFX");
         GameObject.Find("Prompt1").SetActive(_playerManager._levelIndex == 0);
         GameObject.Find("Prompt2").SetActive(_playerManager._levelIndex == 1 || _playerManager._levelIndex == 3);
@@ -210,7 +212,7 @@ public class _manager : MonoBehaviour {
         _loss = !victory;
         _playerAnim.SetBool("Outro", true);
         AnalyticsData(victory);
-        _playerCol.SetActive(false);        
+        _playerCol.SetActive(false);  
         if (victory)
         {
             _gameOver = true;
@@ -271,25 +273,22 @@ public class _manager : MonoBehaviour {
 
     void RankSwitcher(int index, float time)
     {
+        _rankSwitcher.gameObject.SetActive(true);
         if (time <= _timeContainer._levelTimes[index]._S_time)
         {
-            _rankImage.sprite = _rankSsprite;
-            _UIanim.SetInteger("Class", 3);
+            _rankSwitcher.SetInteger("Rank", 3);
         }
         else if (time <= _timeContainer._levelTimes[index]._A_time)
         {
-            _rankImage.sprite = _rankAsprite;
-            _UIanim.SetInteger("Class", 2);
+            _rankSwitcher.SetInteger("Rank", 2);
         }
         else if (time <= _timeContainer._levelTimes[index]._B_time)
         {
-            _rankImage.sprite = _rankBsprite;
-            _UIanim.SetInteger("Class", 1);
+            _rankSwitcher.SetInteger("Rank", 1);
         }
         else
         {
-            _rankImage.sprite = _rankCsprite;
-            _UIanim.SetInteger("Class", 0);
+            _rankSwitcher.SetInteger("Rank", 0);
         }        
     }
 

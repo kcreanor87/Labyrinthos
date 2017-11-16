@@ -1,4 +1,4 @@
-subobjectLevel = 4
+tzsubobjectLevel = 4
 polyOp.setFaceMatID $ (polyOp.GetFaceSelection $) 1
 actionMan.executeAction 0 "40044"
 $.EditablePoly.delete #Face

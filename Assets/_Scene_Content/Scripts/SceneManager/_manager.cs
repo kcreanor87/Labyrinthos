@@ -44,7 +44,11 @@ public class _manager : MonoBehaviour {
     public Animator _playerAnim;
     public Animator _gameOverPrompt;
     public Animator _rankSwitcher;
-    
+
+    public List<int> _tooltip1Index = new List<int>();
+    public List<int> _tooltip2Index = new List<int>();
+    public List<int> _tooltip3Index = new List<int>();
+
     public bool _paused;
     public bool _saving;
     public bool _ending;
@@ -55,9 +59,12 @@ public class _manager : MonoBehaviour {
 
     private void Awake()
     {
+        //If not in development mode, load game from start
         if (GameObject.Find("_playerManager") == null && !_developmentMode) SceneManager.LoadScene(0);
+        //Development mode for level testing
         if (_developmentMode)
         {
+            //Create blank _playerManager object
             GameObject _pmPrefab = Instantiate(_playerManagerPrefab) as GameObject;
             _pmPrefab.name = "_playerManager";
         }
@@ -65,10 +72,8 @@ public class _manager : MonoBehaviour {
         {
             SpawnLevel();
         }
-
     }
-
-    // Use this for initialization
+    
     void Start()
     {                
         GameObjectFinder();
@@ -77,6 +82,7 @@ public class _manager : MonoBehaviour {
         _cratesRemaining = GameObject.FindGameObjectsWithTag("Crate").Length;
         _cratesRemainingTxt.text = _cratesRemaining.ToString();
 
+        //Diable GO's not in use yet
         _pauseScreen.SetActive(false);        
         _rotCam.SetActive(false);
         _winScreen.SetActive(false);
@@ -85,35 +91,40 @@ public class _manager : MonoBehaviour {
         _fadeOut.SetActive(false);
         _rankSwitcher.gameObject.SetActive(false);
 
+        //Set initial states
         _countdown = 0.9f;
         _timer = 0.0f;
         _inMenu = true;
-
         build = (_playerManager._times[levelIndex] == 0.0f) ? "--:--" : _playerManager._times[levelIndex].ToString("F2");
+
+        //Initiate end times and disable
         _bestTxt.text = build + " s";
         _recordTxt.text = build + " s";
         _timerTxt.text = _timer.ToString("F2");
-
         _bestTxt.enabled = false;
         _timeTakenText.enabled = false;
     }
 
     void SpawnLevel()
     {
+        //Calculate Sector and level, and subsequent level diectory
         levelIndex = _playerManager._levelIndex;
         var sector = Mathf.Floor(levelIndex / 9) + 1;
         var level = levelIndex - ((sector - 1) * 9);
         var path = "Prefabs/Worlds/Sc0" + sector + "/pfbWorldSc0" + sector + "_0" + (level + 1);
+        //Instantitate level and clear values
         GameObject World = Instantiate(Resources.Load(path, typeof (GameObject))) as GameObject;
         World.transform.parent = GameObject.Find("World001Container").GetComponent<Transform>();
         World.transform.localPosition = new Vector3(0,0,0);
         World.transform.localScale = new Vector3(1,1,1);
+        //Cleanup
         Resources.UnloadUnusedAssets();
         System.GC.Collect();
     }
 
     void SpawnCrates()
     {
+        //Spawn Crates
         var collectables = GameObject.FindGameObjectsWithTag("Collectable");
         foreach (GameObject collectable in collectables)
         {
@@ -123,6 +134,7 @@ public class _manager : MonoBehaviour {
 
     void GameObjectFinder()
     {
+        //Get all objects referenced
         _playerAnim = GameObject.Find("Player").GetComponent<Animator>();
         _playerCol = _playerAnim.transform.Find("Collider").gameObject;
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
@@ -141,8 +153,9 @@ public class _manager : MonoBehaviour {
         _gameOverPrompt = GameObject.Find("GameOverPrompt").GetComponent<Animator>();
         _rankSwitcher = GameObject.Find("Rank").GetComponent<Animator>();
         _rankFX = GameObject.Find("RankFX");
-        GameObject.Find("Prompt1").SetActive(_playerManager._levelIndex == 0);
-        GameObject.Find("Prompt2").SetActive(_playerManager._levelIndex == 1 || _playerManager._levelIndex == 3);
+        GameObject.Find("Prompt1").SetActive(_tooltip1Index.Contains(levelIndex));
+        GameObject.Find("Prompt2").SetActive(_tooltip2Index.Contains(levelIndex));
+        GameObject.Find("Prompt3").SetActive(_tooltip3Index.Contains(levelIndex));
     }
 
 	void FixedUpdate () {

@@ -43,11 +43,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MKGlowTex:
-        m_Texture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: 960de1568f66c0b4dad9a4ca95f7082f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 64306754a8b30f941b43a8374d5891db, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap:
@@ -84,8 +84,8 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _MKGlowPower: 1.43
-    - _MKGlowTexStrength: 0.15
+    - _MKGlowPower: 0.38
+    - _MKGlowTexStrength: 0.32
     - _MatCapAccurate: 0
     - _Metallic: 0
     - _Mode: 0
@@ -98,10 +98,10 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.27450982, g: 0.75294125, b: 0.76470596, a: 1}
+    - _Color: {r: 0.31514922, g: 0.6397059, b: 0.6397059, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
-    - _MKGlowColor: {r: 0.275519, g: 0.75277454, b: 0.7647059, a: 1}
+    - _MKGlowColor: {r: 0.29195502, g: 0.66176474, b: 0.66176474, a: 1}
     - _MKGlowTexColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}

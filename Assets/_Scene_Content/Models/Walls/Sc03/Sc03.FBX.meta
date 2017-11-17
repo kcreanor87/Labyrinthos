@@ -61,6 +61,13 @@ ModelImporter:
     100106: Sc03_06_platform01
     100108: Sc03_07_platform01
     100110: Sc03_07_platform02
+    100112: Sc03_03_platform003
+    100114: Sc03_03_platform004
+    100116: Sc03_04_platform_mid001
+    100118: Sc03_04_platform_small006
+    100120: Sc03_07_platform003
+    100122: Sc03_07_platform004
+    100124: Sc03_06_poly001
     400000: Sc01_07
     400002: //RootNode
     400004: Sc03_01
@@ -117,6 +124,13 @@ ModelImporter:
     400106: Sc03_06_platform01
     400108: Sc03_07_platform01
     400110: Sc03_07_platform02
+    400112: Sc03_03_platform003
+    400114: Sc03_03_platform004
+    400116: Sc03_04_platform_mid001
+    400118: Sc03_04_platform_small006
+    400120: Sc03_07_platform003
+    400122: Sc03_07_platform004
+    400124: Sc03_06_poly001
     2300000: Sc01_07
     2300002: Sc03_01 1
     2300004: Sc03_01_platforms
@@ -171,6 +185,13 @@ ModelImporter:
     2300102: Sc03_05
     2300104: Sc03_08
     2300106: Sc03_09
+    2300108: Sc03_03_platform003
+    2300110: Sc03_03_platform004
+    2300112: Sc03_04_platform_mid001
+    2300114: Sc03_04_platform_small006
+    2300116: Sc03_07_platform003
+    2300118: Sc03_07_platform004
+    2300120: Sc03_06_poly001
     3300000: Sc01_07
     3300002: Sc03_01 1
     3300004: Sc03_01_platforms
@@ -225,6 +246,13 @@ ModelImporter:
     3300102: Sc03_05
     3300104: Sc03_08
     3300106: Sc03_09
+    3300108: Sc03_03_platform003
+    3300110: Sc03_03_platform004
+    3300112: Sc03_04_platform_mid001
+    3300114: Sc03_04_platform_small006
+    3300116: Sc03_07_platform003
+    3300118: Sc03_07_platform004
+    3300120: Sc03_06_poly001
     4300000: Sc03_01
     4300002: Sc03_01_platforms
     4300004: Sc03_03_platform01
@@ -271,6 +299,13 @@ ModelImporter:
     4300086: Sc03_04_platform_mid
     4300088: Sc03_04_platform_small005
     4300090: Sc03_01_platform02
+    4300092: Sc03_03_platform004
+    4300094: Sc03_03_platform003
+    4300096: Sc03_04_platform_small006
+    4300098: Sc03_04_platform_mid001
+    4300100: Sc03_07_platform003
+    4300102: Sc03_07_platform004
+    4300104: Sc03_06_poly001
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -301,7 +336,7 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 90
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -328,7 +363,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 10
     meshCompression: 0
     addColliders: 0
     importVisibility: 1

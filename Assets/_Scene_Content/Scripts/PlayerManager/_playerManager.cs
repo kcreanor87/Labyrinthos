@@ -11,7 +11,7 @@ public class _playerManager : MonoBehaviour {
     public bool _newGame;
     public bool _unlockAll;
     public static bool _skipscreen;
-    public static int _totalLevels = 26;
+    public static int _totalLevels = 37;
 
     public static List<float> _times = new List<float>();
 

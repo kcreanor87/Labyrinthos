@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4761976858754830}
   - component: {fileID: 114715846897842986}
   - component: {fileID: 114503102679939150}
+  - component: {fileID: 114612327216802260}
   m_Layer: 0
   m_Name: _playerManager
   m_TagString: Untagged
@@ -57,127 +58,127 @@ MonoBehaviour:
     _A_time: 3.5
     _B_time: 4.5
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 3.5
     _A_time: 5.5
     _B_time: 7.5
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 5.6
     _A_time: 7.6
     _B_time: 9.6
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 2.8
     _A_time: 3.8
     _B_time: 4.8
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 6.5
     _A_time: 8.5
     _B_time: 10.5
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 6.2
     _A_time: 8.2
     _B_time: 10.2
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 5.4
     _A_time: 7.4
     _B_time: 9.4
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 3.5
     _A_time: 5.5
     _B_time: 7.5
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 8.3
     _A_time: 10.3
     _B_time: 12.3
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 2.8
     _A_time: 4.8
     _B_time: 6.8
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 4
     _A_time: 6
     _B_time: 8
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 7.2
     _A_time: 9.2
     _B_time: 11.2
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 8.5
     _A_time: 10.5
     _B_time: 12.5
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 3.2
     _A_time: 5
     _B_time: 7
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 4.6
     _A_time: 5.6
     _B_time: 7.7
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 6.5
     _A_time: 7.5
     _B_time: 9.5
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 10.5
     _A_time: 12.5
     _B_time: 14.5
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 8
     _A_time: 9
     _B_time: 11
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 5.5
     _A_time: 6.5
     _B_time: 8.5
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 5.7
     _A_time: 7
     _B_time: 9
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 7.7
     _A_time: 10
     _B_time: 15
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 10.2
     _A_time: 11.5
     _B_time: 14
     _C_time: 20
-    _rank: A
+    _rank: '-'
   - _S_time: 15.5
     _A_time: 16.5
     _B_time: 18.5
     _C_time: 20
-    _rank: B
+    _rank: '-'
   - _S_time: 12.6
     _A_time: 13.6
     _B_time: 15.6
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 7.8
     _A_time: 8.8
     _B_time: 10.8
     _C_time: 20
-    _rank: S
+    _rank: '-'
   - _S_time: 22
     _A_time: 24
     _B_time: 28
@@ -187,7 +188,64 @@ MonoBehaviour:
     _A_time: 28
     _B_time: 30
     _C_time: 35
-    _rank: 
+    _rank: '-'
+  - _S_time: 26
+    _A_time: 28
+    _B_time: 30
+    _C_time: 35
+    _rank: '-'
+  - _S_time: 26
+    _A_time: 28
+    _B_time: 30
+    _C_time: 35
+    _rank: '-'
+  - _S_time: 26
+    _A_time: 28
+    _B_time: 30
+    _C_time: 35
+    _rank: '-'
+  - _S_time: 26
+    _A_time: 28
+    _B_time: 30
+    _C_time: 35
+    _rank: '-'
+  - _S_time: 26
+    _A_time: 28
+    _B_time: 30
+    _C_time: 35
+    _rank: '-'
+  - _S_time: 26
+    _A_time: 28
+    _B_time: 30
+    _C_time: 35
+    _rank: '-'
+  - _S_time: 26
+    _A_time: 28
+    _B_time: 30
+    _C_time: 35
+    _rank: '-'
+  - _S_time: 26
+    _A_time: 28
+    _B_time: 30
+    _C_time: 35
+    _rank: '-'
+  - _S_time: 26
+    _A_time: 28
+    _B_time: 30
+    _C_time: 35
+    _rank: '-'
+--- !u!114 &114612327216802260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527970066443660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c9e0afd8fb1bf459c5c04f4227cd45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ghostLevels: []
 --- !u!114 &114715846897842986
 MonoBehaviour:
   m_ObjectHideFlags: 1

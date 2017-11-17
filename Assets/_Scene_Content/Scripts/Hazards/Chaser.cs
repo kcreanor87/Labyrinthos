@@ -14,6 +14,7 @@ public class Chaser : MonoBehaviour {
     public Quaternion _startPos;
     public bool _chasing;
     public float _timeDiff = 0.5f;
+    public Animator _chaserAnim;
 
     public void Start()
     {
@@ -22,6 +23,7 @@ public class Chaser : MonoBehaviour {
         _ghosts = GameObject.Find("UI").GetComponent<Ghosts>();
         _chaser = transform.Find("Chaser").GetComponent<Transform>();
         _chaserBody = _chaser.Find("ChaserGO").GetComponentInChildren<Transform>();
+        _chaserAnim = _chaser.gameObject.GetComponent<Animator>();
         _chaserCol = _chaserBody.GetComponentInChildren<Collider>();
         _chaserCol.enabled = false;
         _chaser.gameObject.SetActive(false);
@@ -63,9 +65,18 @@ public class Chaser : MonoBehaviour {
                 _chaserBody.localRotation = Quaternion.Euler(_ghosts._playerRotX[_playerPosIndex], _ghosts._playerRotY[_playerPosIndex], _ghosts._playerRotZ[_playerPosIndex]);
                 _playerPosIndex++;
             }
+            else if (_playerPosIndex < _ghosts._playerTimeX.Count)
+            {
+                _chaser.eulerAngles = new Vector3(_ghosts._playerTimeX[_playerPosIndex], _ghosts._playerTimeY[_playerPosIndex], _ghosts._playerTimeZ[_playerPosIndex]);
+                _chaserBody.localRotation = Quaternion.Euler(_ghosts._playerRotX[_playerPosIndex], _ghosts._playerRotY[_playerPosIndex], _ghosts._playerRotZ[_playerPosIndex]);
+                _playerPosIndex++;
+                _chaserAnim.SetBool("Exit", true);
+                _chaserCol.enabled = false;
+            }
             else
             {
-                _chaser.gameObject.SetActive(false);
+                _chaserAnim.SetBool("Exit", true);
+                _chaserCol.enabled = false;
             }
         }
     }

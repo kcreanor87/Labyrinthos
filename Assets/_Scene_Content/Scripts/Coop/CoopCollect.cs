@@ -41,6 +41,7 @@ public class CoopCollect : MonoBehaviour {
             {
                 _camShake.Shake();
                 _controls.ReturnToStart();
+                print(other.name);
             }            
         }
     }

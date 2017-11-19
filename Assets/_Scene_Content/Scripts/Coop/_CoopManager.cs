@@ -12,11 +12,12 @@ public class _CoopManager : MonoBehaviour {
 
     public float _timer;
     public float _best;
-    public float _countdown = 1.2f;
+    public float _countdown = 0.5f;
 
     public int _cratesRemaining_P1;
     public int _cratesRemaining_P2;
     public int levelIndex;
+    public int _sector;
     public string build;
     
     public bool _inMenu;   
@@ -51,6 +52,8 @@ public class _CoopManager : MonoBehaviour {
     public bool _paused;
     public bool _ending;
     public bool _switching;
+
+    public List<Color> _BGColours = new List<Color>();
 
     public List<int> _exclusions = new List<int>();
 
@@ -94,18 +97,23 @@ public class _CoopManager : MonoBehaviour {
 
     void SpawnLevel()
     {
-        levelIndex = Random.Range(0, _playerManager._playerLevel);
-        while (_exclusions.Contains(levelIndex))
-        {
-            levelIndex = Random.Range(0, 26);
-        }
-        var sector = Mathf.Floor(levelIndex / 9) + 1;
-        var level = levelIndex - ((sector - 1) * 9);
-        var path = "Prefabs/Worlds/Sc0" + sector + "/pfbWorldSc0" + sector + "_0" + (level + 1);
-        GameObject World = Instantiate(Resources.Load(path, typeof (GameObject))) as GameObject;
+        //Calculate Sector and level, and subsequent level diectory
+        levelIndex = _playerManager._levelIndex;
+        _sector = Mathf.FloorToInt(levelIndex / 9) + 1;
+        var level = levelIndex - ((_sector - 1) * 9);
+        var path = "Prefabs/Worlds/Sc0" + _sector + "/pfbWorldSc0" + _sector + "_0" + (level + 1);
+        //Instantitate level and clear values
+        GameObject World = Instantiate(Resources.Load(path, typeof(GameObject))) as GameObject;
         World.transform.parent = GameObject.Find("World001Container").GetComponent<Transform>();
-        World.transform.localPosition = new Vector3(0,0,0);
-        World.transform.localScale = new Vector3(1,1,1);
+        World.transform.localPosition = new Vector3(0, 0, 0);
+        World.transform.localScale = new Vector3(1, 1, 1);
+        //Cleanup
+        Resources.UnloadUnusedAssets();
+        System.GC.Collect();
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Background"))
+        {
+            obj.GetComponent<MeshRenderer>().material.color = _BGColours[Mathf.FloorToInt(_sector) - 1];
+        }
     }
 
     void SpawnCrates()
@@ -174,7 +182,7 @@ public class _CoopManager : MonoBehaviour {
 
     void UpdateTimer()
     {
-        if (_paused) return;
+        if (_paused || _ending) return;
         _timer += Time.deltaTime;
         _P1timerTxt.text = _timer.ToString("F2");
         _P2timerTxt.text = _timer.ToString("F2");
@@ -224,8 +232,15 @@ public class _CoopManager : MonoBehaviour {
         _player1Anim.SetBool("Outro", true);
         _player2Anim.SetBool("Outro", true);
         _UIanim.SetBool("Complete", true);
-        _UIanim.SetBool("Victory", true);
+        _UIanim.SetBool("Victory", true);        
+        _playerManager._times[levelIndex] = _timer;
+        _playerManager.SaveTimes();
+        if (_playerManager._playerLevel < levelIndex + 1) _playerManager._playerLevel = levelIndex + 1;
+        if (_playerManager._playerLevel > _playerManager._totalLevels) _playerManager._playerLevel = _playerManager._totalLevels;
+        PlayerPrefs.SetInt("PlayerLevel", _playerManager._playerLevel);
+        _timeContainer.CheckTimes();
         StartCoroutine(WaitForEnding());
+
     }
 
     public IEnumerator WaitForEnding()
@@ -251,7 +266,15 @@ public class _CoopManager : MonoBehaviour {
 
     public void NextLevel()
     {
-        StartCoroutine(ChangeSceneTo(3));
+        if (levelIndex < _playerManager._totalLevels)
+        {
+            _playerManager._levelIndex++;
+            StartCoroutine(ChangeSceneTo(3));
+        }
+        else
+        {
+            ChangeScene();
+        }        
     }
 
     public IEnumerator ChangeSceneTo(int index)

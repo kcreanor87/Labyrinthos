@@ -336,8 +336,6 @@ public class MainMenu : MonoBehaviour {
         _playerManager._P1Score = 0;
         _playerManager._P2Score = 0;
         _playerNumber = 2;
-        _introAnim.SetBool("Outro", true);
-        StartCoroutine(SceneChange());
     }
 
     public void Back(int index)

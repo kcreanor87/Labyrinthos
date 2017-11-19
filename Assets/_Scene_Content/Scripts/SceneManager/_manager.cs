@@ -16,6 +16,7 @@ public class _manager : MonoBehaviour {
 
     public int _cratesRemaining;
     public int levelIndex;
+    public int _sector;
     public string build;
     
     public bool _inMenu;   
@@ -48,6 +49,8 @@ public class _manager : MonoBehaviour {
     public List<int> _tooltip1Index = new List<int>();
     public List<int> _tooltip2Index = new List<int>();
     public List<int> _tooltip3Index = new List<int>();
+
+    public List<Color> _BGColours = new List<Color>();
 
     public bool _paused;
     public bool _saving;
@@ -82,6 +85,13 @@ public class _manager : MonoBehaviour {
         _cratesRemaining = GameObject.FindGameObjectsWithTag("Crate").Length;
         _cratesRemainingTxt.text = _cratesRemaining.ToString();
 
+        //Set initial states
+        _countdown = 0.9f;
+        _timer = 0.0f;
+        _inMenu = true;
+        build = (_playerManager._times[levelIndex] == 0.0f) ? "--:--" : _playerManager._times[levelIndex].ToString("F2");
+        _fadeOut.GetComponent<Image>().color = _BGColours[_sector - 1];
+
         //Diable GO's not in use yet
         _pauseScreen.SetActive(false);        
         _rotCam.SetActive(false);
@@ -90,12 +100,6 @@ public class _manager : MonoBehaviour {
         _rankFX.SetActive(false);
         _fadeOut.SetActive(false);
         _rankSwitcher.gameObject.SetActive(false);
-
-        //Set initial states
-        _countdown = 0.9f;
-        _timer = 0.0f;
-        _inMenu = true;
-        build = (_playerManager._times[levelIndex] == 0.0f) ? "--:--" : _playerManager._times[levelIndex].ToString("F2");
 
         //Initiate end times and disable
         _bestTxt.text = build + " s";
@@ -109,9 +113,9 @@ public class _manager : MonoBehaviour {
     {
         //Calculate Sector and level, and subsequent level diectory
         levelIndex = _playerManager._levelIndex;
-        var sector = Mathf.Floor(levelIndex / 9) + 1;
-        var level = levelIndex - ((sector - 1) * 9);
-        var path = "Prefabs/Worlds/Sc0" + sector + "/pfbWorldSc0" + sector + "_0" + (level + 1);
+        _sector = Mathf.FloorToInt(levelIndex / 9) + 1;
+        var level = levelIndex - ((_sector - 1) * 9);
+        var path = "Prefabs/Worlds/Sc0" + _sector + "/pfbWorldSc0" + _sector + "_0" + (level + 1);
         //Instantitate level and clear values
         GameObject World = Instantiate(Resources.Load(path, typeof (GameObject))) as GameObject;
         World.transform.parent = GameObject.Find("World001Container").GetComponent<Transform>();
@@ -120,6 +124,10 @@ public class _manager : MonoBehaviour {
         //Cleanup
         Resources.UnloadUnusedAssets();
         System.GC.Collect();
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Background"))
+        {
+            obj.GetComponent<MeshRenderer>().material.color = _BGColours[Mathf.FloorToInt(_sector) - 1];
+        }
     }
 
     void SpawnCrates()
@@ -141,7 +149,7 @@ public class _manager : MonoBehaviour {
         _rankImage = GameObject.Find("Rank").GetComponent<Image>();
         _bestTxt = GameObject.Find("BestTimeTxt").GetComponent<Text>();
         _recordTxt = GameObject.Find("RecordTxt").GetComponent<Text>();
-        _fadeOut = GameObject.Find("FadeOut");
+        _fadeOut = GameObject.Find("FadeOut");        
         _winScreen = GameObject.Find("GameOver_win");
         _cratesRemainingTxt = GameObject.Find("CratesRemainingTxt").GetComponent<Text>();        
         _timeTakenText = GameObject.Find("TimeTakenTxt").GetComponent<Text>();

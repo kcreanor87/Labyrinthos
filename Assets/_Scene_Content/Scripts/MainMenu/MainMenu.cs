@@ -12,6 +12,8 @@ public class MainMenu : MonoBehaviour {
     public List<Button> _sectorButtons = new List<Button>();
     public List<Image> _lines = new List<Image>();
     public List<GameObject> _levelLines = new List<GameObject>();
+    public List<GameObject> _sectorBackground = new List<GameObject>();
+    public List<Color> _bgColours = new List<Color>();
 
     public LevelTimeContainer _timeContainer;
 
@@ -24,8 +26,6 @@ public class MainMenu : MonoBehaviour {
     public GameObject _sectorSelect;
     public GameObject _worldcontainer;  
 
-    //Increase this as sectors are added
-    public int _maxSector = 2;
     public int _activeSector;
     public int _levelSelected;
 
@@ -65,6 +65,11 @@ public class MainMenu : MonoBehaviour {
     public Animator _levelAnim;
     public Animator _planetFader;
     public Animator _introSpheres;
+    public Animator _sectorMask;
+    public Animator _worldExpander;
+    public Animator _levelButtons;
+
+    private Material _nebula;
 
     private void Awake()
     {
@@ -83,6 +88,7 @@ public class MainMenu : MonoBehaviour {
         for (int i = 0; i < _sectorButtons.Count; i++)
         {
             _sectorButtons[i].interactable = (i <= (_playerManager._playerLevel / 9));
+            _sectorButtons[i].gameObject.SetActive(i <= (_playerManager._playerLevel / 9));
         }
         
         if (_playerManager._skipscreen)
@@ -101,6 +107,7 @@ public class MainMenu : MonoBehaviour {
             _levelSelect.SetActive(false);
             _worldcontainer.SetActive(false);
             _sectorSelect.SetActive(false);
+            _nebula.color = _bgColours[0];
         }
     }
 
@@ -127,16 +134,20 @@ public class MainMenu : MonoBehaviour {
     {
         _timeContainer = GameObject.Find("_playerManager").GetComponent<LevelTimeContainer>();
         _worldContainerAnim = _worldcontainer.GetComponent<Animator>();
+        _worldExpander = _worldcontainer.transform.parent.GetComponent<Animator>();
         _intro = transform.Find("Intro").gameObject;
         _introAnim = _intro.GetComponent<Animator>();
         _sectorSelect = transform.Find("SectorSelect").gameObject;
         _sectorAnim = _sectorSelect.GetComponent<Animator>();
         _levelSelect = transform.Find("LevelSelect").gameObject;
         _levelAnim = _levelSelect.GetComponent<Animator>();
+        _levelButtons = _levelSelect.transform.Find("LevelParent").GetComponent<Animator>();
         _planetFader = GameObject.Find("PlanetFader").GetComponent<Animator>();
         _startGame = GameObject.Find("StartGame").GetComponent<Button>();
         _introSpheres = GameObject.Find("Circles").GetComponent<Animator>();
         _buttonPrompt = GameObject.Find("ButtonPrompt").GetComponent<Animator>();
+        _nebula = GameObject.Find("Backdrop001").GetComponent<MeshRenderer>().material;
+        _sectorMask = _levelSelect.transform.Find("SectorMask").GetComponent<Animator>();
     }
 
     public void SelectLevel(int i)
@@ -217,6 +228,7 @@ public class MainMenu : MonoBehaviour {
         {
             _buttons[i].transform.Find("ButtonImg").rotation = Quaternion.identity;
         }
+        _nebula.color = _bgColours[sector];
         _activeSector = sector;
         _levelSelect.SetActive(true);
         _worldcontainer.SetActive(true);
@@ -232,6 +244,10 @@ public class MainMenu : MonoBehaviour {
         _screenIndex = 1;
         _planetFader.SetBool("Active", true);
         _buttonPrompt.SetBool("Pressed", false);
+        for (int i = 0; i < _sectorBackground.Count; i++)
+        {
+            _sectorBackground[i].SetActive(i == sector);
+        }
     }
 
     public void OpenSectorSelect()
@@ -260,14 +276,16 @@ public class MainMenu : MonoBehaviour {
         _worldcontainer.SetActive(false);
         _levelSelect.SetActive(false);
         _sectorSelect.SetActive(true);
-        _sectorButtons[Mathf.FloorToInt(_playerManager._playerLevel / 9)].Select();
+        _sectorButtons[Mathf.FloorToInt(_playerManager._playerLevel / 9)].Select();        
     }
 
     public IEnumerator FadeOutToSector(Animator anim)
     {
         _waiting = true;
         anim.SetBool("Outro", true);
-        yield return new WaitForSeconds(1.4f);
+        _sectorMask.SetBool("Exit", true);
+        _levelButtons.SetBool("Outro", true);
+        yield return new WaitForSeconds(1.4f);        
         _waiting = false;
         OpenSector();
     }
@@ -276,6 +294,7 @@ public class MainMenu : MonoBehaviour {
     {
         _waiting = true;
         _sectorAnim.SetBool("Outro", true);
+        _levelButtons.SetBool("Outro", false);
         yield return new WaitForSeconds(1.4f);
         _waiting = false;
         OpenLevelSelect(sector);
@@ -341,7 +360,6 @@ public class MainMenu : MonoBehaviour {
         for (int i = 0; i < _buttons.Count; i++)
         {
             _buttons[i].interactable = (i <= _playerManager._playerLevel);
-            _buttons[i].GetComponentInChildren<Text>().enabled = (i <= _playerManager._playerLevel);
         }
         for (int i = 0; i < _sectorButtons.Count; i++)
         {
@@ -356,6 +374,9 @@ public class MainMenu : MonoBehaviour {
         _levelAnim.SetBool("Outro", true);
         _buttonPrompt.SetBool("Pressed", true);
         _planetFader.SetBool("Active", false);
+        _sectorMask.SetBool("Exit", true);
+        _worldExpander.SetBool("Exit", true);
+        _levelButtons.SetBool("Outro", true);
         StartCoroutine(SceneChange());
     }
 

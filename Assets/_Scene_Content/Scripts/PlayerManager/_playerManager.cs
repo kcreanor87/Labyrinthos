@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class _playerManager : MonoBehaviour {
 
     public static int _playerLevel;
-    public static float _version = 0.1f;
+    public static float _version = 1.01f;
 
     public bool _newGame;
     public bool _unlockAll;

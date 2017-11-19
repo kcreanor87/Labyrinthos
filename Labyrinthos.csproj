@@ -76,6 +76,12 @@
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Labyrinthos.Plugins.csproj">
@@ -105,6 +111,7 @@
     <Compile Include="Assets\_Scene_Content\Scripts\LockControl\LockControl.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\MainMenu\SphereRotation.cs" />
+    <Compile Include="Assets\_Scene_Content\Scripts\MainMenu\UIController.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\PlayerManager\_playerManager.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\SceneManager\_manager.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\SceneManager\WallSetup.cs" />
@@ -232,33 +239,6 @@
     <None Include="Assets\Standard Assets\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
     <None Include="Assets\Standard Assets\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
     <None Include="Assets\StreamingAssets\GhostTimes\Level0.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level1.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level10.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level11.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level12.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level13.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level14.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level15.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level16.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level17.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level18.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level19.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level2.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level20.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level21.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level22.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level23.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level24.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level25.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level26.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level27.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level3.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level4.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level5.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level6.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level7.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level8.xml" />
-    <None Include="Assets\StreamingAssets\GhostTimes\Level9.xml" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Render\MKGlowBlur.shader" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Render\MKGlowBlurVHP.shader" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Render\MKGlowComposite.shader" />
@@ -290,8 +270,6 @@
     <None Include="Assets\_MK\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-DiffuseBumpSpec.shader" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-DiffuseBumped.shader" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-Glossy.shader" />
-    <None Include="Assets\_Scene_Content\Shaders\ToonLighted Bumped Outline.shader" />
-    <None Include="Assets\_Scene_Content\Times.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

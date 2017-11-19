@@ -13,7 +13,7 @@ public class LevelTimeContainer : MonoBehaviour {
 
     public void CheckTimes()
     {
-        for (int i = 0; i < _playerManager._totalLevels; i++)
+        for (int i = 0; i < _playerManager._times.Count; i++)
         {
             if (_playerManager._times[i] <= _levelTimes[i]._S_time)
             {

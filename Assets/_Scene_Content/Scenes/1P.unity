@@ -4691,6 +4691,7 @@ MonoBehaviour:
   _countdown: -0.019999135
   _cratesRemaining: 0
   levelIndex: 0
+  _sector: 0
   build: 
   _inMenu: 1
   _gameOver: 0
@@ -4721,6 +4722,16 @@ MonoBehaviour:
   _tooltip1Index: 00000000
   _tooltip2Index: 0100000002000000070000000e0000000f00000013000000
   _tooltip3Index: 03000000040000000500000006000000
+  _BGColours:
+  - {r: 0.33796492, g: 0.97794116, b: 0.9249776, a: 1}
+  - {r: 0.33796486, g: 0.66015995, b: 0.97794116, a: 1}
+  - {r: 0.90101415, g: 0.5514706, b: 1, a: 1}
+  - {r: 0.33796492, g: 0.97794116, b: 0.9249776, a: 1}
+  - {r: 0.33796492, g: 0.97794116, b: 0.9249776, a: 1}
+  - {r: 0.33796492, g: 0.97794116, b: 0.9249776, a: 1}
+  - {r: 0.33796492, g: 0.97794116, b: 0.9249776, a: 1}
+  - {r: 0.33796492, g: 0.97794116, b: 0.9249776, a: 1}
+  - {r: 0.33796492, g: 0.97794116, b: 0.9249776, a: 1}
   _paused: 0
   _saving: 0
   _ending: 0
@@ -5802,6 +5813,15 @@ Prefab:
     - target: {fileID: 4172134019546552, guid: 2aefe9cbf8ca2854ba7ac8c7d0e70b27, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23705010000023046, guid: 2aefe9cbf8ca2854ba7ac8c7d0e70b27,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13f5cc86206ec3b41adb357f7dc83875, type: 2}
+    - target: {fileID: 1140058954370770, guid: 2aefe9cbf8ca2854ba7ac8c7d0e70b27, type: 2}
+      propertyPath: m_TagString
+      value: Background
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2aefe9cbf8ca2854ba7ac8c7d0e70b27, type: 2}
@@ -10262,14 +10282,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.33796492, g: 0.97794116, b: 0.9249776, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 31c7bdd98c8c82f42965452f0741f36e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e4dc122cca90e74689a764ff8be6979, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10424,6 +10444,15 @@ Prefab:
     - target: {fileID: 1951859579584992, guid: 7325e02c8911dae4fb8fdd406a9e0bde, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23226518988407738, guid: 7325e02c8911dae4fb8fdd406a9e0bde,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13f5cc86206ec3b41adb357f7dc83875, type: 2}
+    - target: {fileID: 1660512227256708, guid: 7325e02c8911dae4fb8fdd406a9e0bde, type: 2}
+      propertyPath: m_TagString
+      value: Background
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7325e02c8911dae4fb8fdd406a9e0bde, type: 2}

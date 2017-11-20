@@ -70,6 +70,7 @@ public class _manager : MonoBehaviour {
             //Create blank _playerManager object
             GameObject _pmPrefab = Instantiate(_playerManagerPrefab) as GameObject;
             _pmPrefab.name = "_playerManager";
+            _sector = 1;
         }
         else
         {

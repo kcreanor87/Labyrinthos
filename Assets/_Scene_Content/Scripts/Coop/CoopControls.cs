@@ -25,7 +25,8 @@ public class CoopControls : MonoBehaviour
     public float _cameraZoomIn = 50.0f;
     public float _cameraZoomOut = 62.0f;
     public float _boostAmount = 1.4f;
-    public float _brakeAmount = 0.15f;
+    public float _brakeAmount = 0.45f;
+    public float _maxBrake = 0.45f;
 
     public Animator _playerAnim;
 
@@ -71,10 +72,10 @@ public class CoopControls : MonoBehaviour
         {
             _speed += Time.deltaTime * 2;
         }
-        else if (!manager._ending)
+        else if (!_brake && !_boost)
         {
             _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
-            _brakeAmount = 0.4f;
+            _brakeAmount = _maxBrake;
         }
         x *= _speed;
         y *= _speed;
@@ -82,9 +83,9 @@ public class CoopControls : MonoBehaviour
 
         var targetPoint = _lookPos.position - _lookDirGO.position;
         var targetRotation = Quaternion.LookRotation(targetPoint, Vector3.forward);
-        _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 14.0f);
+        _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 25.0f);
 
-        _ship.LookAt(_focalPoint, transform.forward);
+        if (!_destroyed)  _ship.LookAt(_focalPoint, transform.forward);
     }
 
     public void CameraCheck()

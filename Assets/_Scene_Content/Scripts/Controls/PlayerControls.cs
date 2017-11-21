@@ -68,7 +68,7 @@ public class PlayerControls : MonoBehaviour {
 
         var targetPoint = _lookPos.position - _lookDirGO.position;
         var targetRotation = Quaternion.LookRotation(targetPoint, Vector3.forward);
-        _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 20.0f);
+        _lookDirGO.rotation = Quaternion.Slerp(_lookDirGO.rotation, targetRotation, Time.deltaTime * 25.0f);
 
         if (!manager._ending) _ship.LookAt(_focalPoint, transform.forward);
 

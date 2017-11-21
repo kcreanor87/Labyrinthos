@@ -339,7 +339,6 @@ GameObject:
   - component: {fileID: 124948039823419918}
   - component: {fileID: 81383533468174406}
   - component: {fileID: 82007939226547354}
-  - component: {fileID: 114769028258654966}
   - component: {fileID: 114466510775166568}
   - component: {fileID: 114866909474594272}
   m_Layer: 0
@@ -4976,7 +4975,7 @@ Behaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1218579492910516}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!95 &95370424977298706
 Animator:
   serializedVersion: 3
@@ -5615,22 +5614,11 @@ MonoBehaviour:
   _cameraZoomOut: 62
   _boostAmount: 1.4
   _brakeAmount: 0.15
+  _maxBrake: 0.5
   _playerAnim: {fileID: 0}
   _resetting: 0
   _destroyed: 0
   _camShake: {fileID: 0}
---- !u!114 &114769028258654966
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1218579492910516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: bfd4f63a4d46fe447a699774a683cea9, type: 2}
 --- !u!114 &114811621305789806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5685,7 +5673,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camShake: {fileID: 0}
-  manager: {fileID: 0}
+  _controlManager: {fileID: 0}
+  _manager: {fileID: 0}
   _grounded: 1
   _gameOver: 0
   _playerIndex: 0
@@ -5695,7 +5684,7 @@ Behaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1218579492910516}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!198 &198033297399784732
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -61,26 +61,11 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.TestRunner">
-      <HintPath>Library\UnityAssemblies\UnityEngine.TestRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>Library\UnityAssemblies\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.Timeline">
       <HintPath>Library\UnityAssemblies\UnityEngine.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.HoloLens">
-      <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +283,16 @@
     <None Include="Assets\Standard Assets\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
     <None Include="Assets\Standard Assets\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
     <None Include="Assets\StreamingAssets\GhostTimes\Level0.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level1.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level10.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level2.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level3.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level4.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level5.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level6.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level7.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level8.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level9.xml" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Render\MKGlowBlur.shader" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Render\MKGlowBlurVHP.shader" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Render\MKGlowComposite.shader" />

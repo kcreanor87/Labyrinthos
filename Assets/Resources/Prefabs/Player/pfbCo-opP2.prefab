@@ -734,9 +734,7 @@ GameObject:
   - component: {fileID: 20069720144582912}
   - component: {fileID: 92696317003156078}
   - component: {fileID: 124893284989871812}
-  - component: {fileID: 114909232591677486}
   - component: {fileID: 114057457154002430}
-  - component: {fileID: 114182853045129546}
   m_Layer: 0
   m_Name: P2cam
   m_TagString: MainCamera
@@ -4858,7 +4856,7 @@ Behaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1545815322577130}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!95 &95376548261446344
 Animator:
   serializedVersion: 3
@@ -5453,30 +5451,6 @@ MonoBehaviour:
   Shaking: 0
   ShakeIntensity: 0
   _singlePlayer: 0
---- !u!114 &114182853045129546
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1545815322577130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87e4989c5e703e428df4339d59e2c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blurShader: {fileID: 4800000, guid: 1855d9636fad3914bacc4a543165c974, type: 3}
-  compositeShader: {fileID: 4800000, guid: e384de4389ba527479054baf0ddb1d3e, type: 3}
-  glowRenderShader: {fileID: 4800000, guid: c04b7cae8accdfb4e9c2648823ff39d7, type: 3}
-  glowLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  renderCamera: {fileID: 20069720144582912}
-  glowType: 0
-  glowTint: {r: 1, g: 1, b: 1, a: 0}
-  blurSpread: 0.055
-  blurIterations: 10
-  glowIntensity: 0.484
-  samples: 3
 --- !u!114 &114193771190215462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5489,7 +5463,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camShake: {fileID: 0}
-  manager: {fileID: 0}
+  _controlManager: {fileID: 0}
+  _manager: {fileID: 0}
   _grounded: 1
   _gameOver: 0
   _playerIndex: 1
@@ -5537,6 +5512,7 @@ MonoBehaviour:
   _cameraZoomOut: 62
   _boostAmount: 1.4
   _brakeAmount: 0.15
+  _maxBrake: 0.5
   _playerAnim: {fileID: 0}
   _resetting: 0
   _destroyed: 0
@@ -5559,25 +5535,13 @@ MonoBehaviour:
   _gameOver: 0
   _collected: {fileID: 1156226696366874, guid: e034d98512ad5c14293bb594a732e699, type: 2}
   _crateTag: 
---- !u!114 &114909232591677486
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1545815322577130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: bfd4f63a4d46fe447a699774a683cea9, type: 2}
 --- !u!124 &124893284989871812
 Behaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1545815322577130}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!198 &198079474915300998
 ParticleSystem:
   m_ObjectHideFlags: 1

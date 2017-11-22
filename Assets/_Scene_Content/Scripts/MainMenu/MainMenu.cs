@@ -69,6 +69,8 @@ public class MainMenu : MonoBehaviour {
     public Animator _worldExpander;
     public Animator _levelButtons;
 
+    public AudioSource _back;
+
     private Material _nebula;
 
     private void Awake()
@@ -148,6 +150,7 @@ public class MainMenu : MonoBehaviour {
         _buttonPrompt = GameObject.Find("ButtonPrompt").GetComponent<Animator>();
         _nebula = GameObject.Find("Backdrop001").GetComponent<MeshRenderer>().material;
         _sectorMask = _levelSelect.transform.Find("SectorMask").GetComponent<Animator>();
+        _back = gameObject.GetComponent<AudioSource>();
     }
 
     public void SelectLevel(int i)
@@ -349,6 +352,7 @@ public class MainMenu : MonoBehaviour {
             OpenSectorSelect();
             _screenIndex = 0;
         }
+        _back.Play();
     }
 
     public void UnlockAll()

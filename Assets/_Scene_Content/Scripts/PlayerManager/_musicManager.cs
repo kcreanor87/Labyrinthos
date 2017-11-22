@@ -48,6 +48,7 @@ public class _musicManager : MonoBehaviour {
             _music[i].Stop();
         }
         _activeSong = _music[index];
+        _activeSong.Play();
         _activeSong.volume = _volumeLow;
         _index = index;
         _fadingIn = true;

@@ -41,7 +41,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1430576488587496
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,26 +64,26 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430576488587496}
-  m_LocalRotation: {x: 0.7681173, y: 0.3468884, z: 0.1844926, w: 0.5055955}
+  m_LocalRotation: {x: -0.027103461, y: 0.95087874, z: -0.29581177, w: 0.0871233}
   m_LocalPosition: {x: 2.0481396, y: 26.4, z: 44.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4915926549975152}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 40.445004, y: -236.443, z: -250.975}
+  m_LocalEulerAnglesHint: {x: 33.907, y: 167.352, z: -7.135}
 --- !u!4 &4375068747262432
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1387788724869998}
-  m_LocalRotation: {x: 0.9388913, y: 0.08045699, z: 0.15689799, w: 0.2956228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.0481396, y: 26.4, z: 44.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4915926549975152}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 31.997002, y: -203.79599, z: -196.70999}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4915926549975152
 Transform:
   m_ObjectHideFlags: 1
@@ -108,8 +108,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 0.9200908, g: 0.9583134, b: 0.9852941, a: 1}
-  m_Intensity: 0.75
+  m_Color: {r: 0.6544118, g: 0.6544118, b: 0.6544118, a: 1}
+  m_Intensity: 1.1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -127,7 +127,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967039
+    m_Bits: 4294901759
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -177,7 +177,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967039
+    m_Bits: 4294901759
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1

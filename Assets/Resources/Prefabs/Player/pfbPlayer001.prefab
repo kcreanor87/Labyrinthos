@@ -1121,8 +1121,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1766318593694780}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0.03370633, y: 0.49, z: 0.26}
-  m_LocalScale: {x: 0.9767699, y: 1.0638944, z: 1.7524009}
+  m_LocalPosition: {x: 0.03370633, y: 0.4, z: 0.26}
+  m_LocalScale: {x: 0.9767699, y: 1.0638944, z: 3.454237}
   m_Children: []
   m_Father: {fileID: 4672465593895840}
   m_RootOrder: 4
@@ -1377,7 +1377,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1296550373945176}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0.037, y: -0.158, z: 10.647}
+  m_LocalPosition: {x: 0.037, y: -0.158, z: 10.541}
   m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_Children:
   - {fileID: 4310617311116874}
@@ -2961,6 +2961,8 @@ MonoBehaviour:
   _camShake: {fileID: 0}
   _gameOver: 0
   _collected: {fileID: 1156226696366874, guid: e034d98512ad5c14293bb594a732e699, type: 2}
+  _crashClip: {fileID: 0}
+  _collectClip: {fileID: 0}
 --- !u!114 &114413186887728036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2991,6 +2993,7 @@ MonoBehaviour:
   manager: {fileID: 0}
   _grounded: 1
   _gameOver: 0
+  _crashClip: {fileID: 0}
 --- !u!114 &114722767461655194
 MonoBehaviour:
   m_ObjectHideFlags: 1

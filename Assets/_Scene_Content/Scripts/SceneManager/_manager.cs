@@ -39,6 +39,7 @@ public class _manager : MonoBehaviour {
     public Image _rankImage;
     public Sprite _rankSsprite, _rankAsprite, _rankBsprite, _rankCsprite;
     public LevelTimeContainer _timeContainer;
+    public _musicManager _m_Manager;
     public Ghosts _ghosts;
 
     public Animator _UIanim;
@@ -162,6 +163,7 @@ public class _manager : MonoBehaviour {
         _gameOverPrompt = GameObject.Find("GameOverPrompt").GetComponent<Animator>();
         _rankSwitcher = GameObject.Find("Rank").GetComponent<Animator>();
         _rankFX = GameObject.Find("RankFX");
+        if (!_developmentMode) _m_Manager = GameObject.Find("AudioManager").GetComponent<_musicManager>();
         GameObject.Find("Prompt1").SetActive(_tooltip1Index.Contains(levelIndex));
         GameObject.Find("Prompt2").SetActive(_tooltip2Index.Contains(levelIndex));
         GameObject.Find("Prompt3").SetActive(_tooltip3Index.Contains(levelIndex));
@@ -317,6 +319,7 @@ public class _manager : MonoBehaviour {
     public void ChangeScene()
     {
         _playerManager._skipscreen = true;
+        if (!_developmentMode) _m_Manager._fadingOut = true;
         StartCoroutine(Switcher(1));
     }
 

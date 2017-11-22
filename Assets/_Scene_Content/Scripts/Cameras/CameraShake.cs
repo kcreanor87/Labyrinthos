@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour {
 
-    public bool Shaking;
-    private float ShakeDecay;
-    public float ShakeIntensity;
-    private Vector3 OriginalPos;
-    private Quaternion OriginalRot;
+    //Controls the camera shake when colliding with an object or beginning a boost
+    //Shake intensity controls the amount the camera shifts, decay controls how long it lasts
+    //Overwritten for multiplayer for now
 
+    private bool Shaking;
     public bool _singlePlayer;
 
-    void Start()
-    {
-        Shaking = false;
-    }
+    public float ShakeDecay;
+    public float ShakeIntensity;
+
+    private Vector3 OriginalPos;
+    private Quaternion OriginalRot;       
     
     void FixedUpdate()
     {

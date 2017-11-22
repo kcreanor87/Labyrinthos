@@ -50,11 +50,11 @@ public class PlayerControls : MonoBehaviour {
             if (_speed < _brakeAmount) _speed = _brakeAmount;
             if (manager._ending) _brakeAmount = 0.0f;            
         }
-        else if (_boost && _speed <= _boostAmount)
+        else if (_boost && _speed <= _boostAmount && !_brake)
         {
             _speed += Time.deltaTime * 2;            
         }
-        else if (!_brake && !_boost)
+        else if ((!_brake && !_boost))
         {
             _speed = Mathf.MoveTowards(_baseSpeed, _speed, 4 * Time.deltaTime);
             _brakeAmount = _maxBrake;

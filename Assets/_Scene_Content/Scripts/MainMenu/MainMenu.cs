@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour {
     public List<Color> _bgColours = new List<Color>();
 
     public LevelTimeContainer _timeContainer;
+    public _musicManager _m_Manager;
 
     public bool _waiting;
 
@@ -115,11 +116,12 @@ public class MainMenu : MonoBehaviour {
 
     private void Update()
     {
-        InputManager();
+        InputManager();        
     }
 
     void InputManager()
     {
+        OutputTimes();
         if (_waiting)
         {
             EventSystem.current.SetSelectedGameObject(null);
@@ -151,6 +153,7 @@ public class MainMenu : MonoBehaviour {
         _nebula = GameObject.Find("Backdrop001").GetComponent<MeshRenderer>().material;
         _sectorMask = _levelSelect.transform.Find("SectorMask").GetComponent<Animator>();
         _back = gameObject.GetComponent<AudioSource>();
+        _m_Manager = GameObject.Find("AudioManager").GetComponent<_musicManager>();
     }
 
     public void SelectLevel(int i)
@@ -379,6 +382,8 @@ public class MainMenu : MonoBehaviour {
         _sectorMask.SetBool("Exit", true);
         _worldExpander.SetBool("Exit", true);
         _levelButtons.SetBool("Outro", true);
+        _m_Manager._fadingIn = true;
+        _m_Manager.PlayAudio();
         StartCoroutine(SceneChange());
     }
 
@@ -396,5 +401,16 @@ public class MainMenu : MonoBehaviour {
     {
         yield return new WaitForSeconds(2.0f);
         SceneManager.LoadScene(_playerNumber + 1);
+    }
+
+    public void OutputTimes()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            for (int i = 0; i < _playerManager._times.Count; i++)
+            {
+                print("Level " + i + ": " + _playerManager._times[i]);
+            }
+        }
     }
 }

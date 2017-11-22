@@ -12,6 +12,9 @@ public class Collect : MonoBehaviour {
 
     public GameObject _collected;
 
+    public AudioSource _crashClip;
+    public AudioSource _collectClip;
+
     private void Start()
     {
         manager = GameObject.Find("UI").GetComponent<_manager>();
@@ -22,6 +25,7 @@ public class Collect : MonoBehaviour {
     {
         if (other.tag == "Crate")
         {
+            _collectClip.Play();
             Destroy(other.transform.parent.gameObject);
             Instantiate(_collected, other.transform.position, transform.rotation);
             manager.UpdateCrates();
@@ -30,6 +34,7 @@ public class Collect : MonoBehaviour {
         {
             if (!_gameOver)
             {
+                _crashClip.Play();
                 _camShake.Shake();
                 manager.EndLevel(false);
                 _gameOver = true;

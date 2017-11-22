@@ -9,6 +9,8 @@ public class GroundDetect : MonoBehaviour {
     public bool _grounded = true;
     public bool _gameOver;
 
+    public AudioSource _crashClip;
+
     private void Start()
     {
         manager = GameObject.Find("UI").GetComponent<_manager>();
@@ -32,6 +34,7 @@ public class GroundDetect : MonoBehaviour {
         {
             if (!_gameOver)
             {
+                _crashClip.Play();
                 _camShake.Shake();
                 manager.EndLevel(false);
                 _gameOver = true;

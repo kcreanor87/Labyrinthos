@@ -64,5 +64,5 @@ public class _playerManager : MonoBehaviour {
         {
             _times.Add(0.0f);
         }
-    }    
+    }
 }

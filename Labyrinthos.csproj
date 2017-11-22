@@ -61,11 +61,26 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>Library\UnityAssemblies\UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>Library\UnityAssemblies\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Timeline">
       <HintPath>Library\UnityAssemblies\UnityEngine.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +112,7 @@
     <Compile Include="Assets\_Scene_Content\Scripts\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\MainMenu\SphereRotation.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\MainMenu\UIController.cs" />
+    <Compile Include="Assets\_Scene_Content\Scripts\PlayerManager\_musicManager.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\PlayerManager\_playerManager.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\SceneManager\_manager.cs" />
     <Compile Include="Assets\_Scene_Content\Scripts\SceneManager\WallSetup.cs" />
@@ -226,7 +242,13 @@
     <None Include="Assets\StreamingAssets\GhostTimes\Level0.xml" />
     <None Include="Assets\StreamingAssets\GhostTimes\Level1.xml" />
     <None Include="Assets\StreamingAssets\GhostTimes\Level10.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level11.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level14.xml" />
     <None Include="Assets\StreamingAssets\GhostTimes\Level2.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level21.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level22.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level23.xml" />
+    <None Include="Assets\StreamingAssets\GhostTimes\Level24.xml" />
     <None Include="Assets\StreamingAssets\GhostTimes\Level3.xml" />
     <None Include="Assets\StreamingAssets\GhostTimes\Level4.xml" />
     <None Include="Assets\StreamingAssets\GhostTimes\Level5.xml" />

@@ -1,4 +1,5 @@
-tzsubobjectLevel = 4
+
+subobjectLevel = 4
 polyOp.setFaceMatID $ (polyOp.GetFaceSelection $) 1
 actionMan.executeAction 0 "40044"
 $.EditablePoly.delete #Face
@@ -7,8 +8,9 @@ $.extrusionType = 1
 $.faceExtrudeHeight = 0.25f
 $.EditablePoly.buttonOp #Extrude
 $.insetAmount = 0.25
+$.insetType = 0
 $.EditablePoly.buttonOp #Inset
-$.faceExtrudeHeight = 1.5
+$.faceExtrudeHeight = 1.0
 $.EditablePoly.buttonOp #Extrude
 $.EditablePoly.GrowSelection ()
 polyOp.setFaceMatID $ (polyOp.GetFaceSelection $) 2

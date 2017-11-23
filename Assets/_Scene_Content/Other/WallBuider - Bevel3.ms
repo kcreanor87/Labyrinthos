@@ -27,7 +27,9 @@ macros.run "Editable Polygon Object" "EPoly_Convert_Sel_To_Face"
 polyOp.setFaceMatID $ (polyOp.GetFaceSelection $) 3
 actionMan.executeAction 0 "40044"
 $.EditablePoly.delete #Face
+actionMan.executeAction 0 "40021"
+$.EditablePoly.autosmooth ()
 subobjectLevel = 0
 modPanel.addModToSelection (Uvwmap ()) ui:on
-	$.modifiers[#UVW_Map].maptype = 5
+$.modifiers[#UVW_Map].maptype = 5
 actionMan.executeAction 0 "40021"  -- Selection: Select All
